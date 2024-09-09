@@ -250,7 +250,7 @@ public class MenuFrame extends JFrame {
 
     public void onClickWebBrowser(ActionEvent e){
         try {
-            Runtime.getRuntime().exec("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe --incognito https://www.epbih.ba/stranica/okolina-i-energija#okolina");
+            Runtime.getRuntime().exec("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe --incognito www.google.com");
 
         } catch (IOException ex) {
             System.out.println("Web Browser exception: " + ex.getMessage());
