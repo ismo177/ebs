@@ -185,13 +185,10 @@ public class MenuFrame extends JFrame {
 
         setJMenuBar(mb);
         setFont(new Font("Senserif",Font.BOLD,16));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
         setVisible(true);
     }
-
-
-
-
 
 
     public void onClickCreateNewUser(ActionEvent e) {

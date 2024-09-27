@@ -1,5 +1,5 @@
-package EBS.EntityServices.User;
-import EBS.EntityServices.AbstractService;
+package service.User;
+import service.AbstractService;
 import jakarta.persistence.*;
 
 

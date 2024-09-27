@@ -1,7 +1,7 @@
 package EBS.EbsGUI;
 
-import EBS.EntityServices.Customer.Customer;
-import EBS.EntityServices.ServiceFactory;
+import service.Customer.Customer;
+import service.ServiceFactory;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;

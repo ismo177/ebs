@@ -1,10 +1,10 @@
 package EBS.EbsGUI;
 
-import EBS.EntityServices.Bill.Bill;
-import EBS.EntityServices.Customer.Customer;
-import EBS.EntityServices.ServiceFactory;
-import EBS.EntityServices.Tax.Tax;
-import EBS.EntityServices.User.User;
+import bill.Bill;
+import service.Customer.Customer;
+import service.ServiceFactory;
+import service.Tax.Tax;
+import service.User.User;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -300,9 +300,7 @@ public class PayBill extends JFrame implements  MouseListener {
 
     }
 
-    public static void main(String[] args) {
-        new PayBill(1,1);
-    }
+
 
 }
 

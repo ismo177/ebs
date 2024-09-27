@@ -1,7 +1,7 @@
-package EBS.EntityServices.Bill;
+package bill;
 
-import EBS.EntityServices.Customer.Customer;
-import EBS.EntityServices.User.User;
+import service.Customer.Customer;
+import service.User.User;
 import jakarta.persistence.*;
 
 import java.io.Serializable;

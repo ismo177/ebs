@@ -1,6 +1,6 @@
-package EBS.EntityServices.Customer;
+package service.Customer;
 
-import EBS.EntityServices.AbstractService;
+import service.AbstractService;
 import jakarta.persistence.*;
 
 public class CustomerService extends AbstractService<Customer>  {

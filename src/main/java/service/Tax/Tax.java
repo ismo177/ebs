@@ -1,6 +1,6 @@
-package EBS.EntityServices.Tax;
+package service.Tax;
 
-import EBS.EntityServices.Customer.Customer;
+import service.Customer.Customer;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;

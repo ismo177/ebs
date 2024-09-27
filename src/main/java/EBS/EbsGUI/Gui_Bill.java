@@ -1,9 +1,9 @@
 package EBS.EbsGUI;
 
-import EBS.EntityServices.Bill.Bill;
-import EBS.EntityServices.Customer.Customer;
-import EBS.EntityServices.Tax.Tax;
-import EBS.EntityServices.ServiceFactory;
+import bill.Bill;
+import service.Customer.Customer;
+import service.Tax.Tax;
+import service.ServiceFactory;
 
 import java.awt.event.*;
 import java.math.BigDecimal;

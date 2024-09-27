@@ -1,8 +1,7 @@
 package EBS.EbsGUI;
 
-import EBS.EntityServices.Bill.Bill;
-import EBS.EntityServices.Customer.Customer;
-import EBS.EntityServices.ServiceFactory;
+import bill.Bill;
+import service.ServiceFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,10 +15,10 @@ public class BillTable extends JFrame implements MouseListener {
     Dimension dimension = toolKit.getScreenSize();
     JTable table;
     JPanel panel;
-    String[] colNames={"units_off/Peak", "units_On/Peak", "read_date", "issue_date",
+    String[] tableHeaderColumnNames ={"units_off/Peak", "units_On/Peak", "read_date", "issue_date",
                         "payment_date", "deadline_date", "month", "offPeakAmount", "onPeakAmount","amount",
                         "invoice_status", "customerName"};
-    String[][] data=new String[getList().length][colNames.length];
+    String[][] data=new String[getList().length][tableHeaderColumnNames.length];
     int rowsLength;
     JLabel l1;
 
@@ -27,7 +26,7 @@ public class BillTable extends JFrame implements MouseListener {
 
         data=getList();
 
-        table =new JTable(data, colNames);
+        table =new JTable(data, tableHeaderColumnNames);
         table.getTableHeader().setFont(new Font("Serif", Font.BOLD, 18));
         table.setFont(new Font("Serif", Font.PLAIN, 16));
         table.addMouseListener(this);
@@ -75,12 +74,12 @@ public class BillTable extends JFrame implements MouseListener {
         ServiceFactory serviceFactory = ServiceFactory.BILL_SERVICE;
         List<Bill> list= serviceFactory.getBillService().findAll();
 
-        String[][] billListString=new String[list.size()][colNames.length];
+        String[][] billListString=new String[list.size()][tableHeaderColumnNames.length];
 
         for(int i=0;i<list.size();i++) {
 
-            for (int j = 0; j <colNames.length; j++) {
-                String[] billToStrings = new String[colNames.length];
+            for (int j = 0; j < tableHeaderColumnNames.length; j++) {
+                String[] billToStrings = new String[tableHeaderColumnNames.length];
                //billToStrings[0] = String.valueOf(list.get(i).getId());
                 billToStrings[0] = String.valueOf(list.get(i).getUnitsOffPeak());
                 billToStrings[1] = String.valueOf(list.get(i).getUnitsOnPeak());

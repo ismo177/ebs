@@ -1,7 +1,7 @@
-package EBS.EntityServices.Bill;
+package bill;
 
-import EBS.EntityServices.AbstractService;
-import EBS.EntityServices.Customer.Customer;
+import service.AbstractService;
+import service.Customer.Customer;
 import jakarta.persistence.*;
 
 import java.util.List;

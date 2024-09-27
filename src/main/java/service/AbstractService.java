@@ -1,4 +1,4 @@
-package EBS.EntityServices;
+package service;
 
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.CriteriaQuery;

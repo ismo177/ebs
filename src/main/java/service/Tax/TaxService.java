@@ -1,6 +1,6 @@
-package EBS.EntityServices.Tax;
+package service.Tax;
 
-import EBS.EntityServices.AbstractService;
+import service.AbstractService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;

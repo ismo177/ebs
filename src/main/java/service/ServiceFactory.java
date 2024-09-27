@@ -1,10 +1,10 @@
 
-package EBS.EntityServices;
+package service;
 
-import EBS.EntityServices.Bill.BillService;
-import EBS.EntityServices.Customer.CustomerService;
-import EBS.EntityServices.Tax.TaxService;
-import EBS.EntityServices.User.UserService;
+import bill.BillService;
+import service.Customer.CustomerService;
+import service.Tax.TaxService;
+import service.User.UserService;
 
 public enum ServiceFactory {
     USER_SERVICE(new UserService()), CUSTOMER_SERVICE(new CustomerService()),
