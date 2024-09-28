@@ -61,13 +61,9 @@ public class Gui_Bill extends JFrame implements ActionListener,MouseListener {
     JButton monthChoiceLeftBtn, monthChoiceRightBtn;
     int i = 0;
 
-    int tempUserID;
     int tempCustID;
-
-
-    public Gui_Bill(int id) {
+    public Gui_Bill() {
         super("Generate Bill");
-        this.tempUserID = id;
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screenSize = toolkit.getScreenSize();
 
@@ -1024,7 +1020,7 @@ public class Gui_Bill extends JFrame implements ActionListener,MouseListener {
         }
 
         if(message.equals("GenBill")) {
-            new GenerateBill(tempCustID, tempUserID);
+            new GenerateBill(tempCustID);
         }
 
 
@@ -1033,7 +1029,7 @@ public class Gui_Bill extends JFrame implements ActionListener,MouseListener {
         }
         if (message.equals("PayBill")) {
 
-            new PayBill(tempCustID, tempUserID);
+            new PayBill(tempCustID);
 
         }
         if (message.equals("PayAmount")) {

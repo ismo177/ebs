@@ -28,12 +28,11 @@ public class PayBill extends JFrame implements  MouseListener {
     LocalDateTime timeDate = LocalDateTime.now();
     DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy ");
     String date = timeDate.format(myFormatObj);
-    int tempUserID;
     int tempCustID;
 
-    PayBill(int tempCustID,int tempUserID) {
+    PayBill(int tempCustID) {
         this.tempCustID = tempCustID;
-        this.tempUserID = tempUserID;
+
 
         centerPanel = new JPanel();
         centerPanel.setLayout(new GridLayout(4, 2, 30, 30));
@@ -192,12 +191,11 @@ public class PayBill extends JFrame implements  MouseListener {
         Bill bill= serviceFactory.getBillService().findByMonthCustomer(month,customer);
 
 
-        serviceFactory = ServiceFactory.USER_SERVICE;
-        User user=serviceFactory.getUserService().find(tempUserID);
+
 
         if(!bill.getInvoiceStatus() && (bill.getAmount().compareTo(BigDecimal.ZERO)>0)) {
             bill.setPaymentDate(date);
-            bill.setUser(user);
+            //bill.setUser(user);
             BigDecimal total = BigDecimal.valueOf(Double.parseDouble(debtValue.getText()));
 
 

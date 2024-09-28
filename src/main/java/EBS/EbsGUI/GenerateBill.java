@@ -27,12 +27,12 @@ public class GenerateBill extends JFrame implements  MouseListener {
     LocalDateTime timeDate = LocalDateTime.now();
     DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy ");
     String date = timeDate.format(myFormatObj);
-    int tempUserID;
+
     int tempCustID;
 
-    GenerateBill(int tempCustID, int tempUserID) {
+    GenerateBill(int tempCustID) {
         this.tempCustID = tempCustID;
-        this.tempUserID = tempUserID;
+
 
         centerPanel = new JPanel();
         centerPanel.setLayout(new GridLayout(4, 2, 30, 30));
@@ -202,8 +202,7 @@ public class GenerateBill extends JFrame implements  MouseListener {
         serviceFactory = ServiceFactory.BILL_SERVICE;
         Bill bill= serviceFactory.getBillService().findByMonthCustomer(month,customer);
 
-        serviceFactory = ServiceFactory.USER_SERVICE;
-        User user=serviceFactory.getUserService().find(tempUserID);
+
 
         BigDecimal offPeakUnitsBig= BigDecimal.valueOf(offPeak);
         BigDecimal offPeakUnitPrice=tax.getOffPeakPrice();
@@ -228,7 +227,7 @@ public class GenerateBill extends JFrame implements  MouseListener {
         bill.setOnPeakAmount(onPeakAmount);
 
         bill.setAmount(totalWithTax);
-        bill.setUser(user);
+        //bill.setUser(user);
         bill.setInvoiceStatus(false);
         serviceFactory = ServiceFactory.BILL_SERVICE;
         serviceFactory.getBillService().edit(bill);

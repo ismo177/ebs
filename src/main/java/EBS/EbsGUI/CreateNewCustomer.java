@@ -28,8 +28,7 @@ public class CreateNewCustomer extends JFrame implements  MouseListener {
     String year=date.substring(date.length()-5, date.length()-1);
     int tempUserID;
 
-    CreateNewCustomer(int tempUserID) {
-        this.tempUserID = tempUserID;
+    CreateNewCustomer() {
         setTitle("New Customer");
         setBackground(Color.WHITE);
         setLocation(300, 100);

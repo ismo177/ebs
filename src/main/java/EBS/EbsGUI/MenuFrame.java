@@ -10,10 +10,8 @@ import java.io.IOException;
 public class MenuFrame extends JFrame {
     Gui_Bill panel ;
     String tempUser;
-    int tempUserID;
-    MenuFrame(String tempUser, int tempUserID){
+    MenuFrame(String tempUser){
         this.tempUser =tempUser;
-        this.tempUserID = tempUserID;
         setTitle("EBS "+tempUser);
         Toolkit t = Toolkit.getDefaultToolkit();
         Dimension d = t.getScreenSize();
@@ -198,7 +196,7 @@ public class MenuFrame extends JFrame {
 
 
     public void onClickCreateNewCustomer(ActionEvent e) {
-        new CreateNewCustomer(tempUserID);
+        new CreateNewCustomer();
 
     }
 
@@ -214,7 +212,7 @@ public class MenuFrame extends JFrame {
 
 
     public void onClickGui_Bill(ActionEvent e) {
-        new Gui_Bill(tempUserID);
+        new Gui_Bill();
     }
 
 
@@ -257,7 +255,8 @@ public class MenuFrame extends JFrame {
 
     public void onClickPDFBill(ActionEvent e){
         try {
-            Runtime.getRuntime().exec("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe --incognito file:///C:/Users/ismet/Desktop/images");
+            Runtime.getRuntime().exec("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe " +
+                    "--incognito file:///C:/Users/ismet/Desktop/images");
         } catch (IOException ex) {
             System.out.println("PDF Read exception: " + ex.getMessage());
         }
@@ -266,7 +265,8 @@ public class MenuFrame extends JFrame {
 
     public void onClickReadMe(ActionEvent e){
         try{
-            Runtime.getRuntime().exec("notepad.exe C:\\Users\\ismet\\IdeaProjects\\EBS\\src\\main\\resources\\About.txt");
+            Runtime.getRuntime().exec("notepad.exe C:\\Users\\ismet\\IdeaProjects\\EBS\\src\\main" +
+                    "\\resources\\About.txt");
         }catch(IOException ex){
             System.out.println("Read me exception: "+ex.getMessage());
         }

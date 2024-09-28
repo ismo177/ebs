@@ -124,27 +124,33 @@ public class CreateNewUser extends JFrame implements MouseListener {
 
                 if (user != null) {
                     usernameTextField.setText("Username already exists");
-                    usernameTextField.setBorder(new LineBorder(Color.RED,3,true));
+                    usernameTextField.setBorder(new LineBorder(Color.RED,2,true));
                     passwordTextField.setText("");
                 } else {
                     user = new User();
                     user.setUsername(username);
-                    String hashedPassword=Base64.getEncoder().encodeToString(password.getBytes());
+                    String hashedPassword = Base64.getEncoder().encodeToString(password.getBytes());
                     user.setPassword(hashedPassword);
                     user.setActive(true);
                     serviceFactory.getUserService().create(user);
                     usernameTextField.setText("User " + "'" + user.getUsername() + "'" + " created.");
-                    usernameTextField.setBorder(new LineBorder(Color.GREEN,3,true));
+                    usernameTextField.setBorder(new LineBorder(Color.RED, 2, true));
                     passwordTextField.setText("");
+                    try {
+                        Thread.sleep(2000);
+                    }catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
+                    this.dispose();
                 }
 
             }else{
                 usernameTextField.setText("At least 8 characters!!");
                 usernameTextField.setForeground(Color.GRAY);
-                passwordTextField.setBorder(new LineBorder(Color.RED,3,true));
+                passwordTextField.setBorder(new LineBorder(Color.RED,2,true));
                 passwordTextField.setText("At least 6 characters!!");
                 passwordTextField.setForeground(Color.GRAY);
-                passwordTextField.setBorder(new LineBorder(Color.RED,3,true));
+                passwordTextField.setBorder(new LineBorder(Color.RED,2,true));
 
             }
         }
