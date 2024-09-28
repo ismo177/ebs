@@ -4,7 +4,6 @@ import service.ServiceFactory;
 import service.User.User;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -27,9 +26,9 @@ public class Login extends JFrame {
         JPanel topPanel = setTopPanel(usernameLabel, usernameTextField, passwordLabel, passwordTextField);
         JPanel buttonsPanel = setBottomPanel(loginButton, cancelButton, registrationButton);
         JPanel imgPanel = setCenterPanel();
-        addButtonListeners();
+        addListeners();
         loginBackground= new Welcome();
-        setLoginMainFrame(topPanel, imgPanel,buttonsPanel );
+        setLoginFrame(topPanel, imgPanel,buttonsPanel );
     }
 
     public void createTopPanelComponents(){
@@ -105,7 +104,7 @@ public class Login extends JFrame {
 
     }
 
-    public void setLoginMainFrame(JPanel top, JPanel center, JPanel bottom) {
+    public void setLoginFrame(JPanel top, JPanel center, JPanel bottom) {
         add(top);
         add(center);
         add(bottom);
@@ -161,12 +160,24 @@ public class Login extends JFrame {
         return tempUser;
     }
 
-    public void addButtonListeners(){
+    public void addListeners() {
         loginButton.addActionListener(this::onClickLoginButton);
         cancelButton.addActionListener(this::onClickCancelButton);
         registrationButton.addActionListener(this::onClickRegistrationButton);
-    }
+        usernameTextField.addMouseListener(mouseAdapter);
+        passwordTextField.addMouseListener(mouseAdapter);
 
+    }
+    MouseAdapter mouseAdapter = new MouseAdapter() {
+        @Override
+        public void mousePressed(MouseEvent e) {
+            if (e.getSource() == usernameTextField) {
+                usernameTextField.setText("");
+            } else if (e.getSource() == passwordTextField) {
+                passwordTextField.setText("");
+            }
+        }
+    };
 
     public static void main(String[] args) {
         new Login();
