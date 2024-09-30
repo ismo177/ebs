@@ -238,7 +238,7 @@ public class MenuFrame extends JFrame {
 
 
     public void onClickGui_Bill(ActionEvent e) {
-        new Gui_Bill();
+        new Dashboard();
     }
 
 

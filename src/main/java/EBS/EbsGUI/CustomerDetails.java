@@ -39,7 +39,7 @@ public class CustomerDetails extends JFrame implements  MouseListener {
         bottomPanel.setLayout(new GridLayout(1, 2, 10, 0));
 
         mainPanel.setLayout(null);
-        mainPanel.setBorder(new Gui_Bill.RoundedBorder(10));
+        mainPanel.setBorder(new LineBorder(Color.LIGHT_GRAY));
         mainPanel.setSize(1000, 900);
         mainPanel.setLocation(0, 0);
 
