@@ -1,7 +1,13 @@
 package Panels;
 
+import org.hibernate.annotations.DialectOverride;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class FindCustomerPanel extends JPanel {
     JLabel findCustomer, customerID,  customerName;
@@ -12,6 +18,7 @@ public class FindCustomerPanel extends JPanel {
     createPanel();
     createComponents();
     addComponents();
+    addListeners();
 
     }
 
@@ -52,6 +59,21 @@ public class FindCustomerPanel extends JPanel {
 
     }
 
+    MouseAdapter mouseAdapter = new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if (e.getSource() == customerIDValue || e.getSource() == customerNameValue) {
+                customerIDValue.setText("");
+                customerNameValue.setText("");
+            }
+        }
+    };
+
+    public void addListeners(){
+        customerIDValue.addMouseListener(mouseAdapter);
+        customerNameValue.addMouseListener(mouseAdapter);
+    }
+
     public static void main(String[] args) {
         JFrame frame = new JFrame("Find Customer");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -62,4 +84,5 @@ public class FindCustomerPanel extends JPanel {
         frame.setVisible(true);
 
     }
+
 }

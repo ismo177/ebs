@@ -11,7 +11,6 @@ import java.awt.event.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
@@ -28,6 +27,7 @@ public Dashboard() {
         createComponents();
         addComponents();
         repaint();
+        addButtonListeners();
     }
 
     public void createDashboard(){
@@ -55,7 +55,7 @@ public Dashboard() {
 
     }
 
-public String getTime(){
+public String getDate(){
     LocalDateTime timeDate = LocalDateTime.now();
     DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy ");
     String formattedDate = timeDate.format(myFormatObj);
@@ -63,51 +63,55 @@ public String getTime(){
 }
 
 
-
-    public void findCustomer(ActionEvent event){
-        //validate customer id, name
-        String id="";
-        String name="";
-      /*  if(!id.isEmpty()) {
-            findCustomerByID(id, name, tempCustID, ...);
-            findCustomerByName(...);
-        }
-
-       */
+    public void onClickFindCustomer(){
 
     }
 
-    public void setBill(ActionEvent event) {
-        //validate customer id, name
-        String id="";
-        String name="";
-        setGUIBill(id, name);
-    }
-
-    public void onClickGenerateBill(ActionEvent event){
-        new GenerateBill(tempCustID);
-        }
 
     public void onClickPayBill(ActionEvent event){
         new PayBill(tempCustID);
     }
 
+
     public void onClickPayAmount(ActionEvent event){
         new PayAmount();
     }
 
-
-    public void onClickMonthChoiceButton(ActionEvent event) {
-        String message=event.getActionCommand();
-        if (message.equals("<<") || message.equals(">>")) {
-            //setMonth(message);
-        }
+    public void onClickSetBill(ActionEvent event){
+        setGUIBill();
     }
+
 
     public void onClickPrintBIll(ActionEvent event) {
         printBill(billPanel);
 
     }
+
+    public void onClickGenerateBill(ActionEvent event){
+        new GenerateBill(tempCustID);
+    }
+
+    public void onClickExit(ActionEvent event) {
+    this.dispose();
+    }
+
+    public void addButtonListeners(){
+    JButton payBillButton= controlPanel.getButtonsPanel().getPayBillButton();
+    JButton payAmountButton= controlPanel.getButtonsPanel().getPayAmountButton();
+    JButton setBillButton= controlPanel.getButtonsPanel().getSetBillButton();
+    JButton printBillButton= controlPanel.getButtonsPanel().getPrintBillButton();
+    JButton genBillButton= controlPanel.getButtonsPanel().getGenBillButton();
+    JButton exitButton= controlPanel.getButtonsPanel().getExitButton();
+
+    payBillButton.addActionListener(this::onClickPayBill);
+    payAmountButton.addActionListener(this::onClickPayAmount);
+    setBillButton.addActionListener(this::onClickSetBill);
+    printBillButton.addActionListener(this::onClickPrintBIll);
+    genBillButton.addActionListener(this::onClickGenerateBill);
+    exitButton.addActionListener(this::onClickExit);
+}
+
+
 
     //PrintBill(https://docs.oracle.com/javase%2Ftutorial%2F/2d/printing/printable.html)
     private void printBill(JPanel panel) {
@@ -139,7 +143,7 @@ public String getTime(){
 
 
 
-    public void findCustomerByID(String id, String name, int tempCustID, JTextField nameField ) {
+    public void findCustomerByID(String id, String name) {
         if (!id.isEmpty() && name.isEmpty()) {
             ServiceFactory serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
             Customer customer = serviceFactory.getCustomerService().find(id);
@@ -147,14 +151,14 @@ public String getTime(){
                 tempCustID = customer.getId();
                     //setCustomerFields(customer);
             } else {
-                nameField.setBorder(new LineBorder(Color.RED, 2, true));
-                nameField.setForeground(Color.BLACK);
-                nameField.setText("Doesn't exist");
+                JOptionPane.showMessageDialog(this, "Customer not found !",
+                        "Service", JOptionPane.WARNING_MESSAGE);
             }
         }
     }
 
-    public void findCustomerByName(String id, String name, int tempCustID, JTextField nameField ) {
+    public void findCustomerByName(String id, String name) {
+
         if (id.isEmpty() && !name.isEmpty()) {
             ServiceFactory serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
             Customer customer = serviceFactory.getCustomerService().findByName(name);
@@ -162,15 +166,15 @@ public String getTime(){
                 tempCustID = customer.getId();
                     //setCustomerFields(customer);
             } else {
-                nameField.setBorder(new LineBorder(Color.RED, 2, true));
-                nameField.setForeground(Color.BLACK);
-                nameField.setText("Doesn't exist");
+                JOptionPane.showMessageDialog(this, "Customer not found !",
+                        "Service", JOptionPane.WARNING_MESSAGE);
             }
         }
     }
 
-    public void setGUIBill(String id, String name) {
-
+    public void setGUIBill() {
+         String id="";
+         String name="";
         if (!id.isEmpty() && name.isEmpty() || (!id.isEmpty() && !name.isEmpty())) {
             setBillByID(id);
         } else if (id.isEmpty() && !name.isEmpty()) {
@@ -192,7 +196,7 @@ public String getTime(){
         if (customer != null && bill != null && tax != null) {
             //call setPanel func for each panel
         } else {
-            JOptionPane.showMessageDialog(this, "Can't find bill !", null, JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Can't find bill !", "Service", JOptionPane.WARNING_MESSAGE);
 
         }
     }
@@ -212,7 +216,7 @@ public String getTime(){
             //call setPanel func for each panel
         }
          else {
-            JOptionPane.showMessageDialog(this, "Can't find bill !", "Dashboard", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Can't find bill !", "Service", JOptionPane.WARNING_MESSAGE);
         }
     }
 

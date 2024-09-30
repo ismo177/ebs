@@ -56,6 +56,32 @@ public class ButtonsPanel extends JPanel {
         }
     }
 
+    public JButton getPayBillButton() {
+        return this.payBillButton;
+    }
+
+    public JButton getPayAmountButton(){
+        return this.payAmountButton;
+    }
+
+    public JButton getSetBillButton(){
+        return this.setBillButton;
+    }
+
+    public JButton getPrintBillButton(){
+        return this.printBillButton;
+    }
+
+    public JButton getGenBillButton(){
+        return this.genBillButton;
+    }
+
+    public JButton getExitButton(){
+        return this.exitButton;
+    }
+
+
+
     public static void main(String[] args) {
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
