@@ -59,6 +59,18 @@ public class FindCustomerPanel extends JPanel {
 
     }
 
+    public JButton getFindButton() {
+        return findButton;
+    }
+
+    public JTextField getCustomerIDValue() {
+        return customerIDValue;
+    }
+
+    public JTextField getCustomerNameValue() {
+        return customerNameValue;
+    }
+
     MouseAdapter mouseAdapter = new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -84,5 +96,7 @@ public class FindCustomerPanel extends JPanel {
         frame.setVisible(true);
 
     }
+
+
 
 }

@@ -57,6 +57,14 @@ public ButtonsPanel getButtonsPanel(){
         return this.buttonsPanel;
 }
 
+public FindCustomerPanel getFindCustomerPanel(){
+        return this.findCustomerPanel;
+}
+
+public FoundDetailsPanel getFoundDetailsPanel(){
+        return this.foundDetailsPanel;
+}
+
     public static void main(String[] args) {
         JFrame frame = new JFrame("Control Panel");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

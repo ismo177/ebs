@@ -63,8 +63,8 @@ public String getDate(){
 }
 
 
-    public void onClickFindCustomer(){
-
+    public void onClickFindCustomer(ActionEvent event){
+        findCustomer();
     }
 
 
@@ -96,6 +96,7 @@ public String getDate(){
     }
 
     public void addButtonListeners(){
+    JButton findButton=controlPanel.getFindCustomerPanel().getFindButton();
     JButton payBillButton= controlPanel.getButtonsPanel().getPayBillButton();
     JButton payAmountButton= controlPanel.getButtonsPanel().getPayAmountButton();
     JButton setBillButton= controlPanel.getButtonsPanel().getSetBillButton();
@@ -103,6 +104,7 @@ public String getDate(){
     JButton genBillButton= controlPanel.getButtonsPanel().getGenBillButton();
     JButton exitButton= controlPanel.getButtonsPanel().getExitButton();
 
+    findButton.addActionListener(this::onClickFindCustomer);
     payBillButton.addActionListener(this::onClickPayBill);
     payAmountButton.addActionListener(this::onClickPayAmount);
     setBillButton.addActionListener(this::onClickSetBill);
@@ -142,34 +144,41 @@ public String getDate(){
     }
 
 
+    public void findCustomer(){
+    String id= controlPanel.getFindCustomerPanel().getCustomerIDValue().getText();
+    String name= controlPanel.getFindCustomerPanel().getCustomerNameValue().getText();
+        if (!id.isEmpty() && name.isEmpty()){
+            findCustomerByID(id);
+        }
+        else if(id.isEmpty() && !name.isEmpty()){
+            findCustomerByName(name);
+        }
+    }
 
-    public void findCustomerByID(String id, String name) {
-        if (!id.isEmpty() && name.isEmpty()) {
+    public void findCustomerByID(String id) {
             ServiceFactory serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
             Customer customer = serviceFactory.getCustomerService().find(id);
             if (customer != null) {
                 tempCustID = customer.getId();
-                    //setCustomerFields(customer);
+                    controlPanel.getFoundDetailsPanel().setFields(customer);
             } else {
+                UIManager.put("OptionPane.messageFont", new Font("Arial", Font.BOLD, 24));
                 JOptionPane.showMessageDialog(this, "Customer not found !",
                         "Service", JOptionPane.WARNING_MESSAGE);
             }
-        }
     }
 
-    public void findCustomerByName(String id, String name) {
-
-        if (id.isEmpty() && !name.isEmpty()) {
+    public void findCustomerByName(String name) {
             ServiceFactory serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
             Customer customer = serviceFactory.getCustomerService().findByName(name);
             if (customer != null) {
                 tempCustID = customer.getId();
-                    //setCustomerFields(customer);
+                controlPanel.getFoundDetailsPanel().setFields(customer);
             } else {
+                UIManager.put("OptionPane.messageFont", new Font("Arial", Font.BOLD, 24));
                 JOptionPane.showMessageDialog(this, "Customer not found !",
                         "Service", JOptionPane.WARNING_MESSAGE);
             }
-        }
     }
 
     public void setGUIBill() {
@@ -196,7 +205,8 @@ public String getDate(){
         if (customer != null && bill != null && tax != null) {
             //call setPanel func for each panel
         } else {
-            JOptionPane.showMessageDialog(this, "Can't find bill !", "Service", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Can't find bill !",
+                    "Service", JOptionPane.WARNING_MESSAGE);
 
         }
     }
@@ -216,7 +226,8 @@ public String getDate(){
             //call setPanel func for each panel
         }
          else {
-            JOptionPane.showMessageDialog(this, "Can't find bill !", "Service", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Can't find bill !",
+                    "Service", JOptionPane.WARNING_MESSAGE);
         }
     }
 

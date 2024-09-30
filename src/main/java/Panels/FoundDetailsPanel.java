@@ -43,7 +43,7 @@ public class FoundDetailsPanel extends JPanel {
 
 
         addressValue = new JLabel("", JLabel.LEFT);
-        addressValue.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+        addressValue.setFont(new Font("Times New Roman", Font.BOLD, 16));
         addressValue.setBorder(new LineBorder(Color.lightGray));
 
         city = new JLabel(" City: ", JLabel.LEFT);
@@ -91,7 +91,7 @@ public class FoundDetailsPanel extends JPanel {
         meterNo = new JLabel(" Meter No: ", JLabel.LEFT);
         meterNo.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 
-        meterNoValue = new JLabel("", JLabel.CENTER);
+        meterNoValue = new JLabel("", JLabel.LEFT);
         meterNoValue.setFont(new Font("Times New Roman", Font.BOLD, 16));
         meterNoValue.setBorder(new LineBorder(Color.lightGray));
 
@@ -127,6 +127,7 @@ public class FoundDetailsPanel extends JPanel {
        add(debtBalanceValue);
 
     }
+
 
     public void setFields(Customer customer){
        nameValue.setText(customer.getName());
