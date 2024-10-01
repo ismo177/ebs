@@ -5,6 +5,9 @@ import bill.Bill;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 
 public class EnergySummaryPanel extends JPanel {
     JPanel title, emptySection1, emptySection2, emptySection3;
@@ -154,12 +157,25 @@ public class EnergySummaryPanel extends JPanel {
 
         onPeakQuantityValue.setText(String.valueOf(bill.getUnitsOnPeak()));
         onPeakPriceValue.setText(String.valueOf(bill.getCustomer().getTax().getOnPeakPrice()));
-        onPeakAmountValue.setText(String.valueOf(bill.getAmount()));
+        onPeakAmountValue.setText(String.valueOf(bill.getOnPeakAmount()));
 
         meterRentAmountValue.setText(String.valueOf(bill.getCustomer().getTax().getMeterRent()));
         serviceRentAmountValue.setText(String.valueOf(bill.getCustomer().getTax().getServiceRent()));
-        tierRateAmountValue.setText(String.valueOf(bill.getCustomer().getTax().getTierRate()));
 
+        BigDecimal tierRateAmount = getTierRate(bill);
+        tierRateAmountValue.setText(String.valueOf(tierRateAmount));
+
+    }
+
+    private  BigDecimal getTierRate(Bill bill) {
+        BigDecimal offPeakAmount = bill.getOffPeakAmount();
+        BigDecimal onPeakAmount = bill.getOnPeakAmount();
+        BigDecimal meterRentAmount = bill.getCustomer().getTax().getMeterRent();
+        BigDecimal serviceRentAmount = bill.getCustomer().getTax().getServiceRent();
+        BigDecimal withoutTierRate = offPeakAmount.add(onPeakAmount).add(meterRentAmount).add(serviceRentAmount);
+        BigDecimal withTierRate = withoutTierRate.multiply(bill.getCustomer().getTax().getTierRate());
+        BigDecimal tierRateAmount = withTierRate.subtract(withoutTierRate);
+        return tierRateAmount.round(new MathContext(4, RoundingMode.HALF_DOWN));
     }
 
     public static void main(String[] args) {

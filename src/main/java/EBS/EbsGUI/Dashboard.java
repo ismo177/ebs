@@ -60,8 +60,8 @@ public Dashboard() {
 
 
     public void onClickPayBill(ActionEvent event){
-
-        new PayBill(tempCustID);
+        String month= controlPanel.getMonthChoice().getMonth();
+        new PayBill(tempCustID, month);
     }
 
 
@@ -80,7 +80,8 @@ public Dashboard() {
     }
 
     public void onClickGenerateBill(ActionEvent event){
-        new GenerateBill(tempCustID);
+        String month= controlPanel.getMonthChoice().getMonth();
+        new GenerateBill(tempCustID, month);
     }
 
     public void onClickExit(ActionEvent event) {
@@ -153,9 +154,7 @@ public Dashboard() {
                 tempCustID = customer.getId();
                     controlPanel.getFoundDetailsPanel().setFields(customer);
             } else {
-                UIManager.put("OptionPane.messageFont", new Font("Arial", Font.BOLD, 24));
-                JOptionPane.showMessageDialog(this, "Customer not found !",
-                        "Service", JOptionPane.WARNING_MESSAGE);
+                infoMessage("Customer not found");
             }
     }
 
@@ -166,9 +165,7 @@ public Dashboard() {
                 tempCustID = customer.getId();
                 controlPanel.getFoundDetailsPanel().setFields(customer);
             } else {
-                UIManager.put("OptionPane.messageFont", new Font("Arial", Font.BOLD, 24));
-                JOptionPane.showMessageDialog(this, "Customer not found !",
-                        "Service", JOptionPane.WARNING_MESSAGE);
+                infoMessage("Customer not found");
             }
     }
 
@@ -180,9 +177,7 @@ public Dashboard() {
         } else if (id.isEmpty() && !name.isEmpty()) {
             setBillByName(name);
         }else{
-            UIManager.put("OptionPane.messageFont", new Font("Arial", Font.BOLD, 24));
-            JOptionPane.showMessageDialog(this, "Can't find bill !",
-                    "Service", JOptionPane.WARNING_MESSAGE);
+            infoMessage("Bill not found");
         }
     }
 
@@ -201,9 +196,7 @@ public Dashboard() {
         if (customer != null && bill != null && tax != null) {
             setBillValues(month, bill);
         } else {
-            UIManager.put("OptionPane.messageFont", new Font("Arial", Font.BOLD, 24));
-            JOptionPane.showMessageDialog(this, "Something went wrong !",
-                    "Service", JOptionPane.WARNING_MESSAGE);
+            infoMessage("Bill not found");
 
         }
     }
@@ -224,8 +217,7 @@ public Dashboard() {
             setBillValues(month, bill);
         }
          else {
-            JOptionPane.showMessageDialog(this, "Something went wrong !",
-                    "Service", JOptionPane.WARNING_MESSAGE);
+            infoMessage("Bill not found");
         }
     }
 
@@ -239,6 +231,12 @@ public Dashboard() {
         billPanel.getEnergySummaryPanel().setValues(bill);
         billPanel.getTotalChargesPanel().setValues(bill);
 
+    }
+
+    public void infoMessage(String message){
+        UIManager.put("OptionPane.messageFont", new Font("Arial", Font.BOLD, 24));
+        JOptionPane.showMessageDialog(this, message+" !",
+                "Service", JOptionPane.WARNING_MESSAGE);
     }
 
     public static void main(String[] args) {

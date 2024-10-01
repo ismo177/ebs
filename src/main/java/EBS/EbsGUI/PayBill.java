@@ -7,7 +7,6 @@ import service.ServiceFactory;
 import service.Tax.Tax;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.math.BigDecimal;
@@ -22,9 +21,11 @@ public class PayBill extends JFrame  {
     JTextField customerIdValue, debtValue, tf3;
     JButton payButton, exitButton;
     int tempCustID;
+    String month;
 
-    PayBill(int tempCustID) {
+    PayBill(int tempCustID, String month) {
         this.tempCustID = tempCustID;
+        this.month = month;
         createComponents();
         createFrame();
         addListeners();
@@ -68,6 +69,7 @@ public class PayBill extends JFrame  {
         debtValue.setFont(new Font("Times New Roman", Font.PLAIN, 24));
 
         monthChoice = new MonthChoice();
+        monthChoice.setMonthLabelValue(month);
         monthChoice.setSize(200, 50);
         monthChoice.setLocation(450,250);
 
@@ -91,7 +93,7 @@ public class PayBill extends JFrame  {
        // buttonsPanel.setBackground(new Color(50, 205, 50));
         buttonsPanel.setSize(440, 60);
         buttonsPanel.setLocation(210, 380);
-        buttonsPanel.setLayout(new GridLayout(1, 1, 20,40));
+        buttonsPanel.setLayout(new GridLayout(1, 2, 20,40));
 
     }
 
@@ -126,9 +128,7 @@ public class PayBill extends JFrame  {
     public void onClickPay(ActionEvent e) {
         String id = String.valueOf(tempCustID);
         if (id.isEmpty()) {
-            UIManager.put("OptionPane.messageFont", new Font("Arial", Font.BOLD, 24));
-            JOptionPane.showMessageDialog(this, "ID field is empty !",
-                    "Service", JOptionPane.WARNING_MESSAGE);
+            infoMessage("ID field is empty");
 
         } else {
             try {
@@ -137,7 +137,6 @@ public class PayBill extends JFrame  {
                 throw new RuntimeException(ex);
             }
         }
-
     }
 
     public void onClickExit(ActionEvent e) {
@@ -152,23 +151,16 @@ public class PayBill extends JFrame  {
         Tax tax = serviceFactory.getTaxService().find(customer.getTax().getId());
 
         serviceFactory = ServiceFactory.BILL_SERVICE;
-        String month=monthChoice.getMonth();
         Bill bill = serviceFactory.getBillService().findByMonthCustomer(month, customer);
 
         if (!bill.getInvoiceStatus() && (bill.getAmount().compareTo(BigDecimal.ZERO) > 0)) {
             pay(customer, bill);
         } else if ((!bill.getInvoiceStatus() && !(bill.getAmount().compareTo(new BigDecimal(0)) > 0))) {
-            UIManager.put("OptionPane.messageFont", new Font("Arial", Font.BOLD, 24));
-            JOptionPane.showMessageDialog(this, "Bill not set !",
-                    "Service", JOptionPane.WARNING_MESSAGE);
+            infoMessage("Bill not ready");
 
         } else if (bill.getInvoiceStatus()) {
-            UIManager.put("OptionPane.messageFont", new Font("Arial", Font.BOLD, 24));
-            JOptionPane.showMessageDialog(this, "Payed !",
-                    "Service", JOptionPane.WARNING_MESSAGE);
-
+            infoMessage("Bill already Payed on: "+bill.getPaymentDate());
         }
-
     }
 
     public void pay(Customer customer, Bill bill) {
@@ -192,9 +184,12 @@ public class PayBill extends JFrame  {
                 "Service", JOptionPane.WARNING_MESSAGE);
     }
 
-    public static void main(String[] args) {
-        new PayBill(20);
+    public void infoMessage(String message){
+        UIManager.put("OptionPane.messageFont", new Font("Arial", Font.BOLD, 24));
+        JOptionPane.showMessageDialog(this, message+" !",
+                "Service", JOptionPane.WARNING_MESSAGE);
     }
+
 }
 
 

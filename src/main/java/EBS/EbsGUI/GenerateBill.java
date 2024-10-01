@@ -1,13 +1,12 @@
 package EBS.EbsGUI;
 
+import Panels.MonthChoice;
 import bill.Bill;
 import service.Customer.Customer;
 import service.ServiceFactory;
 import service.Tax.Tax;
-import service.User.User;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.math.BigDecimal;
@@ -17,30 +16,40 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 
-public class GenerateBill extends JFrame implements  MouseListener {
+public class GenerateBill extends JFrame  {
 
-    JLabel titleLabel, customerIdLabel, chooseMonthLabel, imgLabel, offPeakUnitsLabel, onPeakUnitsLabel, monthLabel, offPeakUnitsValueLabel;
-    JTextField customerIdTextField, offPeakUnitsTextField, onPeakUnitsTextField;
-    JButton generateButton, exitButton, btnChooseMonthLeft, btnChooseMonthRight;
-    JPanel mainPanel, centerPanel, bottomPanel, monthChoicePanel;
-    String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-    String month = months[0];
-    int i = 0;
-    LocalDateTime timeDate = LocalDateTime.now();
-    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy ");
-    String date = timeDate.format(myFormatObj);
-
+    JLabel titleLabel, customerId, imgLabel, offPeakUnits, onPeakUnits;
+    JTextField customerIdValue, offPeakUnitsValue, onPeakUnitsValue;
+    JButton generateButton, exitButton;
+    JPanel  centerPanel, buttonsPanel;
+    MonthChoice monthChoice;
     int tempCustID;
-
-    GenerateBill(int tempCustID) {
+    String month;
+    GenerateBill(int tempCustID, String month) {
         this.tempCustID = tempCustID;
+        this.month = month;
+           createComponents();
+           createFrame();
+           addComponents();
+           addListeners();
 
 
-        centerPanel = new JPanel();
-        centerPanel.setLayout(new GridLayout(4, 2, 30, 30));
-        centerPanel.setSize(500, 300);
-        centerPanel.setLocation(260, 80);
-        centerPanel.setBackground(Color.WHITE);
+    }
+
+    public void createFrame(){
+        setLayout(null);
+        getContentPane().setBackground(Color.WHITE);
+        setSize(700, 500);
+        setLocation(300, 100);
+        setResizable(false);
+        setVisible(true);
+    }
+
+    public void createComponents(){
+        titleLabel = new JLabel("Set Bill", JLabel.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setSize(260, 30);
+        titleLabel.setLocation(200, 20);
 
         ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("images/green-pay.jpg"));
         Image i2 = i1.getImage().getScaledInstance(180, 270, Image.SCALE_DEFAULT);
@@ -49,143 +58,96 @@ public class GenerateBill extends JFrame implements  MouseListener {
         imgLabel.setSize(140, 280);
         imgLabel.setLocation(60, 100);
 
-        titleLabel = new JLabel("Set Bill", JLabel.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        titleLabel.setSize(200, 30);
-        titleLabel.setLocation(300, 20);
-//----------
-        customerIdLabel = new JLabel("Customer Id");
-        customerIdLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        customerId = new JLabel("Customer Id");
+        customerId.setFont(new Font("Times New Roman", Font.BOLD, 20));
 
-        chooseMonthLabel = new JLabel("Month");
-        chooseMonthLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        customerIdValue = new JTextField(String.valueOf(tempCustID));
+        customerIdValue.setFont(new Font("Times New Roman", Font.PLAIN, 24));
 
-        offPeakUnitsLabel = new JLabel("Off-Peak Units Consumed");
-        offPeakUnitsLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        offPeakUnits = new JLabel("Off-Peak Units ");
+        offPeakUnits.setFont(new Font("Times New Roman", Font.BOLD, 20));
 
-        onPeakUnitsLabel = new JLabel("On-Peak Units Consumed");
-        onPeakUnitsLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
-//-----------
-        monthLabel = new JLabel(month, JLabel.CENTER);
-        monthLabel.setFont(new Font("Times New Roman", Font.PLAIN, 22));
-        monthLabel.setBorder(new LineBorder(Color.BLACK));
-        monthLabel.setBackground(Color.WHITE);
+        offPeakUnitsValue = new JTextField("0");
+        offPeakUnitsValue.setFont(new Font("Times New Roman", Font.PLAIN, 24));
 
-        btnChooseMonthLeft = new JButton("<<");
-        btnChooseMonthLeft.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-        btnChooseMonthLeft.setBackground(new Color(50, 205, 50));
-        btnChooseMonthLeft.addActionListener(this::onClickMonthChooseButton);
+        onPeakUnits = new JLabel("On-Peak Units ");
+        onPeakUnits.setFont(new Font("Times New Roman", Font.BOLD, 20));
 
-        btnChooseMonthRight = new JButton(">>");
-        btnChooseMonthRight.setBackground(new Color(50, 205, 50));
-        btnChooseMonthRight.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-        btnChooseMonthRight.addActionListener(this::onClickMonthChooseButton);
+        onPeakUnitsValue = new JTextField("0");
+        onPeakUnitsValue.setFont(new Font("Times New Roman", Font.PLAIN, 24));
 
-        monthChoicePanel = new JPanel();
-        monthChoicePanel.setLayout(new BorderLayout());
-        monthChoicePanel.setSize(210, 40);
-        monthChoicePanel.setLocation(20, 500);
-
-        monthChoicePanel.add(btnChooseMonthLeft, "West");
-        monthChoicePanel.add(monthLabel, "Center");
-        monthChoicePanel.add(btnChooseMonthRight, "East");
-        //--------------
-
-        //offPeakUnitsValueLabel = new JLabel("Off-Peak Units Consumed");
-        //offPeakUnitsValueLabel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-
-        customerIdTextField = new JTextField(String.valueOf(tempCustID));
-        customerIdTextField.setFont(new Font("Times New Roman", Font.PLAIN, 24));
-        customerIdTextField.addMouseListener(this);
-
-
-        offPeakUnitsTextField = new JTextField("0");
-        offPeakUnitsTextField.setFont(new Font("Times New Roman", Font.PLAIN, 24));
-        offPeakUnitsTextField.addMouseListener(this);
-
-        onPeakUnitsTextField = new JTextField("0");
-        onPeakUnitsTextField.setFont(new Font("Times New Roman", Font.PLAIN, 24));
-        onPeakUnitsTextField.addMouseListener(this);
-
+        monthChoice = new MonthChoice();
+        monthChoice.setMonthLabelValue(month);
+        monthChoice.setSize(200, 50);
+        monthChoice.setLocation(450,280);
 
         generateButton = new JButton("Generate");
-        generateButton.addActionListener(this::onClickGenerateButton);
         generateButton.setBackground(new Color(50, 205, 50));
         generateButton.setFont(new Font("Times New Roman", Font.BOLD, 24));
-        generateButton.setForeground(Color.BLACK);
 
         exitButton = new JButton("Exit");
         exitButton.setBackground(new Color(50, 205, 50));
         exitButton.setFont(new Font("Times New Roman", Font.BOLD, 24));
-        exitButton.setForeground(Color.BLACK);
-        exitButton.addActionListener(this::onClickExitButton);
 
-        centerPanel.add(customerIdLabel);
-        centerPanel.add(customerIdTextField);
-        centerPanel.add(chooseMonthLabel);
-        centerPanel.add(monthChoicePanel);
-        centerPanel.add(offPeakUnitsLabel);
-        centerPanel.add(offPeakUnitsTextField);
-        centerPanel.add(onPeakUnitsLabel);
-        centerPanel.add(onPeakUnitsTextField);
+        centerPanel = new JPanel();
+        centerPanel.setSize(400, 160);
+        centerPanel.setLocation(250, 100);
+        centerPanel.setBackground(Color.WHITE);
+        centerPanel.setLayout(new GridLayout(3,2,10,10));
 
-
-        bottomPanel = new JPanel();
-        bottomPanel.setBackground(Color.WHITE);
-        bottomPanel.setSize(750, 60);
-        bottomPanel.setLocation(20, 480);
-        bottomPanel.setLayout(new GridLayout(1, 2, 20, 20));
-        bottomPanel.add(generateButton);
-        bottomPanel.add(exitButton);
-
-
-        mainPanel = new JPanel();
-        mainPanel.setSize(800, 600);
-        mainPanel.setLayout(null);
-        mainPanel.setBackground(Color.WHITE);
-        mainPanel.setLocation(0, 0);
-
-
-        mainPanel.add(titleLabel);
-        mainPanel.add(centerPanel);
-        mainPanel.add(imgLabel);
-        mainPanel.add(bottomPanel);
-
-
-        add(mainPanel);
-        setLayout(null);
-        setSize(800, 600);
-        setLocation(300, 100);
-        setResizable(false);
-        setVisible(true);
-
+        buttonsPanel = new JPanel();
+        buttonsPanel.setSize(440, 60);
+        buttonsPanel.setLocation(210, 380);
+        buttonsPanel.setLayout(new GridLayout(1, 2, 20,20));
     }
 
 
+    public void addComponents(){
+        centerPanel.add(customerId);
+        centerPanel.add(customerIdValue);
+        centerPanel.add(offPeakUnits);
+        centerPanel.add(offPeakUnitsValue);
+        centerPanel.add(onPeakUnits);
+        centerPanel.add(onPeakUnitsValue);
+
+        buttonsPanel.add(generateButton);
+        buttonsPanel.add(exitButton);
+
+        add(titleLabel);
+        add(centerPanel);
+        add(monthChoice);
+        add(imgLabel);
+        add(buttonsPanel);
+    }
+
+    public void addListeners(){
+        generateButton.addActionListener(this::onClickGenerateButton);
+        exitButton.addActionListener(this::onClickExitButton);
+    }
+
+    public String getDate(){
+        LocalDateTime timeDate = LocalDateTime.now();
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy ");
+        String date = timeDate.format(myFormatObj);
+        return date;
+    }
 
         public void onClickGenerateButton(ActionEvent e) {
             String id=String.valueOf(tempCustID);
-            int offPeak=Integer.parseInt(offPeakUnitsTextField.getText());
-            int onPeak=Integer.parseInt(onPeakUnitsTextField.getText());
+            int offPeak=Integer.parseInt(offPeakUnitsValue.getText());
+            int onPeak=Integer.parseInt(onPeakUnitsValue.getText());
 
             if(id.isEmpty() && offPeak<=0 && onPeak<=0) {
-                customerIdTextField.setText("ID here");
-                customerIdTextField.setBorder(new LineBorder(Color.RED,3,true));
-                customerIdTextField.setForeground(Color.lightGray);
-                offPeakUnitsTextField.setText("off-peak units here");
-                offPeakUnitsTextField.setBorder(new LineBorder(Color.RED,3,true));
-                offPeakUnitsTextField.setForeground(Color.lightGray);
-                onPeakUnitsTextField.setText("on-peak units here");
-                onPeakUnitsTextField.setBorder(new LineBorder(Color.RED,3,true));
-                onPeakUnitsTextField.setForeground(Color.lightGray);
+              infoMessage("Bad input");
             }
 
             else if(!id.isEmpty() && (offPeak>0  || onPeak>0)) {
                 updateBillStatus(id, offPeak, onPeak);
-                customerIdTextField.setText("Successful");
-                customerIdTextField.setBorder(new LineBorder(Color.GREEN,3,true));
+                infoMessage("Successfully generated bill");
             }
         }
+
+
 
         public void onClickExitButton(ActionEvent e){
             this.dispose();
@@ -193,128 +155,70 @@ public class GenerateBill extends JFrame implements  MouseListener {
 
 
     public void updateBillStatus(String id, int offPeak, int onPeak){
-
         ServiceFactory serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
         Customer customer=serviceFactory.getCustomerService().find(tempCustID);
 
         serviceFactory=ServiceFactory.TAX_SERVICE;
         Tax tax=serviceFactory.getTaxService().find(customer.getTax().getId());
 
-
         serviceFactory = ServiceFactory.BILL_SERVICE;
         Bill bill= serviceFactory.getBillService().findByMonthCustomer(month,customer);
 
+        BigDecimal[] values= calculateValues(offPeak, onPeak, tax);
+        setNewBillValues(offPeak, onPeak, bill, values);
+        calculateNewDebtBalance(customer, values);
 
+    }
 
-        BigDecimal offPeakUnitsBig= BigDecimal.valueOf(offPeak);
+    public void infoMessage(String message){
+        UIManager.put("OptionPane.messageFont", new Font("Arial", Font.BOLD, 24));
+        JOptionPane.showMessageDialog(this, message+" !",
+                "Service", JOptionPane.WARNING_MESSAGE);
+    }
+
+    public  BigDecimal[] calculateValues(int offPeak, int onPeak, Tax tax){
+        BigDecimal offPeakUnitsQuantity= BigDecimal.valueOf(offPeak);
+        BigDecimal onPeakUnitsQuantity= BigDecimal.valueOf(onPeak);
+
         BigDecimal offPeakUnitPrice=tax.getOffPeakPrice();
-
         BigDecimal onPeakUnitsPrice= tax.getOnPeakPrice();
-        BigDecimal onPeakUnitBig= BigDecimal.valueOf(onPeak);
-
         BigDecimal tierRate= tax.getTierRate();
-        BigDecimal offPeakAmount=(offPeakUnitsBig.multiply(offPeakUnitPrice));
-        BigDecimal onPeakAmount=(onPeakUnitBig.multiply(onPeakUnitsPrice));
+        BigDecimal pdvTax=tax.getPDVTax();
 
+        BigDecimal offPeakAmount=(offPeakUnitsQuantity.multiply(offPeakUnitPrice));
+        BigDecimal onPeakAmount=(onPeakUnitsQuantity.multiply(onPeakUnitsPrice));
 
-        BigDecimal total=offPeakAmount.add(onPeakAmount).add(tax.getMeterRent().add(tax.getServiceRent()));
-        BigDecimal totTax=total.multiply(tierRate).multiply(BigDecimal.valueOf(0.17));
-        BigDecimal totalWithTax=total.add(totTax).round(new MathContext(2, RoundingMode.HALF_DOWN));
+        BigDecimal withoutTierRate = offPeakAmount.add(onPeakAmount).add(tax.getMeterRent().add(tax.getServiceRent()));
+        BigDecimal withTierRate = withoutTierRate.multiply(tierRate);
+        BigDecimal taxBH= withTierRate.multiply(pdvTax);
 
+        BigDecimal total=withTierRate.add(taxBH).round(new MathContext(5, RoundingMode.HALF_DOWN));
+        BigDecimal[] values={offPeakAmount, onPeakAmount, total};
+        return values;
+    }
+
+    public void setNewBillValues(int offPeak, int onPeak, Bill bill, BigDecimal[] values){
         bill.setUnitsOffPeak(offPeak);
         bill.setUnitsOnPeak(onPeak);
         bill.setPaymentDate("--");
 
-        bill.setOffPeakAmount(offPeakAmount);
-        bill.setOnPeakAmount(onPeakAmount);
-
-        bill.setAmount(totalWithTax);
-        //bill.setUser(user);
+        bill.setOffPeakAmount(values[0]);
+        bill.setOnPeakAmount(values[1]);
+        bill.setAmount(values[2]);
+       // bill.setUser(user);
         bill.setInvoiceStatus(false);
-        serviceFactory = ServiceFactory.BILL_SERVICE;
+        ServiceFactory serviceFactory = ServiceFactory.BILL_SERVICE;
         serviceFactory.getBillService().edit(bill);
+    }
 
-        serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
+    public void calculateNewDebtBalance(Customer customer, BigDecimal[] values){
+       ServiceFactory serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
         BigDecimal custBalance = customer.getDebtBalance();
         if (custBalance.compareTo(BigDecimal.ZERO) < 0) {
             custBalance = custBalance.multiply(new BigDecimal(-1));
         }
-        customer.setDebtBalance(custBalance.add(totalWithTax));
+        customer.setDebtBalance(custBalance.add(values[2]));
         serviceFactory.getCustomerService().edit(customer);
-
-
-    }
-
-   public void  onClickMonthChooseButton(ActionEvent e) {
-       setMonth(e);
-
-    }
-
-    //--------------------------------------------------------
-    //setMonth
-    public void setMonth(ActionEvent e) {
-        if (e.getSource()==btnChooseMonthLeft) {
-            if (i > 0) {
-                i--;
-                month = months[i];
-                monthLabel.setText(month);
-            } else
-                i = months.length - 1;
-            month = months[i];
-            monthLabel.setText(month);
-        }
-        if (e.getSource()==btnChooseMonthRight) {
-            if (i < months.length - 1) {
-                i++;
-                month = months[i];
-                monthLabel.setText(month);
-            } else {
-                i = 0;
-                month = months[i];
-                monthLabel.setText(month);
-            }
-        }
-    }
-
-
-    //--------------------------------------------------------------------------
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        if (e.getSource()== customerIdTextField) {
-            customerIdTextField.setBorder(new LineBorder(Color.GRAY));
-            customerIdTextField.setText("");
-            customerIdTextField.setForeground(Color.BLACK);
-        }else if(e.getSource()== offPeakUnitsTextField) {
-            offPeakUnitsTextField.setBorder(new LineBorder(Color.GRAY));
-            offPeakUnitsTextField.setText("");
-            offPeakUnitsTextField.setForeground(Color.BLACK);
-        }else if(e.getSource()== onPeakUnitsTextField) {
-            onPeakUnitsTextField.setBorder(new LineBorder(Color.GRAY));
-            onPeakUnitsTextField.setText("");
-            onPeakUnitsTextField.setForeground(Color.BLACK);
-        }
-
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
     }
 
 

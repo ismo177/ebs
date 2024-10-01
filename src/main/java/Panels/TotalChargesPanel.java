@@ -27,7 +27,7 @@ public class TotalChargesPanel extends JPanel {
     }
 
     public void createComponents(){
-        amount = new JLabel(" Amount :", JLabel.LEFT);
+        amount = new JLabel(" Amount with TierRate :", JLabel.LEFT);
         amount.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 
         amountValue = new JLabel("--", JLabel.LEFT);
@@ -59,11 +59,21 @@ public class TotalChargesPanel extends JPanel {
     }
 
     public void setValues(Bill bill){
-        BigDecimal amount= bill.getOnPeakAmount().add(bill.getOffPeakAmount());
+        BigDecimal total = bill.getAmount();
+        BigDecimal pdv=bill.getCustomer().getTax().getPDVTax();
+        BigDecimal meterRent=bill.getCustomer().getTax().getMeterRent();
+        BigDecimal serviceRent=bill.getCustomer().getTax().getServiceRent();
+        BigDecimal rawAmount=bill.getOnPeakAmount().add(bill.getOffPeakAmount());
+        BigDecimal amount = bill.getOnPeakAmount().add(bill.getOffPeakAmount().add(meterRent).add(serviceRent));
+        if(rawAmount.compareTo(BigDecimal.ZERO)==0){
+            amount=BigDecimal.ZERO;
+            pdv=BigDecimal.ZERO;
+            total=BigDecimal.ZERO;
+        }
+        amount=amount.multiply(bill.getCustomer().getTax().getTierRate());
         amountValue.setText(String.valueOf(amount));
-        BigDecimal tax= amount.multiply(new BigDecimal("0.17"));
-        taxValue.setText(String.valueOf(tax));
-        totalValue.setText(String.valueOf(bill.getAmount()));
+        taxValue.setText(String.valueOf(amount.multiply(pdv)));
+        totalValue.setText(String.valueOf(total));
     }
 
     public static void main(String[] args) {

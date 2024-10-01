@@ -54,6 +54,10 @@ public class MonthChoice extends JPanel {
         return this.month;
     }
 
+    public void setMonthLabelValue(String month){
+        this.monthLabel.setText(month);
+    }
+
     public static void main(String[] args) {
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
