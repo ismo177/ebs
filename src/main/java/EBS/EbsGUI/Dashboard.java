@@ -60,6 +60,7 @@ public Dashboard() {
 
 
     public void onClickPayBill(ActionEvent event){
+
         new PayBill(tempCustID);
     }
 

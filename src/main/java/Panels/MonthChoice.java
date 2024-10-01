@@ -27,7 +27,7 @@ public class MonthChoice extends JPanel {
 
     public void createComponents(){
         monthLabel = new JLabel(month, JLabel.CENTER);
-        monthLabel.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+        monthLabel.setFont(new Font("Times New Roman", Font.BOLD, 18));
         monthLabel.setBorder(new LineBorder(Color.BLACK));
 
         leftButton = new JButton("<<");
