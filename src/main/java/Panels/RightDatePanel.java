@@ -3,6 +3,8 @@ package Panels;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class RightDatePanel extends JPanel {
     JLabel issueDate, issueDateValue, month, monthValue;
@@ -42,6 +44,18 @@ public class RightDatePanel extends JPanel {
         add(monthValue);
     }
 
+    public String getDate(){
+        LocalDateTime timeDate = LocalDateTime.now();
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy ");
+        String formattedDate = timeDate.format(myFormatObj);
+        return formattedDate;
+    }
+
+    public void setDateMonth(String month) {
+        String date = getDate();
+        issueDateValue.setText(date);
+        monthValue.setText(month);
+    }
     public static void main(String[] args) {
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -1,5 +1,7 @@
 package Panels;
 
+import bill.Bill;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -64,6 +66,11 @@ public class PrincipalPanel extends JPanel {
         add(emptySection);
         add(bank1);
         add(bank2);
+    }
+
+    public void setValues(Bill bill){
+        nameValue.setText(bill.getCustomer().getName());
+        addressValue.setText(bill.getCustomer().getAddress());
     }
 
     public static void main(String[] args) {

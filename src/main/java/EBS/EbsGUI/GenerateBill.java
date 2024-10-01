@@ -11,6 +11,8 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -217,7 +219,7 @@ public class GenerateBill extends JFrame implements  MouseListener {
 
         BigDecimal total=offPeakAmount.add(onPeakAmount).add(tax.getMeterRent().add(tax.getServiceRent()));
         BigDecimal totTax=total.multiply(tierRate).multiply(BigDecimal.valueOf(0.17));
-        BigDecimal totalWithTax=total.add(totTax);
+        BigDecimal totalWithTax=total.add(totTax).round(new MathContext(2, RoundingMode.HALF_DOWN));
 
         bill.setUnitsOffPeak(offPeak);
         bill.setUnitsOnPeak(onPeak);

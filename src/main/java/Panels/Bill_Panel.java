@@ -1,7 +1,6 @@
 package Panels;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class Bill_Panel extends JPanel {
@@ -13,8 +12,8 @@ public class Bill_Panel extends JPanel {
     ReceiverPanel receiverPanel;
     AmountChargesPanel amountChargesPanel;
     CustomerInfoPanel customerInfoPanel;
-    EnergySummary energySummary;
-    TotalChargesPanel totalCharges;
+    EnergySummaryPanel energySummaryPanel;
+    TotalChargesPanel totalChargesPanel;
 
     public Bill_Panel() {
        createPanel();
@@ -54,11 +53,11 @@ public class Bill_Panel extends JPanel {
         customerInfoPanel = new CustomerInfoPanel();
         customerInfoPanel.setLocation(20, 490);
 
-        energySummary = new EnergySummary();
-        energySummary.setLocation(550, 490);
+        energySummaryPanel = new EnergySummaryPanel();
+        energySummaryPanel.setLocation(550, 490);
 
-        totalCharges= new TotalChargesPanel();
-        totalCharges.setLocation(670, 675);
+        totalChargesPanel = new TotalChargesPanel();
+        totalChargesPanel.setLocation(670, 675);
 
 
     }
@@ -72,8 +71,8 @@ public class Bill_Panel extends JPanel {
         add(receiverPanel);
         add(amountChargesPanel);
         add(customerInfoPanel);
-        add(energySummary);
-        add(totalCharges);
+        add(energySummaryPanel);
+        add(totalChargesPanel);
     }
 
         protected void paintComponent (Graphics g){
@@ -83,6 +82,38 @@ public class Bill_Panel extends JPanel {
             g.setColor(Color.GRAY);
             g.drawLine(30, 475, 970, 475);
 
+        }
+
+        public LeftDatePanel getLeftDatePanel() {
+        return leftDatePanel;
+        }
+
+        public RightDatePanel getRightDatePanel(){
+        return rightDatePanel;
+        }
+
+        public PrincipalPanel getPrincipalPanel(){
+        return principalPanel;
+        }
+
+        public ReceiverPanel getReceiverPanel(){
+        return receiverPanel;
+        }
+
+        public AmountChargesPanel getAmountChargesPanel(){
+        return amountChargesPanel;
+        }
+
+        public CustomerInfoPanel getCustomerInfoPanel(){
+        return customerInfoPanel;
+        }
+
+        public EnergySummaryPanel getEnergySummaryPanel(){
+        return energySummaryPanel;
+        }
+
+        public TotalChargesPanel getTotalChargesPanel(){
+        return totalChargesPanel;
         }
 
     public static void main(String[] args) {

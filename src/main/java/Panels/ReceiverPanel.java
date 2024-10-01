@@ -1,5 +1,7 @@
 package Panels;
 
+import bill.Bill;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -8,7 +10,7 @@ public class ReceiverPanel extends JPanel {
     JPanel title;
     JLabel receiver;
     JLabel transactionAccountNo, transactionAccountValue, referenceNo, referenceValue, amount, amountValue;
-    JLabel areaOfSupply, getAreaOfSupplyValue, address, addressValue;
+    JLabel areaOfSupply, areaOfSupplyValue, address, addressValue;
     public ReceiverPanel() {
         createPanel();
         createComponents();
@@ -50,8 +52,8 @@ public class ReceiverPanel extends JPanel {
         areaOfSupply = new JLabel("  Area of supply: ", JLabel.LEFT);
         areaOfSupply.setFont(new Font("Times New Roman", Font.PLAIN, 12));
 
-        getAreaOfSupplyValue = new JLabel("--", JLabel.LEFT);
-        getAreaOfSupplyValue.setFont(new Font("Times New Roman", Font.BOLD, 12));
+        areaOfSupplyValue = new JLabel("--", JLabel.LEFT);
+        areaOfSupplyValue.setFont(new Font("Times New Roman", Font.BOLD, 12));
 
         address = new JLabel("  Address and Place: ", JLabel.LEFT);
         address.setFont(new Font("Times New Roman", Font.PLAIN, 12));
@@ -69,9 +71,17 @@ public class ReceiverPanel extends JPanel {
         add(amount);
         add(amountValue);
         add(areaOfSupply);
-        add(getAreaOfSupplyValue);
+        add(areaOfSupplyValue);
         add(address);
         add(addressValue);
+    }
+
+    public void setValues(Bill bill){
+        referenceValue.setText(bill.getCustomer().getId().toString());
+        amountValue.setText(String.valueOf(bill.getAmount()));
+        areaOfSupplyValue.setText(bill.getCustomer().getCity());
+        addressValue.setText(bill.getCustomer().getAddress());
+
     }
 
     public static void main(String[] args) {

@@ -1,8 +1,13 @@
 package Panels;
 
+import bill.Bill;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 
 public class TotalChargesPanel extends JPanel {
         JLabel amount, amountValue;
@@ -51,6 +56,14 @@ public class TotalChargesPanel extends JPanel {
         add(taxValue);
         add(total);
         add(totalValue);
+    }
+
+    public void setValues(Bill bill){
+        BigDecimal amount= bill.getOnPeakAmount().add(bill.getOffPeakAmount());
+        amountValue.setText(String.valueOf(amount));
+        BigDecimal tax= amount.multiply(new BigDecimal("0.17"));
+        taxValue.setText(String.valueOf(tax));
+        totalValue.setText(String.valueOf(bill.getAmount()));
     }
 
     public static void main(String[] args) {

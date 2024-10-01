@@ -8,8 +8,6 @@ import service.Tax.Tax;
 import service.ServiceFactory;
 
 import java.awt.event.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.print.PageFormat;
@@ -54,13 +52,6 @@ public Dashboard() {
     getContentPane().add(controlPanel);
 
     }
-
-public String getDate(){
-    LocalDateTime timeDate = LocalDateTime.now();
-    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy ");
-    String formattedDate = timeDate.format(myFormatObj);
-    return formattedDate;
-}
 
 
     public void onClickFindCustomer(ActionEvent event){
@@ -112,7 +103,6 @@ public String getDate(){
     genBillButton.addActionListener(this::onClickGenerateBill);
     exitButton.addActionListener(this::onClickExit);
 }
-
 
 
     //PrintBill(https://docs.oracle.com/javase%2Ftutorial%2F/2d/printing/printable.html)
@@ -182,12 +172,16 @@ public String getDate(){
     }
 
     public void setGUIBill() {
-         String id="";
-         String name="";
-        if (!id.isEmpty() && name.isEmpty() || (!id.isEmpty() && !name.isEmpty())) {
+        String id= controlPanel.getFindCustomerPanel().getCustomerIDValue().getText();
+         String name=controlPanel.getFindCustomerPanel().getCustomerNameValue().getText();
+        if (!id.isEmpty() && name.isEmpty()) {
             setBillByID(id);
         } else if (id.isEmpty() && !name.isEmpty()) {
             setBillByName(name);
+        }else{
+            UIManager.put("OptionPane.messageFont", new Font("Arial", Font.BOLD, 24));
+            JOptionPane.showMessageDialog(this, "Can't find bill !",
+                    "Service", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -200,12 +194,14 @@ public String getDate(){
         Tax tax = serviceFactory.getTaxService().find(customer.getTax().getId());
 
         serviceFactory = ServiceFactory.BILL_SERVICE;
-        Bill bill = serviceFactory.getBillService().findByMonthCustomer(controlPanel.getMonthChoice().getMonth(), customer);
+        String month= controlPanel.getMonthChoice().getMonth();
+        Bill bill = serviceFactory.getBillService().findByMonthCustomer(month, customer);
 
         if (customer != null && bill != null && tax != null) {
-            //call setPanel func for each panel
+            setBillValues(month, bill);
         } else {
-            JOptionPane.showMessageDialog(this, "Can't find bill !",
+            UIManager.put("OptionPane.messageFont", new Font("Arial", Font.BOLD, 24));
+            JOptionPane.showMessageDialog(this, "Something went wrong !",
                     "Service", JOptionPane.WARNING_MESSAGE);
 
         }
@@ -220,20 +216,33 @@ public String getDate(){
         Tax tax = serviceFactory.getTaxService().find(customer.getTax().getId());
 
         serviceFactory = ServiceFactory.BILL_SERVICE;
-        Bill bill = serviceFactory.getBillService().findByMonthCustomer(controlPanel.getMonthChoice().getMonth(), customer);
+        String month= controlPanel.getMonthChoice().getMonth();
+        Bill bill = serviceFactory.getBillService().findByMonthCustomer(month, customer);
 
         if (customer != null && bill != null && tax != null) {
-            //call setPanel func for each panel
+            setBillValues(month, bill);
         }
          else {
-            JOptionPane.showMessageDialog(this, "Can't find bill !",
+            JOptionPane.showMessageDialog(this, "Something went wrong !",
                     "Service", JOptionPane.WARNING_MESSAGE);
         }
     }
 
+    public void setBillValues(String month, Bill bill){
+        billPanel.getLeftDatePanel().setDateMonth(month);
+        billPanel.getRightDatePanel().setDateMonth(month);
+        billPanel.getPrincipalPanel().setValues(bill);
+        billPanel.getReceiverPanel().setValues(bill);
+        billPanel.getAmountChargesPanel().setValues(bill);
+        billPanel.getCustomerInfoPanel().setValues(bill);
+        billPanel.getEnergySummaryPanel().setValues(bill);
+        billPanel.getTotalChargesPanel().setValues(bill);
 
+    }
 
     public static void main(String[] args) {
         new Dashboard().setVisible(true);
     }
+
+
 }

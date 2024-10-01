@@ -1,6 +1,8 @@
 package Panels;
 
 
+import bill.Bill;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -148,6 +150,7 @@ public class CustomerInfoPanel extends JPanel {
         add(taxTypeValue);
         add(emptySection2);
         add(emptySection3);
+
         add(readDate);
         add(readDateValue);
         add(issueDate);
@@ -157,6 +160,21 @@ public class CustomerInfoPanel extends JPanel {
         add(paymentDate);
         add(paymentDateValue);
 
+    }
+
+    public void setValues(Bill bill){
+        nameValue.setText(bill.getCustomer().getName());
+        addressValue.setText(bill.getCustomer().getAddress());
+        cityValue.setText(bill.getCustomer().getAddress());
+        countryValue.setText(bill.getCustomer().getCountry());
+        emailValue.setText(bill.getCustomer().getEmail());
+        phoneValue.setText(bill.getCustomer().getPhone());
+        meterNoValue.setText(String.valueOf(bill.getCustomer().getMeterNo()));
+        taxTypeValue.setText(bill.getCustomer().getTax().getType());
+        readDateValue.setText(bill.getReadDate());
+        issueDateValue.setText(bill.getIssueDate());
+        deadLineDateValue.setText(bill.getDeadlineDate());
+        paymentDateValue.setText(bill.getPaymentDate());
     }
 
     public static void main(String[] args) {

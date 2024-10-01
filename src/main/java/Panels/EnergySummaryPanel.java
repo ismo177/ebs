@@ -1,20 +1,22 @@
 package Panels;
 
+import bill.Bill;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
-public class EnergySummary extends JPanel {
+public class EnergySummaryPanel extends JPanel {
     JPanel title, emptySection1, emptySection2, emptySection3;
     JLabel energySummary;
     JLabel itemType, quantity, price, amount;
-    JLabel offPeak, ofPeakQuantityValue, ofPeakPriceValue, ofPeakAmountValue ;
+    JLabel offPeak, offPeakQuantityValue, offPeakPriceValue, offPeakAmountValue;
     JLabel onPeak, onPeakQuantityValue, onPeakPriceValue, onPeakAmountValue;
     JLabel meterRent, meterRentEmptySection1, meterRentEmptySection2, meterRentAmountValue;
     JLabel serviceRent, serviceRentEmptySection1, serviceRentEmptySection2, serviceRentAmountValue;
     JLabel tierRate, tierRateEmptySection1, tierRateEmptySection2, tierRateAmountValue;
 
-    public EnergySummary() {
+    public EnergySummaryPanel() {
     createPanel();
     createComponents();
     addComponents();
@@ -53,20 +55,20 @@ public class EnergySummary extends JPanel {
         offPeak.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 
 
-        ofPeakQuantityValue = new JLabel("--", JLabel.LEFT);
-        ofPeakQuantityValue.setFont(new Font("Times New Roman", Font.BOLD, 14));
-        ofPeakQuantityValue.setBorder(new LineBorder(Color.lightGray));
+        offPeakQuantityValue = new JLabel("--", JLabel.LEFT);
+        offPeakQuantityValue.setFont(new Font("Times New Roman", Font.BOLD, 14));
+        offPeakQuantityValue.setBorder(new LineBorder(Color.lightGray));
 
-        ofPeakPriceValue = new JLabel("--", JLabel.LEFT);
-        ofPeakPriceValue.setFont(new Font("Times New Roman", Font.BOLD, 14));
-        ofPeakPriceValue.setBorder(new LineBorder(Color.lightGray));
+        offPeakPriceValue = new JLabel("--", JLabel.LEFT);
+        offPeakPriceValue.setFont(new Font("Times New Roman", Font.BOLD, 14));
+        offPeakPriceValue.setBorder(new LineBorder(Color.lightGray));
 
-        ofPeakAmountValue = new JLabel("--", JLabel.LEFT);
-        ofPeakAmountValue.setFont(new Font("Times New Roman", Font.BOLD, 14));
-        ofPeakAmountValue.setBorder(new LineBorder(Color.lightGray));
+        offPeakAmountValue = new JLabel("--", JLabel.LEFT);
+        offPeakAmountValue.setFont(new Font("Times New Roman", Font.BOLD, 14));
+        offPeakAmountValue.setBorder(new LineBorder(Color.lightGray));
 
         onPeak = new JLabel(" Energy on-peak", JLabel.LEFT);
-        onPeak.setFont(new Font("Times New Roman", Font.BOLD, 14));
+        onPeak.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 
         onPeakQuantityValue = new JLabel("--", JLabel.LEFT);
         onPeakQuantityValue.setFont(new Font("Times New Roman", Font.BOLD, 14));
@@ -117,22 +119,27 @@ public class EnergySummary extends JPanel {
         add(quantity);
         add(price);
         add(amount);
+
         add(offPeak);
-        add(ofPeakQuantityValue);
-        add(ofPeakPriceValue);
-        add(ofPeakAmountValue);
+        add(offPeakQuantityValue);
+        add(offPeakPriceValue);
+        add(offPeakAmountValue);
+
         add(onPeak);
         add(onPeakQuantityValue);
         add(onPeakPriceValue);
         add(onPeakAmountValue);
+
         add(meterRent);
         add(meterRentEmptySection1);
         add(meterRentEmptySection2);
         add(meterRentAmountValue);
+
         add(serviceRent);
         add(serviceRentEmptySection1);
         add(serviceRentEmptySection2);
         add(serviceRentAmountValue);
+
         add(tierRate);
         add(tierRateEmptySection1);
         add(tierRateEmptySection2);
@@ -140,10 +147,25 @@ public class EnergySummary extends JPanel {
 
     }
 
+    public void setValues(Bill bill){
+        offPeakQuantityValue.setText(String.valueOf(bill.getUnitsOffPeak()));
+        offPeakPriceValue.setText(String.valueOf(bill.getCustomer().getTax().getOffPeakPrice()));
+        offPeakAmountValue.setText(String.valueOf(bill.getOffPeakAmount()));
+
+        onPeakQuantityValue.setText(String.valueOf(bill.getUnitsOnPeak()));
+        onPeakPriceValue.setText(String.valueOf(bill.getCustomer().getTax().getOnPeakPrice()));
+        onPeakAmountValue.setText(String.valueOf(bill.getAmount()));
+
+        meterRentAmountValue.setText(String.valueOf(bill.getCustomer().getTax().getMeterRent()));
+        serviceRentAmountValue.setText(String.valueOf(bill.getCustomer().getTax().getServiceRent()));
+        tierRateAmountValue.setText(String.valueOf(bill.getCustomer().getTax().getTierRate()));
+
+    }
+
     public static void main(String[] args) {
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(new EnergySummary());
+        frame.getContentPane().add(new EnergySummaryPanel());
         frame.setSize(420, 200);
         frame.setVisible(true);
 
