@@ -14,10 +14,9 @@ import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import javax.swing.border.LineBorder;
 
-public class CreateNewCustomer extends JFrame  {
+public class NewCustomer extends JFrame  {
     JLabel createNewCustomerTitle, emptyLabel1, name, address, city, country, email, phone, contractNo, meterNo, debtBalance, tax;
     JLabel emptyLabel2, emptyLabel3;
     JTextField nameValue, addressValue, cityValue, countryValue, emailValue, phoneValue, contractNoValue, meterNoValue, debtBalanceValue, taxValue;
@@ -25,10 +24,10 @@ public class CreateNewCustomer extends JFrame  {
     JPanel mainPanel, imgPanel;
     JLabel imgLabel;
     String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+    User tempUser;
 
-
-    CreateNewCustomer() {
-
+    NewCustomer(User tempUser) {
+        this.tempUser = tempUser;
         createComponents();
         addFont();
         createFrame();
@@ -177,16 +176,14 @@ public class CreateNewCustomer extends JFrame  {
                 emailValue, phoneValue, contractNoValue, meterNoValue, debtBalanceValue, taxValue};
         for (JTextField field : fields) {
             if (field.getText().isEmpty()) {
-                field.setBorder(new LineBorder(Color.red, 2, true));
+                field.setBorder(new LineBorder(Color.red, 1, true));
+                field.setForeground(Color.LIGHT_GRAY);
                 field.setText(" Field should not be empty !!");
-                field.setForeground(Color.lightGray);
-            } else {
-                field.setBorder(new LineBorder(Color.green, 2, true));
             }
 
         }
     }
-    //-------------------------------------------------------
+
 
     public void onClickCreateButton(ActionEvent e) {
         String name = nameValue.getText();
@@ -198,61 +195,27 @@ public class CreateNewCustomer extends JFrame  {
         String contract = contractNoValue.getText();
         String meter = meterNoValue.getText();
         String debt = debtBalanceValue.getText();
-        String taxx = taxValue.getText();
+        String taxInput = taxValue.getText();
 
         if (!name.isEmpty() && !address.isEmpty() && !city.isEmpty() && !country.isEmpty() &&
-                !email.isEmpty() && !phone.isEmpty() && !contract.isEmpty() && !meter.isEmpty() && !debt.isEmpty() && !taxx.isEmpty()) {
+                !email.isEmpty() && !phone.isEmpty() && !contract.isEmpty() && !meter.isEmpty() && !debt.isEmpty() && !taxInput.isEmpty()) {
 
-            ServiceFactory serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
-            serviceFactory.getCustomerService().emOpen();
-            Customer customer = serviceFactory.getCustomerService().findByName(name);
+                ServiceFactory serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
+                serviceFactory.getCustomerService().emOpen();
+                Customer customer = serviceFactory.getCustomerService().findByName(name);
 
-            if (customer != null) {
-                infoMessage("Customer already Exists");
+                if (customer != null) {
+                    infoMessage("Customer already Exists");
 
-            } else {
+                } else {
 
-                customer = new Customer();
-                customer.setName(nameValue.getText());
-                customer.setAddress(addressValue.getText());
-                customer.setCity(cityValue.getText());
-                customer.setCountry(countryValue.getText());
-                customer.setEmail(emailValue.getText());
-                customer.setPhone(phoneValue.getText());
-                customer.setContractNo(contractNoValue.getText());
-                customer.setMeterNo(Integer.parseInt(meterNoValue.getText()));
-                customer.setDebtBalance(BigDecimal.valueOf(Double.parseDouble(debtBalanceValue.getText())));
-                serviceFactory = ServiceFactory.TAX_SERVICE;
-                Tax tax = serviceFactory.getTaxService().find(taxx);
-                customer.setTax(tax);
-                serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
-                serviceFactory.getCustomerService().create(customer);
+                    customer = new Customer();
+                    setCustomerValues(customer, taxInput);
+                    serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
+                    serviceFactory.getCustomerService().create(customer);
 
-
-                for (int month = 1; month <= months.length; month++) {
-                    Bill bill = new Bill();
-                    bill.setUnitsOffPeak(0);
-                    bill.setUnitsOnPeak(0);
-                    bill.setReadDate(getDateReformated(5,month));
-                    bill.setIssueDate(getDateReformated(15,month));
-                    bill.setDeadlineDate(getDateReformated(25,month));
-                    bill.setPaymentDate("--");
-                    bill.setMonth(months[month-1]);
-                    bill.setOffPeakAmount(BigDecimal.valueOf(00.00));
-                    bill.setOnPeakAmount(BigDecimal.valueOf(00.00));
-                    bill.setAmount(BigDecimal.valueOf(00.00));
-                    bill.setInvoiceStatus(false);
-                    bill.setCustomer(customer);
-
-                    serviceFactory = ServiceFactory.USER_SERVICE;
-                    User user = serviceFactory.getUserService().find(43);
-                    bill.setUser(user);
-
-                    serviceFactory = ServiceFactory.BILL_SERVICE;
-                    serviceFactory.getBillService().create(bill);
-                }
-                infoMessage("Customer " + customer.getName() + " created");
-
+                    setBillValues(customer);
+                    infoMessage("Customer " + customer.getName() + " created");
             }
         } else {
             badInput();
@@ -264,8 +227,6 @@ public class CreateNewCustomer extends JFrame  {
         this.dispose();
 
     }
-
-
 
     public void infoMessage(String message){
         UIManager.put("OptionPane.messageFont", new Font("Arial", Font.BOLD, 24));
@@ -303,6 +264,7 @@ public class CreateNewCustomer extends JFrame  {
             for (JTextField field : fields) {
                 if(e.getSource()==field) {
                     field.setBorder(new LineBorder(Color.gray));
+                    field.setText("");
                 }
             }
             if (e.getSource() == nameValue) {
@@ -335,8 +297,7 @@ public class CreateNewCustomer extends JFrame  {
         }
     }
 
-    public void setCustomerValues(String taxx){
-        Customer customer = new Customer();
+    public void setCustomerValues(Customer customer,String taxx){
         customer.setName(nameValue.getText());
         customer.setAddress(addressValue.getText());
         customer.setCity(cityValue.getText());
@@ -351,8 +312,30 @@ public class CreateNewCustomer extends JFrame  {
         customer.setTax(tax);
     }
 
-    public static void main(String[] args) {
-        new CreateNewCustomer();
+    public void setBillValues(Customer customer) {
+        for (int month = 1; month <= months.length; month++) {
+            Bill bill = new Bill();
+            bill.setUnitsOffPeak(0);
+            bill.setUnitsOnPeak(0);
+            bill.setReadDate(getDateReformated(5, month));
+            bill.setIssueDate(getDateReformated(15, month));
+            bill.setDeadlineDate(getDateReformated(25, month));
+            bill.setPaymentDate("--");
+            bill.setMonth(months[month - 1]);
+            bill.setOffPeakAmount(BigDecimal.valueOf(00.00));
+            bill.setOnPeakAmount(BigDecimal.valueOf(00.00));
+            bill.setAmount(BigDecimal.valueOf(00.00));
+            bill.setInvoiceStatus(false);
+            bill.setCustomer(customer);
+
+            ServiceFactory serviceFactory = ServiceFactory.USER_SERVICE;
+            User user = serviceFactory.getUserService().find(tempUser.getId());
+            bill.setUser(user);
+
+            serviceFactory = ServiceFactory.BILL_SERVICE;
+            serviceFactory.getBillService().create(bill);
+        }
     }
+
 
 }

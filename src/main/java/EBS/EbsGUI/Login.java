@@ -15,8 +15,6 @@ public class Login extends JFrame {
     JTextField usernameTextField;
     JPasswordField passwordTextField;
     JButton loginButton, cancelButton;
-
-    String tempUser;
     Welcome loginBackground;
 
     Login() {
@@ -123,8 +121,7 @@ public class Login extends JFrame {
             if (!uName.isEmpty() && !pass.isEmpty()) {
                 ServiceFactory serviceFactory = ServiceFactory.USER_SERVICE;
                 User user = serviceFactory.getUserService().login(uName, pass);
-                tempUser=validateUser(user);
-
+                validateUser(user);
              } else {
                 badInput();
              }
@@ -136,7 +133,7 @@ public class Login extends JFrame {
     }
 
     public void onClickRegistrationButton(ActionEvent actionEvent) {
-        new CreateNewUser();
+        new NewUser();
     }
 
     public void badInput() {
@@ -147,17 +144,16 @@ public class Login extends JFrame {
 
     }
 
-    public String validateUser(User user) {
+    public void validateUser(User user) {
         if (user != null) {
-            String tempUser = user.getUsername();
-            new MenuFrame(tempUser);
+            new MenuFrame(user);
             loginBackground.setVisible(false);
             this.setVisible(false);
 
         } else {
             usernameTextField.setText("User not found !");
         }
-        return tempUser;
+
     }
 
     public void addListeners() {

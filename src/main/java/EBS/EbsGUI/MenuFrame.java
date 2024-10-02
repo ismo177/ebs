@@ -1,18 +1,20 @@
 package EBS.EbsGUI;
 
+import service.User.User;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 public class MenuFrame extends JFrame {
-    String tempUser;
+    User tempUser;
     JMenuItem menuItemNewCustomer,menuItemCreateNewUser, menuItemDeleteCustomer, menuItemExit;
     JMenuItem menuItemGuiBill, menuItemCustomerDetails, menuItemBillTable;
     JMenuItem menuItemNotepad, menuItemCalculator, menuItemWebBrowser, menuItemPDFBill;
     JMenuItem readMe;
 
-    MenuFrame(String tempUser){
+    MenuFrame(User tempUser){
         this.tempUser =tempUser;
 
         createMainMenu();
@@ -198,7 +200,7 @@ public class MenuFrame extends JFrame {
 
 
     public void setMenuFrame(){
-        setTitle("EBS "+tempUser);
+        setTitle("EBS "+tempUser.getUsername());
         Toolkit t = Toolkit.getDefaultToolkit();
         Dimension d = t.getScreenSize();
         setSize(d.width, d.height);
@@ -216,13 +218,13 @@ public class MenuFrame extends JFrame {
 
 
     public void onClickCreateNewUser(ActionEvent e) {
-        new CreateNewUser();
+        new NewUser();
 
     }
 
 
     public void onClickCreateNewCustomer(ActionEvent e) {
-        new CreateNewCustomer();
+        new NewCustomer(tempUser);
 
     }
 
@@ -298,9 +300,7 @@ public class MenuFrame extends JFrame {
         }
     }
 
-    public static void main(String[] args) {
-        new MenuFrame("ismet");
-    }
+
 
 }
 

@@ -12,14 +12,14 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Base64;
 
-public class CreateNewUser extends JFrame implements MouseListener {
+public class NewUser extends JFrame implements MouseListener {
     JPanel centerPanel, bottomPanel;
     JLabel titleLabel, usernameLabel, passwordLabel;
     JTextField usernameTextField, passwordTextField;
     JButton createButton, exitButton;
 
 
-    public CreateNewUser() {
+    public NewUser() {
 
         titleLabel = new JLabel("Create New User",JLabel.CENTER);
         titleLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
