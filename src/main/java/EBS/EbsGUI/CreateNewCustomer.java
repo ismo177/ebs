@@ -3,144 +3,105 @@ package EBS.EbsGUI;
 import bill.Bill;
 import service.Customer.Customer;
 import service.Tax.Tax;
-import service.User.User;
 import service.ServiceFactory;
+import service.User.User;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import javax.swing.border.LineBorder;
 
-public class CreateNewCustomer extends JFrame implements  MouseListener {
+public class CreateNewCustomer extends JFrame  {
     JLabel createNewCustomerTitle, emptyLabel1, name, address, city, country, email, phone, contractNo, meterNo, debtBalance, tax;
-    JTextField nameTextField, addressTextField, cityTextField, countryTextField, emailTextField, phoneTextField, contractNumberTextField, meterNumberTextField, debtBalanceTextField, taxTextField;
+    JLabel emptyLabel2, emptyLabel3;
+    JTextField nameValue, addressValue, cityValue, countryValue, emailValue, phoneValue, contractNoValue, meterNoValue, debtBalanceValue, taxValue;
     JButton createButton, exitButton;
-    JPanel mainPanel;
-    String[] months={"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-    LocalDateTime timeDate = LocalDateTime.now();
-    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy ");
-    String date = timeDate.format(myFormatObj);
-    String year=date.substring(date.length()-5, date.length()-1);
-    int tempUserID;
+    JPanel mainPanel, imgPanel;
+    JLabel imgLabel;
+    String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+
 
     CreateNewCustomer() {
+
+        createComponents();
+        addFont();
+        createFrame();
+        addComponents();
+        addListeners();
+
+    }
+
+    public void createFrame(){
         setTitle("New Customer");
-        setBackground(Color.WHITE);
-        setLocation(300, 100);
+        getContentPane().setBackground(Color.WHITE);
         setSize(800, 700);
+        setLayout(null);
+        setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
+    }
+
+    public void createComponents(){
         mainPanel = new JPanel();
-       // p.setSize(760, 700);
-        mainPanel.setLayout(new GridLayout(13, 2, 10, 10));
+        mainPanel.setSize(550, 700);
+        mainPanel.setLocation(200,10);
+        mainPanel.setLayout(new GridLayout(14, 2, 10, 10));
         mainPanel.setBackground(Color.WHITE);
 
+        imgPanel = new JPanel();
+        imgPanel.setBackground(Color.WHITE);
+        //imgPanel.setLayout(null);
+        imgPanel.setSize(150,280);
+        imgPanel.setLocation(20,200);
 
-        createNewCustomerTitle = new JLabel("New Customer", JLabel.CENTER);
+
+        createNewCustomerTitle = new JLabel("   New Customer", JLabel.CENTER);
         createNewCustomerTitle.setFont(new Font("Times New Roman", Font.BOLD, 24));
 
         emptyLabel1 = new JLabel();
+        emptyLabel2 = new JLabel();
+        emptyLabel3 = new JLabel();
 
         name = new JLabel("Name");
-        name.setFont(new Font("Times New Roman", Font.BOLD, 20));
-        nameTextField = new JTextField();
-        nameTextField.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        nameTextField.addMouseListener(this);
+        nameValue = new JTextField();
 
         address = new JLabel("Address:");
-        address.setFont(new Font("Times New Roman", Font.BOLD, 20));
-        addressTextField = new JTextField();
-        addressTextField.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        addressTextField.addMouseListener(this);
+        addressValue = new JTextField();
 
         city = new JLabel("City:");
-        city.setFont(new Font("Times New Roman", Font.BOLD, 20));
-        cityTextField = new JTextField();
-        cityTextField.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        cityTextField.addMouseListener(this);
-
+        cityValue = new JTextField();
 
         country = new JLabel("Country");
-        country.setFont(new Font("Times New Roman", Font.BOLD, 20));
-        countryTextField = new JTextField();
-        countryTextField.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        countryTextField.addMouseListener(this);
+        countryValue = new JTextField();
 
         email = new JLabel("Email:");
-        email.setFont(new Font("Times New Roman", Font.BOLD, 20));
-        emailTextField = new JTextField();
-        emailTextField.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        emailTextField.addMouseListener(this);
+        emailValue = new JTextField();
 
         phone = new JLabel("Phone:");
-        phone.setFont(new Font("Times New Roman", Font.BOLD, 20));
-        phoneTextField = new JTextField();
-        phoneTextField.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        phoneTextField.addMouseListener(this);
+        phoneValue = new JTextField();
 
         contractNo = new JLabel("Contract No");
-        contractNo.setFont(new Font("Times New Roman", Font.BOLD, 20));
-        contractNumberTextField = new JTextField();
-        contractNumberTextField.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        contractNumberTextField.addMouseListener(this);
+        contractNoValue = new JTextField();
 
         meterNo = new JLabel("Meter No", JLabel.LEFT);
-        meterNo.setFont(new Font("Times New Roman", Font.BOLD, 20));
-        meterNumberTextField = new JTextField();
-        meterNumberTextField.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        meterNumberTextField.addMouseListener(this);
-
+        meterNoValue = new JTextField();
 
         debtBalance = new JLabel("Debt Balance");
-        debtBalance.setFont(new Font("Times New Roman", Font.BOLD, 20));
-        debtBalanceTextField = new JTextField();
-        debtBalanceTextField.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        debtBalanceTextField.addMouseListener(this);
+        debtBalanceValue = new JTextField();
 
         tax = new JLabel("Tax Id", JLabel.LEFT);
-        tax.setFont(new Font("Times New Roman", Font.BOLD, 20));
-        taxTextField = new JTextField();
-        taxTextField.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        taxTextField.addMouseListener(this);
+        taxValue = new JTextField();
 
-
-        mainPanel.add(createNewCustomerTitle);
-        mainPanel.add(emptyLabel1);
-
-        mainPanel.add(name);
-        mainPanel.add(nameTextField);
-
-        mainPanel.add(address);
-        mainPanel.add(addressTextField);
-
-        mainPanel.add(city);
-        mainPanel.add(cityTextField);
-
-        mainPanel.add(country);
-        mainPanel.add(countryTextField);
-
-        mainPanel.add(email);
-        mainPanel.add(emailTextField);
-
-        mainPanel.add(phone);
-        mainPanel.add(phoneTextField);
-
-        mainPanel.add(contractNo);
-        mainPanel.add(contractNumberTextField);
-
-        mainPanel.add(meterNo);
-        mainPanel.add(meterNumberTextField);
-
-        mainPanel.add(debtBalance);
-        mainPanel.add(debtBalanceTextField);
-
-        mainPanel.add(tax);
-        mainPanel.add(taxTextField);
+        ImageIcon ic1 = new ImageIcon(ClassLoader.getSystemResource("images/hicon1.jpg"));
+        Image i3 = ic1.getImage().getScaledInstance(150, 280, Image.SCALE_DEFAULT);
+        ImageIcon ic2 = new ImageIcon(i3);
+        imgLabel = new JLabel(ic2);
 
 
         createButton = new JButton("Create");
@@ -153,167 +114,245 @@ public class CreateNewCustomer extends JFrame implements  MouseListener {
 
         exitButton.setBackground(new Color(50, 205, 50));
         exitButton.setForeground(Color.BLACK);
+    }
 
+    public void addComponents(){
+
+        mainPanel.add(createNewCustomerTitle);
+        mainPanel.add(emptyLabel1);
+
+        mainPanel.add(name);
+        mainPanel.add(nameValue);
+
+        mainPanel.add(address);
+        mainPanel.add(addressValue);
+
+        mainPanel.add(city);
+        mainPanel.add(cityValue);
+
+        mainPanel.add(country);
+        mainPanel.add(countryValue);
+
+        mainPanel.add(email);
+        mainPanel.add(emailValue);
+
+        mainPanel.add(phone);
+        mainPanel.add(phoneValue);
+
+        mainPanel.add(contractNo);
+        mainPanel.add(contractNoValue);
+
+        mainPanel.add(meterNo);
+        mainPanel.add(meterNoValue);
+
+        mainPanel.add(debtBalance);
+        mainPanel.add(debtBalanceValue);
+
+        mainPanel.add(tax);
+        mainPanel.add(taxValue);
+
+        mainPanel.add(emptyLabel2);
+        mainPanel.add(emptyLabel3);
         mainPanel.add(createButton);
         mainPanel.add(exitButton);
-        setLayout(new BorderLayout());
-
-        add(mainPanel, "Center");
-
-        ImageIcon ic1 = new ImageIcon(ClassLoader.getSystemResource("images/hicon1.jpg"));
-        Image i3 = ic1.getImage().getScaledInstance(150, 280, Image.SCALE_DEFAULT);
-        ImageIcon ic2 = new ImageIcon(i3);
-        phone = new JLabel(ic2);
 
 
-        add(phone, "West");
+        add(mainPanel);
+        imgPanel.add(imgLabel);
+        add(imgPanel);
 
-        getContentPane().setBackground(Color.WHITE);
-
-        createButton.addActionListener(this::onClickCreateButton);
-        exitButton.addActionListener(this::onCLickExitButton);
+    }
 
 
+    public String getDateTime(){
+        LocalDateTime timeDate = LocalDateTime.now();
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy ");
+        String date = timeDate.format(myFormatObj);
+        return date;
     }
 
     public void badInput() {
 
-        JTextField[] fields = {nameTextField, addressTextField, cityTextField, countryTextField, emailTextField, phoneTextField, contractNumberTextField, meterNumberTextField, debtBalanceTextField, taxTextField};
+        JTextField[] fields = {nameValue, addressValue, cityValue, countryValue,
+                emailValue, phoneValue, contractNoValue, meterNoValue, debtBalanceValue, taxValue};
         for (JTextField field : fields) {
             if (field.getText().isEmpty()) {
-                field.setBorder(new LineBorder(Color.red,3,true));
+                field.setBorder(new LineBorder(Color.red, 2, true));
                 field.setText(" Field should not be empty !!");
                 field.setForeground(Color.lightGray);
             } else {
-                field.setBorder(new LineBorder(Color.green,3,true));
+                field.setBorder(new LineBorder(Color.green, 2, true));
             }
 
         }
     }
     //-------------------------------------------------------
 
-public void onClickCreateButton(ActionEvent e) {
-    String name = nameTextField.getText();
-    String address = addressTextField.getText();
-    String city = cityTextField.getText();
-    String country = countryTextField.getText();
-    String email = emailTextField.getText();
-    String phone = phoneTextField.getText();
-    String contract = contractNumberTextField.getText();
-    String meter = meterNumberTextField.getText();
-    String debt = debtBalanceTextField.getText();
-    String taxx = taxTextField.getText();
+    public void onClickCreateButton(ActionEvent e) {
+        String name = nameValue.getText();
+        String address = addressValue.getText();
+        String city = cityValue.getText();
+        String country = countryValue.getText();
+        String email = emailValue.getText();
+        String phone = phoneValue.getText();
+        String contract = contractNoValue.getText();
+        String meter = meterNoValue.getText();
+        String debt = debtBalanceValue.getText();
+        String taxx = taxValue.getText();
 
-    if (!name.isEmpty() && !address.isEmpty() && !city.isEmpty() && !country.isEmpty() &&
-            !email.isEmpty() && !phone.isEmpty() && !contract.isEmpty() && !meter.isEmpty() && !debt.isEmpty() && !taxx.isEmpty()) {
+        if (!name.isEmpty() && !address.isEmpty() && !city.isEmpty() && !country.isEmpty() &&
+                !email.isEmpty() && !phone.isEmpty() && !contract.isEmpty() && !meter.isEmpty() && !debt.isEmpty() && !taxx.isEmpty()) {
 
-        ServiceFactory serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
-        serviceFactory.getCustomerService().emOpen();
-        Customer customer = serviceFactory.getCustomerService().findByName(name);
+            ServiceFactory serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
+            serviceFactory.getCustomerService().emOpen();
+            Customer customer = serviceFactory.getCustomerService().findByName(name);
 
-        if (customer != null) {
-            createNewCustomerTitle.setText("Already Exists");
-            createNewCustomerTitle.setBorder(new LineBorder(Color.red,3,true));
+            if (customer != null) {
+                infoMessage("Customer already Exists");
 
-        } else {
+            } else {
 
-            customer = new Customer();
-            customer.setName(nameTextField.getText());
-            customer.setAddress(addressTextField.getText());
-            customer.setCity(cityTextField.getText());
-            customer.setCountry(countryTextField.getText());
-            customer.setEmail(emailTextField.getText());
-            customer.setPhone(phoneTextField.getText());
-            customer.setContractNo(contractNumberTextField.getText());
-            customer.setMeterNo(Integer.parseInt(meterNumberTextField.getText()));
-            customer.setDebtBalance(BigDecimal.valueOf(Double.parseDouble(debtBalanceTextField.getText())));
-            serviceFactory = ServiceFactory.TAX_SERVICE;
-            Tax tax = serviceFactory.getTaxService().find(taxx);
-            customer.setTax(tax);
-            serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
-            serviceFactory.getCustomerService().create(customer);
-
+                customer = new Customer();
+                customer.setName(nameValue.getText());
+                customer.setAddress(addressValue.getText());
+                customer.setCity(cityValue.getText());
+                customer.setCountry(countryValue.getText());
+                customer.setEmail(emailValue.getText());
+                customer.setPhone(phoneValue.getText());
+                customer.setContractNo(contractNoValue.getText());
+                customer.setMeterNo(Integer.parseInt(meterNoValue.getText()));
+                customer.setDebtBalance(BigDecimal.valueOf(Double.parseDouble(debtBalanceValue.getText())));
+                serviceFactory = ServiceFactory.TAX_SERVICE;
+                Tax tax = serviceFactory.getTaxService().find(taxx);
+                customer.setTax(tax);
+                serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
+                serviceFactory.getCustomerService().create(customer);
 
 
-            for(int i=0; i<months.length; i++) {
+                for (int month = 1; month <= months.length; month++) {
+                    Bill bill = new Bill();
+                    bill.setUnitsOffPeak(0);
+                    bill.setUnitsOnPeak(0);
+                    bill.setReadDate(getDateReformated(5,month));
+                    bill.setIssueDate(getDateReformated(15,month));
+                    bill.setDeadlineDate(getDateReformated(25,month));
+                    bill.setPaymentDate("--");
+                    bill.setMonth(months[month-1]);
+                    bill.setOffPeakAmount(BigDecimal.valueOf(00.00));
+                    bill.setOnPeakAmount(BigDecimal.valueOf(00.00));
+                    bill.setAmount(BigDecimal.valueOf(00.00));
+                    bill.setInvoiceStatus(false);
+                    bill.setCustomer(customer);
 
-                String m="";
-                if(i+1<10){m="0"+String.valueOf(i+1);}
-                else {m=String.valueOf(i+1);}
-                Bill bill = new Bill();
-                bill.setUnitsOffPeak(0);
-                bill.setUnitsOnPeak(0);
-                bill.setReadDate("05."+m+"."+year);
-                bill.setIssueDate("15."+m+"."+year);
-                bill.setDeadlineDate("25."+m+"."+year);
-                bill.setPaymentDate("--");
-                bill.setMonth(months[i]);
-                bill.setOffPeakAmount(BigDecimal.valueOf(00.00));
-                bill.setOnPeakAmount(BigDecimal.valueOf(00.00));
-                bill.setAmount(BigDecimal.valueOf(00.00));
-                bill.setInvoiceStatus(false);
-                bill.setCustomer(customer);
+                    serviceFactory = ServiceFactory.USER_SERVICE;
+                    User user = serviceFactory.getUserService().find(43);
+                    bill.setUser(user);
 
-                serviceFactory = ServiceFactory.USER_SERVICE;
-                User user = serviceFactory.getUserService().find(tempUserID);
-                bill.setUser(user);
+                    serviceFactory = ServiceFactory.BILL_SERVICE;
+                    serviceFactory.getBillService().create(bill);
+                }
+                infoMessage("Customer " + customer.getName() + " created");
 
-
-                serviceFactory = ServiceFactory.BILL_SERVICE;
-                serviceFactory.getBillService().create(bill);
             }
-
-            nameTextField.setBorder(new LineBorder(Color.green,3,true));
-            nameTextField.setText("Customer "+"'"+customer.getName()+"'"+" created");
+        } else {
+            badInput();
 
         }
-    } else {
-        badInput();
-
     }
-}
 
-public void onCLickExitButton(ActionEvent e){
+    public void onCLickExitButton(ActionEvent e) {
         this.dispose();
 
-}
+    }
 
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        JTextField[] fields = {nameTextField, addressTextField, cityTextField, countryTextField, emailTextField, phoneTextField, contractNumberTextField, meterNumberTextField, debtBalanceTextField, taxTextField};
-        for (JTextField field : fields) {
-            if(e.getSource()==field) {
-                field.setBorder(new LineBorder(Color.gray));
-            }
+
+    public void infoMessage(String message){
+        UIManager.put("OptionPane.messageFont", new Font("Arial", Font.BOLD, 24));
+        JOptionPane.showMessageDialog(this, message+" !",
+                "Service", JOptionPane.WARNING_MESSAGE);
+    }
+
+    public String getDateReformated(int day, int month){
+        String date = getDateTime();
+        String year = date.substring(date.length() - 5, date.length() - 1);
+        String monthFormated;
+        String dateFormated;
+        String dayFormated;
+        if (month< 10) {
+            monthFormated = "0" + month;
+        } else {
+            monthFormated = String.valueOf(month);
         }
-        if (e.getSource() == nameTextField) {
+        if(day< 10){
+            dayFormated = "0" + day;
+        }
+        else{
+            dayFormated = String.valueOf(day);
+        }
+        dateFormated= dayFormated+"."+monthFormated+"."+year;
+        return dateFormated;
+    }
+
+
+    MouseAdapter mouseAdapter = new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            JTextField[] fields = {nameValue, addressValue, cityValue, countryValue, emailValue,
+                    phoneValue, contractNoValue, meterNoValue, debtBalanceValue, taxValue};
             for (JTextField field : fields) {
-                field.setText("");
+                if(e.getSource()==field) {
+                    field.setBorder(new LineBorder(Color.gray));
+                }
             }
+            if (e.getSource() == nameValue) {
+                for (JTextField field : fields) {
+                    field.setText("");
+                }
+                }
+            }
+    };
+
+    public void addListeners(){
+        JTextField[] fields = {nameValue, addressValue, cityValue, countryValue,
+                emailValue, phoneValue, contractNoValue, meterNoValue, debtBalanceValue, taxValue};
+        for (JTextField field : fields) {
+            field.addMouseListener(mouseAdapter);
+        }
+        createButton.addActionListener(this::onClickCreateButton);
+        exitButton.addActionListener(this::onCLickExitButton);
+
+    }
+
+    public void addFont(){
+        JLabel[] labels= {  name, address, city, country, email, phone, contractNo, meterNo, debtBalance, tax};
+        JTextField[] textFields= {nameValue, addressValue, cityValue, countryValue, emailValue, phoneValue, contractNoValue, meterNoValue, debtBalanceValue, taxValue};
+        for(JLabel label : labels){
+            label.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        }
+        for(JTextField textField : textFields){
+            textField.setFont(new Font("Times New Roman", Font.BOLD, 20));
         }
     }
 
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
+    public void setCustomerValues(String taxx){
+        Customer customer = new Customer();
+        customer.setName(nameValue.getText());
+        customer.setAddress(addressValue.getText());
+        customer.setCity(cityValue.getText());
+        customer.setCountry(countryValue.getText());
+        customer.setEmail(emailValue.getText());
+        customer.setPhone(phoneValue.getText());
+        customer.setContractNo(contractNoValue.getText());
+        customer.setMeterNo(Integer.parseInt(meterNoValue.getText()));
+        customer.setDebtBalance(BigDecimal.valueOf(Double.parseDouble(debtBalanceValue.getText())));
+        ServiceFactory serviceFactory = ServiceFactory.TAX_SERVICE;
+        Tax tax = serviceFactory.getTaxService().find(taxx);
+        customer.setTax(tax);
     }
 
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
+    public static void main(String[] args) {
+        new CreateNewCustomer();
     }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
-
 
 }

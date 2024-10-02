@@ -175,7 +175,13 @@ public class EnergySummaryPanel extends JPanel {
         BigDecimal withoutTierRate = offPeakAmount.add(onPeakAmount).add(meterRentAmount).add(serviceRentAmount);
         BigDecimal withTierRate = withoutTierRate.multiply(bill.getCustomer().getTax().getTierRate());
         BigDecimal tierRateAmount = withTierRate.subtract(withoutTierRate);
-        return tierRateAmount.round(new MathContext(4, RoundingMode.HALF_DOWN));
+        MathContext mathContext1=new MathContext(3, RoundingMode.HALF_DOWN);
+        MathContext mathContext2=new MathContext(4, RoundingMode.HALF_DOWN);
+        MathContext mathContext;
+        if(tierRateAmount.compareTo(BigDecimal.ZERO)<10){
+            mathContext=mathContext1;
+        }else{mathContext=mathContext2;}
+        return tierRateAmount.round(mathContext);
     }
 
     public static void main(String[] args) {

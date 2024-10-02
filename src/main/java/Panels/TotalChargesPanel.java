@@ -10,7 +10,7 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 
 public class TotalChargesPanel extends JPanel {
-        JLabel amount, amountValue;
+        JLabel amountLabel, amountValue;
         JLabel tax, taxValue;
         JLabel total, totalValue;
     public TotalChargesPanel() {
@@ -27,8 +27,8 @@ public class TotalChargesPanel extends JPanel {
     }
 
     public void createComponents(){
-        amount = new JLabel(" Amount with TierRate :", JLabel.LEFT);
-        amount.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+        amountLabel = new JLabel(" Amount with TierRate :", JLabel.LEFT);
+        amountLabel.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 
         amountValue = new JLabel("--", JLabel.LEFT);
         amountValue.setFont(new Font("Times New Roman", Font.BOLD, 14));
@@ -50,7 +50,7 @@ public class TotalChargesPanel extends JPanel {
     }
 
     public void addComponents(){
-        add(amount);
+        add(amountLabel);
         add(amountValue);
         add(tax);
         add(taxValue);
@@ -71,8 +71,25 @@ public class TotalChargesPanel extends JPanel {
             total=BigDecimal.ZERO;
         }
         amount=amount.multiply(bill.getCustomer().getTax().getTierRate());
+        MathContext mc3 = new MathContext(3, RoundingMode.HALF_DOWN);
+        MathContext mc4 = new MathContext(4, RoundingMode.HALF_DOWN);
+
+        if(amount.compareTo(BigDecimal.ZERO)<10){
+            amount=amount.round(mc3);
+        }
+        else{
+            amount=amount.round(mc4);
+        }
+        BigDecimal tax= amount.multiply(pdv);
+        if(tax.compareTo(BigDecimal.ZERO)<10){
+            tax=tax.round(mc3);
+        }
+        else{
+            tax=tax.round(mc4);
+        }
+
         amountValue.setText(String.valueOf(amount));
-        taxValue.setText(String.valueOf(amount.multiply(pdv)));
+        taxValue.setText(String.valueOf(tax));
         totalValue.setText(String.valueOf(total));
     }
 
@@ -85,4 +102,6 @@ public class TotalChargesPanel extends JPanel {
         frame.setVisible(true);
 
     }
+
+
 }
