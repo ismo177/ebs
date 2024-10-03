@@ -8,11 +8,11 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.Base64;
 
-public class NewUser extends JFrame implements MouseListener {
+public class NewUser extends JFrame  {
     JPanel centerPanel, bottomPanel;
     JLabel titleLabel, usernameLabel, passwordLabel;
     JTextField usernameTextField, passwordTextField;
@@ -21,18 +21,35 @@ public class NewUser extends JFrame implements MouseListener {
 
     public NewUser() {
 
+        createComponents();
+        addComponents();
+        createFrame();
+        addListeners();
+    }
+
+
+   public void createFrame(){
+        setTitle("Create New User");
+        getContentPane().setBackground(Color.WHITE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(600, 400);
+        setLocationRelativeTo(null);
+        setLayout(null);
+        setResizable(false);
+        setVisible(true);
+    }
+
+    public void createComponents(){
         titleLabel = new JLabel("Create New User",JLabel.CENTER);
         titleLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
         titleLabel.setSize(600, 60);
         titleLabel.setLocation(0, 0);
-
 
         usernameLabel = new JLabel("Enter Username:", JLabel.CENTER);
         usernameLabel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 
         passwordLabel = new JLabel("Enter Password:", JLabel.CENTER);
         passwordLabel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-
 
         centerPanel = new JPanel();
         centerPanel.setLayout(new GridLayout(2, 2, 20, 40));
@@ -43,11 +60,11 @@ public class NewUser extends JFrame implements MouseListener {
 
         usernameTextField = new JTextField();
         usernameTextField.setFont(new Font("Times New Roman", Font.PLAIN, 24));
-        usernameTextField.addMouseListener(this);
+
 
         passwordTextField = new JTextField();
         passwordTextField.setFont(new Font("Times New Roman", Font.PLAIN, 24));
-        passwordTextField.addMouseListener(this);
+
 
         centerPanel.add(usernameLabel);
         centerPanel.add(usernameTextField);
@@ -69,99 +86,48 @@ public class NewUser extends JFrame implements MouseListener {
         bottomPanel.setLayout(new GridLayout(1, 2, 20, 0));
         bottomPanel.setSize(560, 50);
         bottomPanel.setLocation(20, 290);
+    }
 
+    public void addComponents(){
         bottomPanel.add(createButton);
         bottomPanel.add(exitButton);
-
-
         add(titleLabel);
         add(centerPanel);
         add(bottomPanel);
-        getContentPane().setBackground(Color.WHITE);
-        setTitle("Create New User");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(600, 400);
-        setLocationRelativeTo(null);
-        setLayout(null);
-        setResizable(false);
-        setVisible(true);
     }
-
-
-    //----------------------------------------------------------------------------------------------
 
     private void onClickCreateButton(ActionEvent e) {
         String username = usernameTextField.getText();
         String password = passwordTextField.getText();
+        boolean correctInput=!username.isEmpty() && !password.isEmpty() && username.length()>8 && password.length()>6;
 
-        if (username.isEmpty() && !password.isEmpty()) {
-            usernameTextField.setText("Username here");
-            usernameTextField.setForeground(Color.lightGray);
-            usernameTextField.setBorder(new LineBorder(Color.RED,3,true));
-            passwordTextField.setBorder(new LineBorder(Color.GREEN,3,true));
+        if(correctInput) {
+            ServiceFactory serviceFactory = ServiceFactory.USER_SERVICE;
+            User user = serviceFactory.getUserService().findByUsername(username);
 
-        }else if(!username.isEmpty() && password.isEmpty()){
-            passwordTextField.setText("Password here");
-            passwordTextField.setForeground(Color.lightGray);
-            passwordTextField.setBorder(new LineBorder(Color.RED,3,true));
-            usernameTextField.setBorder(new LineBorder(Color.GREEN,3,true));
-
-        }else if(username.isEmpty() || password.isEmpty()){
-            usernameTextField.setText("Username here");
-            usernameTextField.setForeground(Color.lightGray);
-            usernameTextField.setBorder(new LineBorder(Color.RED,3,true));
-
-            passwordTextField.setText("Password here");
-            passwordTextField.setBorder(new LineBorder(Color.RED,3,true));
-            passwordTextField.setForeground(Color.lightGray);
-
-        }else {
-            if(username.length()>8 && password.length()>6) {
-
-                ServiceFactory serviceFactory = ServiceFactory.USER_SERVICE;
-                User user = serviceFactory.getUserService().findByUsername(username);
-
-
-                if (user != null) {
-                    usernameTextField.setText("Username already exists");
-                    usernameTextField.setBorder(new LineBorder(Color.RED,2,true));
-                    passwordTextField.setText("");
+            if (user != null) {
+                    infoMessage("Username already exists");
                 } else {
-                    user = new User();
-                    user.setUsername(username);
-                    String hashedPassword = Base64.getEncoder().encodeToString(password.getBytes());
-                    user.setPassword(hashedPassword);
-                    user.setActive(true);
-                    serviceFactory.getUserService().create(user);
-                    usernameTextField.setText("User " + "'" + user.getUsername() + "'" + " created.");
-                    usernameTextField.setBorder(new LineBorder(Color.RED, 2, true));
-                    passwordTextField.setText("");
-                    try {
-                        Thread.sleep(2000);
-                    }catch (InterruptedException ex) {
-                        ex.printStackTrace();
-                    }
-                    this.dispose();
-                }
-
-            }else{
-                usernameTextField.setText("At least 8 characters!!");
-                usernameTextField.setForeground(Color.GRAY);
-                passwordTextField.setBorder(new LineBorder(Color.RED,2,true));
-                passwordTextField.setText("At least 6 characters!!");
-                passwordTextField.setForeground(Color.GRAY);
-                passwordTextField.setBorder(new LineBorder(Color.RED,2,true));
-
+                createUser(username, password);
             }
+            }else{
+                infoMessage("Username or password  too short, \nor empty");
         }
+    }
+
+
+    public void addListeners(){
+        usernameTextField.addMouseListener(mouseAdapter);
+        passwordTextField.addMouseListener(mouseAdapter);
     }
 
     public void onClickExitButton(ActionEvent e) {
         this.dispose();
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
+    MouseAdapter mouseAdapter=new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
             if(e.getSource()== usernameTextField) {
                 usernameTextField.setText("");
                 usernameTextField.setBorder(new LineBorder(Color.GRAY));
@@ -171,23 +137,35 @@ public class NewUser extends JFrame implements MouseListener {
                 passwordTextField.setBorder(new LineBorder(Color.GRAY));
                 passwordTextField.setForeground(Color.BLACK);
             }
+        }
+    };
+
+    public void createUser(String username, String password){
+        User user = new User();
+        user.setUsername(username);
+        String hashedPassword = Base64.getEncoder().encodeToString(password.getBytes());
+        user.setPassword(hashedPassword);
+        user.setActive(true);
+        ServiceFactory serviceFactory = ServiceFactory.USER_SERVICE;
+        serviceFactory.getUserService().create(user);
+        infoMessage("User "+ user.getUsername() +" created");
+        try {
+            Thread.sleep(2000);
+        }catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
+        this.dispose();
     }
-    @Override
-    public void mousePressed(MouseEvent e) {
 
-    }
-    @Override
-    public void mouseReleased(MouseEvent e) {
 
-    }
-    @Override
-    public void mouseEntered(MouseEvent e) {
 
-    }
-    @Override
-    public void mouseExited(MouseEvent e) {
-
+    public void infoMessage(String message){
+        UIManager.put("OptionPane.messageFont", new Font("Arial", Font.BOLD, 24));
+        JOptionPane.showMessageDialog(this, message+" !",
+                "Service", JOptionPane.WARNING_MESSAGE);
     }
 
-
+    public static void main(String[] args) {
+        new NewUser();
+    }
 }
