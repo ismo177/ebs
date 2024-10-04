@@ -24,7 +24,7 @@ public class FindCustomerPanel extends JPanel {
 
     public void createPanel(){
         setLayout(new GridLayout(3, 2, 0, 10));
-        setSize(460, 120);
+        setSize(440, 120);
     }
 
     public void createComponents(){
@@ -34,19 +34,19 @@ public class FindCustomerPanel extends JPanel {
 
         findButton = new JButton("Find");
         findButton.setBackground(new Color(50, 205, 50));
-        findButton.setFont(new Font("Times New Roman", Font.BOLD, 18));
+        findButton.setFont(new Font("Times New Roman", Font.BOLD, 20));
 
         customerID = new JLabel("Customer Id: ", JLabel.CENTER);
-        customerID.setFont(new Font("Times New Roman", Font.BOLD, 14));
+        customerID.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 
         customerIDValue = new JTextField();
-        customerIDValue.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        customerIDValue.setFont(new Font("Times New Roman", Font.BOLD, 20));
 
         customerName = new JLabel("Customer name: ", JLabel.CENTER);
-        customerName.setFont(new Font("Times New Roman", Font.BOLD, 14));
+        customerName.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 
         customerNameValue = new JTextField();
-        customerNameValue.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        customerNameValue.setFont(new Font("Times New Roman", Font.BOLD, 20));
     }
 
     public void addComponents(){

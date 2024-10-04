@@ -23,7 +23,7 @@ protected void paintComponent(Graphics g) {
 }
 
 public void createPanel(){
-    setSize(500, 800);
+    setSize(460, 800);
     setLayout(null);
 
 }

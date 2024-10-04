@@ -6,6 +6,8 @@ import service.User.User;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
+import java.util.List;
 
 public class Login extends JFrame {
 
@@ -21,7 +23,7 @@ public class Login extends JFrame {
         super("Login");
         createTopPanelComponents();
         createBottomPanelComponents();
-        JPanel topPanel = setTopPanel(usernameLabel, usernameTextField, passwordLabel, passwordTextField);
+        JPanel topPanel = getTopPanel(usernameLabel, usernameTextField, passwordLabel, passwordTextField);
         JPanel buttonsPanel = setBottomPanel(loginButton, cancelButton, registrationButton);
         JPanel imgPanel = setCenterPanel();
         addListeners();
@@ -31,14 +33,14 @@ public class Login extends JFrame {
 
     public void createTopPanelComponents(){
         usernameLabel = new JLabel("User Name:", JLabel.CENTER);
-        usernameLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        usernameLabel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         passwordLabel = new JLabel("Password:", JLabel.CENTER);
-        passwordLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        passwordLabel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 
         usernameTextField = new JTextField(15);
-        usernameTextField.setFont(new Font("Serif", Font.PLAIN, 22));
+        usernameTextField.setFont(new Font("Serif", Font.BOLD, 22));
         passwordTextField = new JPasswordField(15);
-        passwordTextField.setFont(new Font("Serif", Font.PLAIN, 22));
+        passwordTextField.setFont(new Font("Serif", Font.BOLD, 22));
     }
 
     public void createBottomPanelComponents(){
@@ -61,10 +63,10 @@ public class Login extends JFrame {
         registrationButton.setSize(570,35);
     }
 
-    public JPanel setTopPanel(JLabel label1, JTextField textField1, JLabel label2, JTextField textField2) {
+    public JPanel getTopPanel (JLabel label1, JTextField textField1, JLabel label2, JTextField textField2) {
         JPanel topPanel = new JPanel();
         topPanel.setSize(600, 100);
-        topPanel.setLocation(0, 0);
+        topPanel.setLocation(0, 20);
         topPanel.setBackground(Color.WHITE);
         topPanel.setLayout(new GridLayout(2, 2, 10, 10));
         topPanel.add(label1);
@@ -84,7 +86,7 @@ public class Login extends JFrame {
         JPanel imgPanel = new JPanel();
         imgPanel.add(loginImageLabel);
         imgPanel.setSize(660, 260);
-        imgPanel.setLocation(0, 100);
+        imgPanel.setLocation(0, 120);
         imgPanel.setBackground(Color.white);
         return imgPanel;
     }
@@ -174,6 +176,8 @@ public class Login extends JFrame {
             }
         }
     };
+
+
 
     public static void main(String[] args) {
         new Login();

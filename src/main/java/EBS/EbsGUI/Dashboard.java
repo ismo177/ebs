@@ -21,8 +21,9 @@ public class Dashboard extends JFrame   {
     int tempCustID;
 
 public Dashboard() {
-        createDashboard();
+        //createDashboard();
         createComponents();
+        createDashboard();
         addComponents();
         repaint();
         addButtonListeners();
@@ -41,10 +42,10 @@ public Dashboard() {
     public void createComponents(){
 
     billPanel = new Bill_Panel();
-    billPanel.setLocation(20,20);
+    billPanel.setLocation(20,10);
 
     controlPanel = new ControlPanel();
-    controlPanel.setLocation(1060,20);
+    controlPanel.setLocation(1060,10);
     }
 
     public void addComponents(){
