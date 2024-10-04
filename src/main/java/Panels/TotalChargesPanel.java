@@ -45,7 +45,7 @@ public class TotalChargesPanel extends JPanel {
         total.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 
         totalValue = new JLabel("--", JLabel.LEFT);
-        totalValue.setFont(new Font("Times New Roman", Font.BOLD, 14));
+        totalValue.setFont(new Font("Times New Roman", Font.BOLD, 18));
         totalValue.setBorder(new LineBorder(Color.lightGray));
     }
 

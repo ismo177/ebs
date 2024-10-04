@@ -171,8 +171,10 @@ public class Login extends JFrame {
         public void mousePressed(MouseEvent e) {
             if (e.getSource() == usernameTextField) {
                 usernameTextField.setText("");
+                usernameTextField.setForeground(Color.BLACK);
             } else if (e.getSource() == passwordTextField) {
                 passwordTextField.setText("");
+                passwordTextField.setForeground(Color.BLACK);
             }
         }
     };

@@ -29,7 +29,6 @@ public class NewCustomer extends JFrame  {
     NewCustomer(User tempUser) {
         this.tempUser = tempUser;
         createComponents();
-        addFont();
         createFrame();
         addComponents();
         addListeners();
@@ -50,7 +49,7 @@ public class NewCustomer extends JFrame  {
         mainPanel = new JPanel();
         mainPanel.setSize(550, 700);
         mainPanel.setLocation(200,10);
-        mainPanel.setLayout(new GridLayout(14, 2, 10, 10));
+        mainPanel.setLayout(new GridLayout(14, 2, 10, 15));
         mainPanel.setBackground(Color.WHITE);
 
         imgPanel = new JPanel();
@@ -113,10 +112,10 @@ public class NewCustomer extends JFrame  {
 
         exitButton.setBackground(new Color(50, 205, 50));
         exitButton.setForeground(Color.BLACK);
+        addFont();
     }
 
     public void addComponents(){
-
         mainPanel.add(createNewCustomerTitle);
         mainPanel.add(emptyLabel1);
 
@@ -154,7 +153,6 @@ public class NewCustomer extends JFrame  {
         mainPanel.add(emptyLabel3);
         mainPanel.add(createButton);
         mainPanel.add(exitButton);
-
 
         add(mainPanel);
         imgPanel.add(imgLabel);
@@ -227,6 +225,7 @@ public class NewCustomer extends JFrame  {
         this.dispose();
 
     }
+
 
     public void infoMessage(String message){
         UIManager.put("OptionPane.messageFont", new Font("Arial", Font.BOLD, 24));
@@ -336,6 +335,7 @@ public class NewCustomer extends JFrame  {
             serviceFactory.getBillService().create(bill);
         }
     }
+
 
 
 }

@@ -35,19 +35,11 @@ public class PrincipalPanel extends JPanel {
         title.add(principal);
 
         name = new JLabel("  Name: ", JLabel.LEFT);
-        name.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-
         nameValue = new JLabel("--", JLabel.LEFT);
-        nameValue.setFont(new Font("Times New Roman", Font.BOLD, 16));
         nameValue.setBorder(new LineBorder(Color.lightGray));
-
         address = new JLabel("  Address: ", JLabel.LEFT);
-        address.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-
         addressValue = new JLabel("--", JLabel.LEFT);
-        addressValue.setFont(new Font("Times New Roman", Font.BOLD, 16));
         addressValue.setBorder(new LineBorder(Color.lightGray));
-
         emptySection = new JLabel();
 
         bank1 = new JLabel("  BANK1:  "+bank1Value, JLabel.LEFT);
@@ -55,6 +47,7 @@ public class PrincipalPanel extends JPanel {
 
         bank2 = new JLabel("  BANK2:  "+bank2Value, JLabel.LEFT);
         bank2.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+        addFont();
     }
 
     public void addComponents(){
@@ -81,5 +74,16 @@ public class PrincipalPanel extends JPanel {
         frame.setSize(300, 300);
         frame.setVisible(true);
 
+    }
+
+    public void addFont(){
+        JLabel[] labels={name, address};
+        JLabel[] valueLabels= {nameValue,addressValue};
+        for(JLabel label:labels){
+            label.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+        }
+        for(JLabel label:valueLabels){
+            label.setFont(new Font("Times New Roman", Font.BOLD, 18));
+        }
     }
 }

@@ -119,7 +119,7 @@ public class PayBill extends JFrame  {
 
     public String getDate(){
         LocalDateTime timeDate = LocalDateTime.now();
-        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy ");
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String date = timeDate.format(myFormatObj);
         return date;
     }

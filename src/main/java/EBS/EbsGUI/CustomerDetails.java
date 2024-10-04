@@ -8,319 +8,282 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 
-public class CustomerDetails extends JFrame implements  MouseListener {
-
-    JPanel mainPanel, topPanel, centerPanel, bottomPanel, findPanel;
-    JLabel customerIdLabel, customerNameLabel, customerAddressLabel, customerCityLabel, customerCountryLabel, customerEmailLabel, customerPhoneLabel, customerContractNoLabel, customerMeterNoLAbel, customerDebtBalanceLabel, titleLabel, customerIdFindLabel, customerNameFindLabel;
-    JTextField customerIdFindTextField, customerNameFindTextFIeld;
-    JLabel customerIdValueLabel, customerNameValueLabel, customerAddressValueLabel, customerCityValueLabel, customerCountryValueLabel, customerEmailValueLabel, customerPhoneValueLabel, customerContractNoValueLabel, customerMeterNoValueLabel, customerDebtBalanceValueLabel;
-    JButton getDetailsdButton, exitButton;
+public class CustomerDetails extends JFrame  {
+    JPanel  topPanel, centerPanel, bottomPanel, searchPanel;
+    JLabel id, name, address, city, country, email, phone, contractNo, meterNo,
+            debtBalance, titleLabel, idSearchLabel, nameSearchLabel;
+    JTextField idSearchValue, nameSearchValue;
+    JLabel idValue, nameValue, addressValue, cityValue, countryValue, emailValue,
+            phoneValue, contractNoValue, meterNoValue, debtBalanceValue;
+    JButton detailsButton, exitButton;
 
     public CustomerDetails() {
-
-
         setTitle("Find Customer ");
-        mainPanel = new JPanel();
+        createComponents();
+        createBackPanels();
+        createFrame();
+        addComponents();
+        addListeners();
+    }
 
+    public void createFrame(){
+        setSize(800, 800);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        getContentPane().setBackground(Color.WHITE);
+        setResizable(false);
+        setLocationRelativeTo(null);
+        setLayout(null);
+        setVisible(true);
+    }
 
+    public void createBackPanels(){
         topPanel = new JPanel();
-        topPanel.setLocation(0, 100);
-        topPanel.setSize(960, 70);
+        topPanel.setLocation(0, 0);
+        topPanel.setSize(800, 70);
+        topPanel.setBackground(Color.WHITE);
         topPanel.setLayout(new FlowLayout());
 
+        searchPanel = new JPanel();
+        searchPanel.setLocation(40, 100);
+        searchPanel.setSize(700, 80);
+        searchPanel.setBackground(Color.WHITE);
+        searchPanel.setLayout(new GridLayout(2, 2, 10, 10));
+
         centerPanel = new JPanel();
-        centerPanel.setLocation(0, 180);
-        centerPanel.setSize(960, 460);
+        centerPanel.setLocation(40, 200);
+        centerPanel.setSize(700, 460);
+        centerPanel.setBackground(Color.WHITE);
         centerPanel.setLayout(new GridLayout(10, 2, 10, 2));
 
         bottomPanel = new JPanel();
-        bottomPanel.setLocation(0, 700);
-        bottomPanel.setSize(960, 50);
+        bottomPanel.setLocation(40, 700);
+        bottomPanel.setSize(700, 50);
+        bottomPanel.setBackground(Color.WHITE);
         bottomPanel.setLayout(new GridLayout(1, 2, 10, 0));
-
-        mainPanel.setLayout(null);
-        mainPanel.setBorder(new LineBorder(Color.LIGHT_GRAY));
-        mainPanel.setSize(1000, 900);
-        mainPanel.setLocation(0, 0);
-
-        customerIdLabel = new JLabel("Customer's Id:", JLabel.CENTER);
-        customerIdLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
-
-        customerNameLabel = new JLabel("Name:", JLabel.CENTER);
-        customerNameLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
-
-        customerAddressLabel = new JLabel("Address:", JLabel.CENTER);
-        customerAddressLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
-
-        customerCityLabel = new JLabel("City:", JLabel.CENTER);
-        customerCityLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
-
-        customerCountryLabel = new JLabel("Country:", JLabel.CENTER);
-        customerCountryLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
-
-        customerEmailLabel = new JLabel("Email:", JLabel.CENTER);
-        customerEmailLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
-
-        customerPhoneLabel = new JLabel("Phone:", JLabel.CENTER);
-        customerPhoneLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
-
-        customerContractNoLabel = new JLabel("Contract No:", JLabel.CENTER);
-        customerContractNoLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
-
-        customerMeterNoLAbel = new JLabel("Meter No", JLabel.CENTER);
-        customerMeterNoLAbel.setFont(new Font("Times New Roman", Font.BOLD, 20));
-
-        customerDebtBalanceLabel = new JLabel("Debt Balance:", JLabel.CENTER);
-        customerDebtBalanceLabel.setFont(new Font("Times New Roman", Font.BOLD, 18));
-//------------------------------------------------------------------------------------------------------
-
-        titleLabel = new JLabel("Customer Details", JLabel.CENTER);
-        titleLabel.setFont(new Font("Times New Roman", Font.BOLD, 24));
-
-        customerIdFindLabel = new JLabel("Customer's Id:", JLabel.CENTER);
-        customerIdFindLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
-
-        customerNameFindLabel = new JLabel("Name:", JLabel.CENTER);
-        customerNameFindLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
-
-        customerIdFindTextField = new JTextField();
-        customerIdFindTextField.setFont(new Font("Times New Roman", Font.PLAIN, 24));
-        customerIdFindTextField.setSize(100, 20);
-        customerIdFindTextField.addMouseListener(this);
-
-
-        customerNameFindTextFIeld = new JTextField();
-        customerNameFindTextFIeld.setFont(new Font("Times New Roman", Font.PLAIN, 24));
-        customerNameFindTextFIeld.addMouseListener(this);
-
-        customerIdValueLabel = new JLabel("", JLabel.CENTER);
-        customerIdValueLabel.setBorder(new LineBorder(Color.LIGHT_GRAY));
-        customerIdValueLabel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        customerIdValueLabel.setBackground(Color.WHITE);
-
-        customerNameValueLabel = new JLabel("", JLabel.CENTER);
-        customerNameValueLabel.setBorder(new LineBorder(Color.LIGHT_GRAY));
-        customerNameValueLabel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        customerNameValueLabel.setBackground(Color.WHITE);
-
-        customerAddressValueLabel = new JLabel("", JLabel.CENTER);
-        customerAddressValueLabel.setBorder(new LineBorder(Color.LIGHT_GRAY));
-        customerAddressValueLabel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        customerAddressValueLabel.setBackground(Color.WHITE);
-
-        customerCityValueLabel = new JLabel("", JLabel.CENTER);
-        customerCityValueLabel.setBorder(new LineBorder(Color.LIGHT_GRAY));
-        customerCityValueLabel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        customerCityValueLabel.setBackground(Color.WHITE);
-
-        customerCountryValueLabel = new JLabel("", JLabel.CENTER);
-        customerCountryValueLabel.setBorder(new LineBorder(Color.LIGHT_GRAY));
-        customerCountryValueLabel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        customerCountryValueLabel.setBackground(Color.WHITE);
-
-        customerEmailValueLabel = new JLabel("", JLabel.CENTER);
-        customerEmailValueLabel.setBorder(new LineBorder(Color.LIGHT_GRAY));
-        customerEmailValueLabel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        customerEmailValueLabel.setBackground(Color.WHITE);
-
-        customerPhoneValueLabel = new JLabel("", JLabel.CENTER);
-        customerPhoneValueLabel.setBorder(new LineBorder(Color.LIGHT_GRAY));
-        customerPhoneValueLabel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        customerPhoneValueLabel.setBackground(Color.WHITE);
-
-        customerContractNoValueLabel = new JLabel("", JLabel.CENTER);
-        customerContractNoValueLabel.setBorder(new LineBorder(Color.LIGHT_GRAY));
-        customerContractNoValueLabel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        customerContractNoValueLabel.setBackground(Color.WHITE);
-
-        customerMeterNoValueLabel = new JLabel("", JLabel.CENTER);
-        customerMeterNoValueLabel.setBorder(new LineBorder(Color.LIGHT_GRAY));
-        customerMeterNoValueLabel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        customerMeterNoValueLabel.setBackground(Color.WHITE);
-
-        customerDebtBalanceValueLabel = new JLabel("", JLabel.CENTER);
-        customerDebtBalanceValueLabel.setBorder(new LineBorder(Color.LIGHT_GRAY));
-        customerDebtBalanceValueLabel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        customerDebtBalanceValueLabel.setBackground(Color.WHITE);
-
-
-        getDetailsdButton = new JButton("Get Details");
-        getDetailsdButton.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        getDetailsdButton.setBackground(new Color(50, 205, 50));
-        getDetailsdButton.setForeground(Color.BLACK);
-        getDetailsdButton.addActionListener(this::onClickGetDetailsButton);
-
-        exitButton = new JButton("Exit");
-        exitButton.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        exitButton.setBackground(new Color(50, 205, 50));
-        exitButton.setForeground(Color.BLACK);
-        exitButton.addActionListener(this::onClickExitButton);
-
-
-        findPanel = new JPanel();
-        findPanel.setLocation(0, 10);
-        findPanel.setSize(960, 80);
-        findPanel.setLayout(new GridLayout(2, 2, 10, 10));
-        findPanel.add(customerIdFindLabel);
-        findPanel.add(customerIdFindTextField);
-        findPanel.add(customerNameFindLabel);
-        findPanel.add(customerNameFindTextFIeld);
-
-        topPanel.add(titleLabel);
-
-        centerPanel.add(customerIdLabel);
-        centerPanel.add(customerIdValueLabel);
-        centerPanel.add(customerNameLabel);
-        centerPanel.add(customerNameValueLabel);
-        centerPanel.add(customerAddressLabel);
-        centerPanel.add(customerAddressValueLabel);
-        centerPanel.add(customerCityLabel);
-        centerPanel.add(customerCityValueLabel);
-        centerPanel.add(customerCountryLabel);
-        centerPanel.add(customerCountryValueLabel);
-        centerPanel.add(customerEmailLabel);
-        centerPanel.add(customerEmailValueLabel);
-        centerPanel.add(customerPhoneLabel);
-        centerPanel.add(customerPhoneValueLabel);
-        centerPanel.add(customerContractNoLabel);
-        centerPanel.add(customerContractNoValueLabel);
-        centerPanel.add(customerMeterNoLAbel);
-        centerPanel.add(customerMeterNoValueLabel);
-        centerPanel.add(customerDebtBalanceLabel);
-        centerPanel.add(customerDebtBalanceValueLabel);
-
-        bottomPanel.add(getDetailsdButton);
-        bottomPanel.add(exitButton);
-
-        mainPanel.add(findPanel);
-        mainPanel.add(topPanel);
-        mainPanel.add(centerPanel);
-        mainPanel.add(bottomPanel);
-
-        add(mainPanel);
-
-        setSize(1000, 800);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setResizable(false);
-        setLocation(200, 20);
-        setLayout(null);
-        setVisible(true);
 
 
     }
 
+    public void createComponents(){
+        titleLabel = new JLabel("Customer Details", JLabel.CENTER);
+        titleLabel.setFont(new Font("Times New Roman", Font.BOLD, 26));
 
-    public void onClickGetDetailsButton(ActionEvent e) {
-        String id = customerIdFindTextField.getText();
-        String name = customerNameFindTextFIeld.getText();
+        idSearchLabel = new JLabel("Customer's Id:", JLabel.CENTER);
+        idSearchValue = new JTextField();
 
-        ServiceFactory serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
-        serviceFactory.getCustomerService().emOpen();
-        if ((name.isEmpty() && !id.isEmpty()) || (!name.isEmpty() && !id.isEmpty())) {
-            //serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
-            Customer customer = serviceFactory.getCustomerService().find(id);
+        nameSearchLabel = new JLabel("Name:", JLabel.CENTER);
+        nameSearchValue = new JTextField();
 
-            if (customer != null) {
-                customerIdFindTextField.setBorder(new LineBorder(Color.GREEN, 3, true));
-                setValues(customer);
+        id = new JLabel("Customer Id:");
+        name = new JLabel("Name:");
+        address = new JLabel("Address:");
+        city = new JLabel("City:");
+        country = new JLabel("Country:");
+        email = new JLabel("Email:");
+        phone = new JLabel("Phone:");
+        contractNo = new JLabel("Contract No:");
+        meterNo = new JLabel("Meter No");
+        debtBalance = new JLabel("Debt Balance:");
 
-            } else {
-                customerIdValueLabel.setBorder(new LineBorder(Color.RED, 3, true));
-                customerIdValueLabel.setText("Doesn't Exists");
-                customerIdValueLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
-            }
-        } else if (!name.isEmpty() && id.isEmpty()) {
-            //serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
-            Customer customer = serviceFactory.getCustomerService().findByName(name);
+        idValue = new JLabel();
+        nameValue = new JLabel();
+        addressValue = new JLabel();
+        cityValue = new JLabel();
+        countryValue = new JLabel();
+        emailValue = new JLabel();
+        phoneValue = new JLabel();
+        contractNoValue = new JLabel();
+        meterNoValue = new JLabel();
+        debtBalanceValue = new JLabel();
 
-            if (customer != null) {
-                customerNameFindTextFIeld.setBorder(new LineBorder(Color.GREEN, 3, true));
-                setValues(customer);
+        detailsButton = new JButton("Get Details");
+        exitButton = new JButton("Exit");
+        addFont();
+        addBordersBackgroundAndHorizontalAlignmentForCenterPanel();
+        addForegroundAndBackgroundForBottomPanel();
 
+    }
 
-            } else {
-                customerIdValueLabel.setBorder(new LineBorder(Color.RED, 3, true));
-                customerIdValueLabel.setText("Doesn't Exist");
-                customerIdValueLabel.setFont(new Font("Times New Roman", Font.BOLD, 24));
-            }
+    public void addComponents(){
+        JLabel[] labels = { id, idValue, name, nameValue, address, addressValue,
+                            city, cityValue, country, countryValue,
+                            email, emailValue, phone, phoneValue, contractNo, contractNoValue,
+                            meterNo, meterNoValue, debtBalance, debtBalanceValue};
+
+        topPanel.add(titleLabel);
+        searchPanel.add(idSearchLabel);
+        searchPanel.add(idSearchValue);
+        searchPanel.add(nameSearchLabel);
+        searchPanel.add(nameSearchValue);
+
+        for(JLabel label : labels){
+            centerPanel.add(label);
         }
 
+        bottomPanel.add(detailsButton);
+        bottomPanel.add(exitButton);
 
-        if (name.isBlank() && id.isBlank()) {
-            customerIdFindTextField.setText("Customers Id here");
-            customerIdFindTextField.setForeground(Color.lightGray);
-            customerIdFindTextField.setBorder(new LineBorder(Color.RED, 3, true));
-            customerIdFindTextField.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-            customerNameFindTextFIeld.setText("Customers name here");
-            customerNameFindTextFIeld.setForeground(Color.lightGray);
-            customerNameFindTextFIeld.setBorder(new LineBorder(Color.RED, 3, true));
-            customerNameFindTextFIeld.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        add(topPanel);
+        add(searchPanel);
+        add(centerPanel);
+        add(bottomPanel);
+    }
+
+    public void addFont(){
+        JTextField[] searchPanelTextFields= {idSearchValue, nameSearchValue};
+        JLabel[] centerPanelLabels = { id, name, address, city, country, email, phone, contractNo, meterNo, debtBalance};
+        JLabel[] centerPanelValueLabels= { idValue, nameValue, addressValue, cityValue, countryValue, emailValue, phoneValue,
+                                            contractNoValue, meterNoValue, debtBalanceValue};
+        JLabel[] topPanelLabels= {titleLabel, idSearchLabel, nameSearchLabel};
+        JButton[] buttons= {detailsButton, exitButton};
+        for(JLabel label : centerPanelLabels){
+            label.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        }
+        for(JLabel label : centerPanelValueLabels){
+            label.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        }
+        for(JLabel label : topPanelLabels){
+            label.setFont(new Font("Times New Roman", Font.PLAIN, 24));
+        }
+        for(JButton button : buttons){
+            button.setFont(new Font("Times New Roman", Font.PLAIN, 24));
+        }
+
+        for(JTextField fields : searchPanelTextFields){
+            fields.setFont(new Font("Times New Roman", Font.BOLD, 24));
+
+        }
+    }
+
+    public void addBordersBackgroundAndHorizontalAlignmentForCenterPanel(){
+        JLabel[] centerPanelLabels = { id, name, address, city, country, email, phone, contractNo, meterNo, debtBalance};
+        JLabel[] centerPanelValueLabels= { idValue, nameValue, addressValue, cityValue, countryValue, emailValue, phoneValue,
+                                contractNoValue, meterNoValue, debtBalanceValue};
+
+        for(JLabel label: centerPanelLabels){
+            label.setHorizontalAlignment(JLabel.LEFT);
+        }
+        for(JLabel label: centerPanelValueLabels){
+            label.setHorizontalAlignment(JLabel.CENTER);
+            label.setBorder(new LineBorder(Color.LIGHT_GRAY));
+            label.setBackground(Color.WHITE);
 
         }
 
+    }
+
+    public void addForegroundAndBackgroundForBottomPanel(){
+        JButton[] buttons= {detailsButton, exitButton};
+        for(JButton button : buttons){
+            button.setForeground(Color.BLACK);
+            button.setBackground(new Color(50, 205, 50));
+        }
+    }
+
+    public void addListeners(){
+        idSearchValue.addMouseListener(mouseAdapter);
+        nameSearchValue.addMouseListener(mouseAdapter);
+        detailsButton.addActionListener(this::onClickDetailsButton);
+        exitButton.addActionListener(this::onClickExitButton);
+    }
+
+    public void onClickDetailsButton(ActionEvent e) {
+        String id = idSearchValue.getText();
+        String name = nameSearchValue.getText();
+
+        if (name.isEmpty() && !id.isEmpty()) {
+            findByID(id);
+        }
+        else if(!name.isEmpty() && id.isEmpty()) {
+            findByName(name);
+
+        }
+            else{
+                infoMessage("Search fields are empty", "warning");
+            }
     }
 
     public void onClickExitButton(ActionEvent e){
         this.dispose();
     }
 
-//------------------------------------------------------------------------------------------------------
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        customerIdFindTextField.setText("");
-        customerIdFindTextField.setBorder(new LineBorder(Color.gray));
-        customerNameFindTextFIeld.setText("");
-        customerIdFindTextField.setForeground(Color.BLACK);
-        customerNameFindTextFIeld.setBorder(new LineBorder(Color.gray));
-        customerNameFindTextFIeld.setForeground(Color.BLACK);
-        customerIdValueLabel.setBorder(new LineBorder(Color.lightGray));
-        customerIdValueLabel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        setBlankFields();
-       //FactoryService factoryService = FactoryService.CUSTOMER_SERVICE;
-        //factoryService.getCustomerService().emOpen();
+    MouseAdapter mouseAdapter= new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            idSearchValue.setText("");
+            idSearchValue.setBorder(new LineBorder(Color.gray));
+            nameSearchValue.setText("");
+            idSearchValue.setForeground(Color.BLACK);
+            nameSearchValue.setBorder(new LineBorder(Color.gray));
+            nameSearchValue.setForeground(Color.BLACK);
+            idValue.setBorder(new LineBorder(Color.lightGray));
+            idValue.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+            clearTextFields();
+        }
+    };
 
-    }
-    @Override
-    public void mousePressed(MouseEvent e) {
+    public void findByID(String id){
+        ServiceFactory serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
+        Customer customer = serviceFactory.getCustomerService().find(id);
 
-    }
-    @Override
-    public void mouseReleased(MouseEvent e) {
+        if (customer != null) {
+            infoMessage("Customer "+customer.getName()+" found","info");
+            setValues(customer);
 
-    }
-    @Override
-    public void mouseEntered(MouseEvent e) {
+        } else {
+            infoMessage("Doesn't exists", "warning");
+        }
     }
 
-    @Override
-    public void mouseExited(MouseEvent e) {
+    public void findByName(String name){
+        ServiceFactory serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
+        Customer customer = serviceFactory.getCustomerService().findByName(name);
 
+        if (customer != null) {
+            infoMessage("Customer "+customer.getName()+" found","info");
+            setValues(customer);
+
+
+        } else {
+            infoMessage("Doesn't exists", "warning");
+        }
     }
-    //-------------------------------------------------------------
+
     public void setValues(Customer customer){
-        customerIdValueLabel.setText(String.valueOf(customer.getId()));
-        customerNameValueLabel.setText(customer.getName());
-        customerAddressValueLabel.setText(customer.getAddress());
-        customerCityValueLabel.setText(customer.getCity());
-        customerCountryValueLabel.setText(customer.getCountry());
-        customerEmailValueLabel.setText(customer.getPhone());
-        customerPhoneValueLabel.setText(customer.getEmail());
-        customerContractNoValueLabel.setText(customer.getContractNo());
-        customerMeterNoValueLabel.setText(String.valueOf(customer.getMeterNo()));
-        customerDebtBalanceValueLabel.setText(String.valueOf(customer.getDebtBalance()));
+        idValue.setText(String.valueOf(customer.getId()));
+        nameValue.setText(customer.getName());
+        addressValue.setText(customer.getAddress());
+        cityValue.setText(customer.getCity());
+        countryValue.setText(customer.getCountry());
+        emailValue.setText(customer.getPhone());
+        phoneValue.setText(customer.getEmail());
+        contractNoValue.setText(customer.getContractNo());
+        meterNoValue.setText(String.valueOf(customer.getMeterNo()));
+        debtBalanceValue.setText(String.valueOf(customer.getDebtBalance()));
     }
 
-    public void setBlankFields(){
-      JLabel[] fields={customerIdValueLabel, customerNameValueLabel, customerAddressValueLabel, customerCityValueLabel, customerCountryValueLabel, customerEmailValueLabel, customerPhoneValueLabel, customerContractNoValueLabel, customerMeterNoValueLabel, customerDebtBalanceValueLabel};
+    public void clearTextFields(){
+      JLabel[] fields={idValue, nameValue, addressValue, cityValue, countryValue, emailValue, phoneValue,
+              contractNoValue, meterNoValue, debtBalanceValue};
       for(JLabel field:fields){
           field.setText("");
       }
-
-
-
     }
 
+    public void infoMessage(String message, String type){
+        int messageType;
+        if(type.equals("warning")) {
+            messageType = JOptionPane.WARNING_MESSAGE;
+        }else{
+            messageType = JOptionPane.INFORMATION_MESSAGE;
+        }
+        UIManager.put("OptionPane.messageFont", new Font("Arial", Font.BOLD, 24));
+        JOptionPane.showMessageDialog(this, message+" !", "Service", messageType);
+    }
 
+    public static void main(String[] args) {
+        new CustomerDetails();
+    }
 }
 
 

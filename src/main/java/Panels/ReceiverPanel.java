@@ -32,34 +32,16 @@ public class ReceiverPanel extends JPanel {
         title.add(receiver);
 
         transactionAccountNo = new JLabel(" Transaction account number:", JLabel.LEFT);
-        transactionAccountNo.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-
         transactionAccountValue = new JLabel("0000000000001", JLabel.LEFT);
-        transactionAccountValue.setFont(new Font("Times New Roman", Font.BOLD, 12));
-
         referenceNo = new JLabel("  Reference number:", JLabel.LEFT);
-        referenceNo.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-
         referenceValue = new JLabel("--", JLabel.LEFT);
-        referenceValue.setFont(new Font("Times New Roman", Font.BOLD, 12));
-
         amount = new JLabel("  Amount:", JLabel.LEFT);
-        amount.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-
         amountValue = new JLabel("00,00 KM", JLabel.LEFT);
-        amountValue.setFont(new Font("Times New Roman", Font.BOLD, 12));
-
         areaOfSupply = new JLabel("  Area of supply: ", JLabel.LEFT);
-        areaOfSupply.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-
         areaOfSupplyValue = new JLabel("--", JLabel.LEFT);
-        areaOfSupplyValue.setFont(new Font("Times New Roman", Font.BOLD, 12));
-
         address = new JLabel("  Address and Place: ", JLabel.LEFT);
-        address.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-
         addressValue = new JLabel("-- + --", JLabel.LEFT);
-        addressValue.setFont(new Font("Times New Roman", Font.BOLD, 12));
+        addFont();
     }
 
     public void addComponents(){
@@ -92,5 +74,17 @@ public class ReceiverPanel extends JPanel {
         frame.setSize(300, 300);
         frame.setVisible(true);
 
+    }
+
+    public void addFont(){
+        JLabel[] labels= {transactionAccountNo, referenceNo, amount, areaOfSupply, address};
+        JLabel[] valueLabels={ transactionAccountValue, referenceValue, amountValue, areaOfSupplyValue, addressValue };
+
+        for(JLabel label:labels){
+            label.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+        }
+        for(JLabel label:valueLabels){
+            label.setFont(new Font("Times New Roman", Font.BOLD, 18));
+        }
     }
 }
