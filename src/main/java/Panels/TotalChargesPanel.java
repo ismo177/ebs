@@ -71,8 +71,8 @@ public class TotalChargesPanel extends JPanel {
             total=BigDecimal.ZERO;
         }
         amount=amount.multiply(bill.getCustomer().getTax().getTierRate());
-        MathContext mc3 = new MathContext(3, RoundingMode.HALF_DOWN);
-        MathContext mc4 = new MathContext(4, RoundingMode.HALF_DOWN);
+        MathContext mc3 = new MathContext(4, RoundingMode.HALF_DOWN);
+        MathContext mc4 = new MathContext(5, RoundingMode.HALF_DOWN);
 
         if(amount.compareTo(BigDecimal.ZERO)<10){
             amount=amount.round(mc3);
@@ -90,6 +90,7 @@ public class TotalChargesPanel extends JPanel {
 
         amountValue.setText(String.valueOf(amount));
         taxValue.setText(String.valueOf(tax));
+       // totalValue.setText(String.valueOf(amount.add(tax)));
         totalValue.setText(String.valueOf(total));
     }
 

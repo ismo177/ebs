@@ -21,7 +21,6 @@ public class Dashboard extends JFrame   {
     int tempCustID;
 
 public Dashboard() {
-        //createDashboard();
         createComponents();
         createDashboard();
         addComponents();
@@ -32,7 +31,7 @@ public Dashboard() {
     public void createDashboard(){
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screenSize = toolkit.getScreenSize();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         getContentPane().setBackground(Color.WHITE);
         setSize(screenSize);
         setLayout(null);

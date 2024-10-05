@@ -36,8 +36,8 @@ CREATE TABLE `customers` (
   `tax_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_taxID_idx` (`tax_id`),
-  CONSTRAINT `fk_taxID` FOREIGN KEY (`tax_id`) REFERENCES `tax` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `fk_taxID` FOREIGN KEY (`tax_id`) REFERENCES `tax` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,7 +46,7 @@ CREATE TABLE `customers` (
 
 LOCK TABLES `customers` WRITE;
 /*!40000 ALTER TABLE `customers` DISABLE KEYS */;
-INSERT INTO `customers` VALUES (19,'Emir Puric','Ferde Hauptmana','Sarajevo','BiH','purke@gmail.com','+387 61 619 000','12345678912',12,154.50,1),(20,'Ismet Omerovic','Gradacacka bb','Sarajevo','BiH','ismet.omerovic1988@gmail.com','+387 61 634938','1234567891',2,34.50,1),(21,'Alen Botic','Nevjestina bb','Sarajevo','BiH','alen.botic@gmail.com','+387 61 123 456','1234567892',3,0.00,1),(23,'Eldar Fazlagic','Paromlinska bb','Sarajevo','BiH','elda@gmail.com','+387 61 000111','1234567894',4,0.00,1);
+INSERT INTO `customers` VALUES (14,'Ismet Omerovic','Gradacacka bb','Sarajevo','BiH','ismet.omerovic1988@gmail.com','+ 387 61 634 938','000001',123456,0.00,1);
 /*!40000 ALTER TABLE `customers` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -59,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-09-09  0:45:40
+-- Dump completed on 2024-10-05 12:35:23

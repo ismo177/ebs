@@ -229,7 +229,6 @@ public class CustomerDetails extends JFrame  {
         if (customer != null) {
             infoMessage("Customer "+customer.getName()+" found","info");
             setValues(customer);
-
         } else {
             infoMessage("Doesn't exists", "warning");
         }
@@ -238,12 +237,9 @@ public class CustomerDetails extends JFrame  {
     public void findByName(String name){
         ServiceFactory serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
         Customer customer = serviceFactory.getCustomerService().findByName(name);
-
         if (customer != null) {
             infoMessage("Customer "+customer.getName()+" found","info");
             setValues(customer);
-
-
         } else {
             infoMessage("Doesn't exists", "warning");
         }

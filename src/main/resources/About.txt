@@ -1,2 +1,2 @@
 This application is only for purposes of learning Java programming language.
-Author: Ismet Omerović
+Author: Ismet Omerovic

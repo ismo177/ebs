@@ -39,6 +39,7 @@ public class GenerateBill extends JFrame  {
     public void createFrame(){
         setLayout(null);
         getContentPane().setBackground(Color.WHITE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(700, 500);
         setLocation(300, 100);
         setResizable(false);

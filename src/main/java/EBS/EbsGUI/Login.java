@@ -6,8 +6,6 @@ import service.User.User;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.*;
-import java.util.List;
 
 public class Login extends JFrame {
 
@@ -28,7 +26,7 @@ public class Login extends JFrame {
         JPanel imgPanel = setCenterPanel();
         addListeners();
         loginBackground= new Welcome();
-        setLoginFrame(topPanel, imgPanel,buttonsPanel );
+        createFrame(topPanel, imgPanel,buttonsPanel );
     }
 
     public void createTopPanelComponents(){
@@ -38,9 +36,9 @@ public class Login extends JFrame {
         passwordLabel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 
         usernameTextField = new JTextField(15);
-        usernameTextField.setFont(new Font("Serif", Font.BOLD, 22));
+        usernameTextField.setFont(new Font("Arial", Font.BOLD, 24));
         passwordTextField = new JPasswordField(15);
-        passwordTextField.setFont(new Font("Serif", Font.BOLD, 22));
+        passwordTextField.setFont(new Font("Arial", Font.BOLD, 24));
     }
 
     public void createBottomPanelComponents(){
@@ -104,7 +102,7 @@ public class Login extends JFrame {
 
     }
 
-    public void setLoginFrame(JPanel top, JPanel center, JPanel bottom) {
+    public void createFrame(JPanel top, JPanel center, JPanel bottom) {
         add(top);
         add(center);
         add(bottom);

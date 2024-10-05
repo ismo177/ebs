@@ -38,6 +38,7 @@ public class NewCustomer extends JFrame  {
     public void createFrame(){
         setTitle("New Customer");
         getContentPane().setBackground(Color.WHITE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(800, 700);
         setLayout(null);
         setLocationRelativeTo(null);
