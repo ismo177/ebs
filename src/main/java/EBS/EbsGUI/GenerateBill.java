@@ -32,8 +32,6 @@ public class GenerateBill extends JFrame  {
            createFrame();
            addComponents();
            addListeners();
-
-
     }
 
     public void createFrame(){
@@ -47,7 +45,7 @@ public class GenerateBill extends JFrame  {
     }
 
     public void createComponents(){
-        titleLabel = new JLabel("Set Bill", JLabel.CENTER);
+        titleLabel = new JLabel("Generate Bill", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setSize(260, 30);
         titleLabel.setLocation(200, 20);
@@ -60,22 +58,11 @@ public class GenerateBill extends JFrame  {
         imgLabel.setLocation(60, 100);
 
         customerId = new JLabel("Customer Id");
-        customerId.setFont(new Font("Times New Roman", Font.BOLD, 20));
-
         customerIdValue = new JTextField(String.valueOf(tempCustID));
-        customerIdValue.setFont(new Font("Times New Roman", Font.PLAIN, 24));
-
         offPeakUnits = new JLabel("Off-Peak Units ");
-        offPeakUnits.setFont(new Font("Times New Roman", Font.BOLD, 20));
-
         offPeakUnitsValue = new JTextField("0");
-        offPeakUnitsValue.setFont(new Font("Times New Roman", Font.PLAIN, 24));
-
         onPeakUnits = new JLabel("On-Peak Units ");
-        onPeakUnits.setFont(new Font("Times New Roman", Font.BOLD, 20));
-
         onPeakUnitsValue = new JTextField("0");
-        onPeakUnitsValue.setFont(new Font("Times New Roman", Font.PLAIN, 24));
 
         monthChoice = new MonthChoice();
         monthChoice.setMonthLabelValue(month);
@@ -83,23 +70,9 @@ public class GenerateBill extends JFrame  {
         monthChoice.setLocation(450,280);
 
         generateButton = new JButton("Generate");
-        generateButton.setBackground(new Color(50, 205, 50));
-        generateButton.setFont(new Font("Times New Roman", Font.BOLD, 24));
-
         exitButton = new JButton("Exit");
-        exitButton.setBackground(new Color(50, 205, 50));
-        exitButton.setFont(new Font("Times New Roman", Font.BOLD, 24));
-
-        centerPanel = new JPanel();
-        centerPanel.setSize(400, 160);
-        centerPanel.setLocation(250, 100);
-        centerPanel.setBackground(Color.WHITE);
-        centerPanel.setLayout(new GridLayout(3,2,10,10));
-
-        buttonsPanel = new JPanel();
-        buttonsPanel.setSize(440, 60);
-        buttonsPanel.setLocation(210, 380);
-        buttonsPanel.setLayout(new GridLayout(1, 2, 20,20));
+        addFont();
+        createBackPanels();
     }
 
 
@@ -119,6 +92,36 @@ public class GenerateBill extends JFrame  {
         add(monthChoice);
         add(imgLabel);
         add(buttonsPanel);
+    }
+
+    public void createBackPanels(){
+        centerPanel = new JPanel();
+        centerPanel.setSize(400, 160);
+        centerPanel.setLocation(250, 100);
+        centerPanel.setBackground(Color.WHITE);
+        centerPanel.setLayout(new GridLayout(3,2,10,10));
+
+        buttonsPanel = new JPanel();
+        buttonsPanel.setSize(440, 60);
+        buttonsPanel.setLocation(210, 380);
+        buttonsPanel.setLayout(new GridLayout(1, 2, 20,20));
+    }
+
+    public void addFont(){
+        JLabel[] labels = { customerId, offPeakUnits, onPeakUnits };
+        JTextField[] labelValue = { customerIdValue, offPeakUnitsValue, onPeakUnitsValue };
+        JButton[] buttons= { generateButton, exitButton };
+
+        for(JLabel label : labels){
+            label.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        }
+        for(JTextField tf : labelValue){
+            tf.setFont(new Font("Times New Roman", Font.BOLD, 24));
+        }
+        for(JButton button : buttons){
+            button.setFont(new Font("Times New Roman", Font.BOLD, 24));
+            button.setBackground(new Color(50, 205, 50));
+        }
     }
 
     public void addListeners(){
@@ -141,7 +144,6 @@ public class GenerateBill extends JFrame  {
             if(id.isEmpty() && offPeak<=0 && onPeak<=0) {
               infoMessage("Bad input");
             }
-
             else if(!id.isEmpty() && (offPeak>0  || onPeak>0)) {
                 updateBillStatus(id, offPeak, onPeak);
                 infoMessage("Successfully generated bill");
@@ -222,6 +224,9 @@ public class GenerateBill extends JFrame  {
         serviceFactory.getCustomerService().edit(customer);
     }
 
+    public static void main(String[] args) {
+        new GenerateBill(14, "January");
+    }
 
 }
 

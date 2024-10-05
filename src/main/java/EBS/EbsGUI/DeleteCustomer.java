@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import EBS.EbsGUI.CustomerDetails.*;
+
 
 public class DeleteCustomer extends JFrame  {
     JPanel centerPanel, bottomPanel;

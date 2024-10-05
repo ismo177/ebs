@@ -8,104 +8,25 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Login extends JFrame {
-
-    private JLabel usernameLabel;
-    private JLabel passwordLabel;
-    private JButton registrationButton;
+    JPanel topPanel, imgPanel, bottomPanel;
+    JLabel username, password;
+    JLabel loginImageLabel;
     JTextField usernameTextField;
     JPasswordField passwordTextField;
-    JButton loginButton, cancelButton;
+    JButton loginButton, cancelButton, registrationButton;
     Welcome loginBackground;
 
     Login() {
         super("Login");
-        createTopPanelComponents();
-        createBottomPanelComponents();
-        JPanel topPanel = getTopPanel(usernameLabel, usernameTextField, passwordLabel, passwordTextField);
-        JPanel buttonsPanel = setBottomPanel(loginButton, cancelButton, registrationButton);
-        JPanel imgPanel = setCenterPanel();
-        addListeners();
+        createComponents();
         loginBackground= new Welcome();
-        createFrame(topPanel, imgPanel,buttonsPanel );
+        createFrame();
+        addComponents();
+        addListeners();
     }
 
-    public void createTopPanelComponents(){
-        usernameLabel = new JLabel("User Name:", JLabel.CENTER);
-        usernameLabel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        passwordLabel = new JLabel("Password:", JLabel.CENTER);
-        passwordLabel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-
-        usernameTextField = new JTextField(15);
-        usernameTextField.setFont(new Font("Arial", Font.BOLD, 24));
-        passwordTextField = new JPasswordField(15);
-        passwordTextField.setFont(new Font("Arial", Font.BOLD, 24));
-    }
-
-    public void createBottomPanelComponents(){
-        loginButton = new JButton("Login");
-        loginButton.setFont(new Font("Serif", Font.BOLD, 24));
-        loginButton.setBackground(new Color(50, 205, 50));
-        loginButton.setSize(270, 50);
-        loginButton.setLocation(20,20);
-
-        cancelButton = new JButton("Cancel");
-        cancelButton.setBackground(new Color(50, 205, 50));
-        cancelButton.setFont(new Font("Serif", Font.BOLD, 24));
-        cancelButton.setSize(270, 50);
-        cancelButton.setLocation(320,20);
-
-        registrationButton = new JButton("Registration");
-        registrationButton.setFont(new Font("Times New Roman", Font.BOLD, 20));
-        registrationButton.setBackground(new Color(50, 205, 50));
-        registrationButton.setLocation(20, 80);
-        registrationButton.setSize(570,35);
-    }
-
-    public JPanel getTopPanel (JLabel label1, JTextField textField1, JLabel label2, JTextField textField2) {
-        JPanel topPanel = new JPanel();
-        topPanel.setSize(600, 100);
-        topPanel.setLocation(0, 20);
-        topPanel.setBackground(Color.WHITE);
-        topPanel.setLayout(new GridLayout(2, 2, 10, 10));
-        topPanel.add(label1);
-        topPanel.add(textField1);
-        topPanel.add(label2);
-        topPanel.add(textField2);
-        return topPanel;
-    }
-
-    public JPanel setCenterPanel(){
-        //CenterPanel component
-        ImageIcon ic3 = new ImageIcon(ClassLoader.getSystemResource("images/green-login.jpg"));
-        Image i3 = ic3.getImage().getScaledInstance(360, 240, Image.SCALE_DEFAULT);
-        ImageIcon icc3 = new ImageIcon(i3);
-        //
-        JLabel loginImageLabel = new JLabel(icc3);
-        JPanel imgPanel = new JPanel();
-        imgPanel.add(loginImageLabel);
-        imgPanel.setSize(660, 260);
-        imgPanel.setLocation(0, 120);
-        imgPanel.setBackground(Color.white);
-        return imgPanel;
-    }
-
-    public JPanel setBottomPanel(JButton button1, JButton button2, JButton button3 ) {
-        JPanel buttonsPanel = new JPanel();
-        buttonsPanel.setSize(620, 120);
-        buttonsPanel.setLocation(10, 360);
-        buttonsPanel.setBackground(Color.WHITE);
-        buttonsPanel.add(button1);
-        buttonsPanel.add(button2);
-        buttonsPanel.add(button3);
-        buttonsPanel.setLayout(null);
-        return buttonsPanel;
-
-    }
-
-    public void createFrame(JPanel top, JPanel center, JPanel bottom) {
-        add(top);
-        add(center);
-        add(bottom);
+    public void createFrame() {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setBackground(Color.white);
         setSize(660, 520);
         setLayout(null);
@@ -114,6 +35,83 @@ public class Login extends JFrame {
         setVisible(true);
     }
 
+    public void createComponents(){
+        username = new JLabel("User Name:", JLabel.CENTER);
+        password = new JLabel("Password:", JLabel.CENTER);
+
+        usernameTextField = new JTextField(15);
+        passwordTextField = new JPasswordField(15);
+
+        loginButton = new JButton("Login");
+        loginButton.setSize(270, 50);
+        loginButton.setLocation(20,20);
+
+        cancelButton = new JButton("Cancel");
+        cancelButton.setSize(270, 50);
+        cancelButton.setLocation(320,20);
+
+        registrationButton = new JButton("Registration");
+        registrationButton.setLocation(20, 80);
+        registrationButton.setSize(570,35);
+
+        ImageIcon ic3 = new ImageIcon(ClassLoader.getSystemResource("images/green-login.jpg"));
+        Image i3 = ic3.getImage().getScaledInstance(360, 240, Image.SCALE_DEFAULT);
+        ImageIcon icc3 = new ImageIcon(i3);
+        loginImageLabel = new JLabel(icc3);
+        createBackPanels();
+        addFont();
+    }
+
+    public void createBackPanels(){
+        topPanel = new JPanel();
+        topPanel.setSize(600, 100);
+        topPanel.setLocation(0, 20);
+        topPanel.setBackground(Color.WHITE);
+        topPanel.setLayout(new GridLayout(2, 2, 10, 10));
+
+        imgPanel = new JPanel();
+        imgPanel.setSize(660, 260);
+        imgPanel.setLocation(0, 120);
+        imgPanel.setBackground(Color.white);
+
+        bottomPanel = new JPanel();
+        bottomPanel.setSize(620, 120);
+        bottomPanel .setLocation(10, 360);
+        bottomPanel.setBackground(Color.WHITE);
+        bottomPanel.setLayout(null);
+    }
+
+    public void addComponents(){
+        topPanel.add(username);
+        topPanel.add(usernameTextField);
+        topPanel.add(password);
+        topPanel.add(passwordTextField);
+
+        imgPanel.add(loginImageLabel);
+        bottomPanel.add(loginButton);
+        bottomPanel.add(cancelButton);
+        bottomPanel.add(registrationButton);
+
+        add(topPanel);
+        add(imgPanel);
+        add(bottomPanel);
+    }
+
+    public void addFont(){
+        JLabel[] labels= { username, password };
+        JTextField[] labelValues={ usernameTextField};
+        JButton[] buttons= {loginButton, cancelButton, registrationButton};
+
+        for(JLabel label: labels){
+            label.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        }
+        usernameTextField.setFont(new Font("Times New Roman", Font.BOLD, 24));
+        passwordTextField.setFont(new Font("Times New Roman", Font.BOLD, 24));
+        for(JButton button: buttons){
+            button.setFont(new Font("Times New Roman", Font.BOLD, 24));
+            button.setBackground(new Color(50, 205, 50));
+        }
+    }
 
     private void onClickLoginButton(ActionEvent actionEvent) {
         String uName = usernameTextField.getText();

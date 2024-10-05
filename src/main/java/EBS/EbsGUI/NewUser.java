@@ -17,10 +17,7 @@ public class NewUser extends JFrame  {
     JLabel titleLabel, usernameLabel, passwordLabel;
     JTextField usernameTextField, passwordTextField;
     JButton createButton, exitButton;
-
-
     public NewUser() {
-
         createComponents();
         addComponents();
         createFrame();
@@ -41,46 +38,41 @@ public class NewUser extends JFrame  {
 
     public void createComponents(){
         titleLabel = new JLabel("Create New User",JLabel.CENTER);
-        titleLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        titleLabel.setFont(new Font("Times New Roman", Font.BOLD, 24));
         titleLabel.setSize(600, 60);
         titleLabel.setLocation(0, 0);
 
         usernameLabel = new JLabel("Enter Username:", JLabel.CENTER);
-        usernameLabel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-
         passwordLabel = new JLabel("Enter Password:", JLabel.CENTER);
-        passwordLabel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-
-        centerPanel = new JPanel();
-        centerPanel.setLayout(new GridLayout(2, 2, 20, 40));
-        centerPanel.setSize(580, 140);
-        centerPanel.setBackground(Color.WHITE);
-        centerPanel.setLocation(0, 80);
-        // p1.setBorder(new LineBorder(Color.RED));
-
         usernameTextField = new JTextField();
-        usernameTextField.setFont(new Font("Times New Roman", Font.PLAIN, 24));
-
-
         passwordTextField = new JTextField();
-        passwordTextField.setFont(new Font("Times New Roman", Font.PLAIN, 24));
+        createButton = new JButton("Create");
+        exitButton = new JButton("Exit");
+        addFont();
+        createBackPanels();
 
+    }
 
+    public void addComponents(){
         centerPanel.add(usernameLabel);
         centerPanel.add(usernameTextField);
         centerPanel.add(passwordLabel);
         centerPanel.add(passwordTextField);
 
+        bottomPanel.add(createButton);
+        bottomPanel.add(exitButton);
 
-        createButton = new JButton("Create");
-        createButton.setFont(new Font("Times New Roman", Font.BOLD, 20));
-        createButton.setBackground(new Color(50, 205, 50));
-        createButton.addActionListener(this::onClickCreateButton);
+        add(titleLabel);
+        add(centerPanel);
+        add(bottomPanel);
+    }
 
-        exitButton = new JButton("Exit");
-        exitButton.setFont(new Font("Times New Roman", Font.BOLD, 20));
-        exitButton.setBackground(new Color(50, 205, 50));
-        exitButton.addActionListener(this::onClickExitButton);
+    public void createBackPanels(){
+        centerPanel = new JPanel();
+        centerPanel.setLayout(new GridLayout(2, 2, 20, 40));
+        centerPanel.setSize(580, 140);
+        centerPanel.setBackground(Color.WHITE);
+        centerPanel.setLocation(0, 80);
 
         bottomPanel = new JPanel();
         bottomPanel.setLayout(new GridLayout(1, 2, 20, 0));
@@ -88,12 +80,21 @@ public class NewUser extends JFrame  {
         bottomPanel.setLocation(20, 290);
     }
 
-    public void addComponents(){
-        bottomPanel.add(createButton);
-        bottomPanel.add(exitButton);
-        add(titleLabel);
-        add(centerPanel);
-        add(bottomPanel);
+    public void addFont(){
+        JLabel[] labels = { titleLabel, usernameLabel, passwordLabel};
+        JTextField[] labelValues = { usernameTextField, passwordTextField };
+        JButton[] buttons= { createButton, exitButton };
+
+        for(JLabel label : labels){
+            label.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        }
+        for(JTextField labelValue : labelValues){
+            labelValue.setFont(new Font("Times New Roman", Font.BOLD, 24));
+        }
+        for(JButton button : buttons){
+            button.setFont(new Font("Times New Roman", Font.BOLD, 24));
+            button.setBackground(new Color(50, 205, 50));
+        }
     }
 
     private void onClickCreateButton(ActionEvent e) {
@@ -119,6 +120,8 @@ public class NewUser extends JFrame  {
     public void addListeners(){
         usernameTextField.addMouseListener(mouseAdapter);
         passwordTextField.addMouseListener(mouseAdapter);
+        createButton.addActionListener(this::onClickCreateButton);
+        exitButton.addActionListener(this::onClickExitButton);
     }
 
     public void onClickExitButton(ActionEvent e) {

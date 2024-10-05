@@ -179,9 +179,7 @@ public class PayBill extends JFrame  {
         serviceFactory = ServiceFactory.BILL_SERVICE;
         bill.setInvoiceStatus(true);
         serviceFactory.getBillService().edit(bill);
-        UIManager.put("OptionPane.messageFont", new Font("Arial", Font.BOLD, 24));
-        JOptionPane.showMessageDialog(this, "Succesuful !",
-                "Service", JOptionPane.WARNING_MESSAGE);
+        infoMessage("Successful");
     }
 
     public void infoMessage(String message){

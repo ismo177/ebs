@@ -21,6 +21,7 @@ public class MenuFrame extends JFrame {
         createUserMenu();
         createUtilityMenu();
         createAboutMenu();
+        addFont();
 
         JMenu main= getMainMenu(menuItemNewCustomer, menuItemCreateNewUser, menuItemDeleteCustomer, menuItemExit);
         JMenu user = getUserMenu(menuItemGuiBill, menuItemCustomerDetails, menuItemBillTable);
@@ -86,91 +87,70 @@ public class MenuFrame extends JFrame {
 
     public void createMainMenu(){
         menuItemNewCustomer = new JMenuItem("New Customer");
-        menuItemNewCustomer.setFont(new Font("Arial",Font.PLAIN,16));
         ImageIcon icon1 = new ImageIcon(ClassLoader.getSystemResource("images/icon1.jpg"));
         Image image1 = icon1.getImage().getScaledInstance(20, 20,Image.SCALE_DEFAULT);
         menuItemNewCustomer.setIcon(new ImageIcon(image1));
-        menuItemNewCustomer.setBackground(Color.WHITE);
 
-         menuItemCreateNewUser = new JMenuItem("Create New User");
-        menuItemCreateNewUser.setFont(new Font("Arial",Font.PLAIN,16));
+        menuItemCreateNewUser = new JMenuItem("Create New User");
         ImageIcon icon2 = new ImageIcon(ClassLoader.getSystemResource("images/icon2.png"));
         Image image2 = icon2.getImage().getScaledInstance(20, 20,Image.SCALE_DEFAULT);
         menuItemCreateNewUser.setIcon(new ImageIcon(image2));
-        menuItemCreateNewUser.setBackground(Color.WHITE);
 
         menuItemDeleteCustomer = new JMenuItem("Delete Customer");
-        menuItemDeleteCustomer.setFont(new Font("Arial",Font.PLAIN,16));
         ImageIcon icon3 = new ImageIcon(ClassLoader.getSystemResource("images/delete-customer.png"));
         Image image3 = icon3.getImage().getScaledInstance(20, 20,Image.SCALE_DEFAULT);
         menuItemDeleteCustomer.setIcon(new ImageIcon(image3));
-        menuItemDeleteCustomer.setBackground(Color.WHITE);
 
          menuItemExit = new JMenuItem("Exit");
-        menuItemExit.setFont(new Font("Arial",Font.PLAIN,16));
         ImageIcon icon4 = new ImageIcon(ClassLoader.getSystemResource("images/green-exit.png"));
         Image image4 = icon4.getImage().getScaledInstance(20, 20,Image.SCALE_DEFAULT);
         menuItemExit.setIcon(new ImageIcon(image4));
-        menuItemExit.setBackground(Color.WHITE);
     }
 
     public void createUserMenu(){
         menuItemGuiBill = new JMenuItem("Gui_Bill");
-        menuItemGuiBill.setFont(new Font("Arial",Font.PLAIN,16));
         ImageIcon icon5 = new ImageIcon(ClassLoader.getSystemResource("images/icon5.png"));
         Image image5 = icon5.getImage().getScaledInstance(20, 20,Image.SCALE_DEFAULT);
         menuItemGuiBill.setIcon(new ImageIcon(image5));
-        menuItemGuiBill.setBackground(Color.WHITE);
 
         menuItemCustomerDetails = new JMenuItem("Customer Details");
-        menuItemCustomerDetails.setFont(new Font("Arial",Font.PLAIN,16));
         ImageIcon icon6 = new ImageIcon(ClassLoader.getSystemResource("images/icon6.png"));
         Image image6 = icon6.getImage().getScaledInstance(20, 20,Image.SCALE_DEFAULT);
         menuItemCustomerDetails.setIcon(new ImageIcon(image6));
-        menuItemCustomerDetails.setBackground(Color.WHITE);
 
         menuItemBillTable = new JMenuItem("Bill Table");
-        menuItemBillTable.setFont(new Font("Arial",Font.PLAIN,16));
         ImageIcon icon7 = new ImageIcon(ClassLoader.getSystemResource("images/table-icon.png"));
         Image image7 = icon7.getImage().getScaledInstance(20, 20,Image.SCALE_DEFAULT);
         menuItemBillTable.setIcon(new ImageIcon(image7));
-        menuItemBillTable.setBackground(Color.WHITE);
 
     }
 
     public void createUtilityMenu(){
         menuItemNotepad = new JMenuItem("Notepad");
-        menuItemNotepad.setFont(new Font("Arial",Font.PLAIN,16));
         ImageIcon icon8 = new ImageIcon(ClassLoader.getSystemResource("images/icon12.png"));
         Image image8 = icon8.getImage().getScaledInstance(20, 20,Image.SCALE_DEFAULT);
         menuItemNotepad.setIcon(new ImageIcon(image8));
-        menuItemNotepad.setBackground(Color.WHITE);
+
 
         menuItemCalculator = new JMenuItem("Calculator");
-        menuItemCalculator.setFont(new Font("Arial",Font.PLAIN,16));
         ImageIcon icon9 = new ImageIcon(ClassLoader.getSystemResource("images/icon9.png"));
         Image image9 = icon9.getImage().getScaledInstance(20, 20,Image.SCALE_DEFAULT);
         menuItemCalculator.setIcon(new ImageIcon(image9));
-        menuItemCalculator.setBackground(Color.WHITE);
 
         menuItemWebBrowser = new JMenuItem("Web Browser");
-        menuItemWebBrowser.setFont(new Font("Arial",Font.PLAIN,16));
         ImageIcon icon10 = new ImageIcon(ClassLoader.getSystemResource("images/icon10.png"));
         Image image10 = icon10.getImage().getScaledInstance(20, 20,Image.SCALE_DEFAULT);
         menuItemWebBrowser.setIcon(new ImageIcon(image10));
-        menuItemWebBrowser.setBackground(Color.WHITE);
 
         menuItemPDFBill = new JMenuItem("PDF Bill");
-        menuItemPDFBill.setFont(new Font("Arial",Font.PLAIN,16));
         ImageIcon icon11 = new ImageIcon(ClassLoader.getSystemResource("images/pdf-print.jpg"));
         Image image11 = icon11.getImage().getScaledInstance(20, 20,Image.SCALE_DEFAULT);
         menuItemPDFBill.setIcon(new ImageIcon(image11));
-        menuItemPDFBill.setBackground(Color.WHITE);
+
     }
 
     public void createAboutMenu(){
         readMe = new JMenuItem("Read Me");
-        readMe.setFont(new Font("Arial",Font.PLAIN,16));
     }
 
     public void addMainListeners(){
@@ -214,6 +194,27 @@ public class MenuFrame extends JFrame {
         add(l1);
         setLayout(new FlowLayout());
         setVisible(true);
+    }
+
+    public void addFont(){
+        JMenuItem[] mainMenuItems={ menuItemNewCustomer,menuItemCreateNewUser, menuItemDeleteCustomer, menuItemExit};
+        JMenuItem[] userMenuItems={ menuItemGuiBill, menuItemCustomerDetails, menuItemBillTable};
+        JMenuItem[] utilityMenuItems={ menuItemNotepad, menuItemCalculator, menuItemWebBrowser, menuItemPDFBill};
+
+        for(JMenuItem item:mainMenuItems){
+            item.setFont(new Font("Arial",Font.PLAIN,16));
+            item.setBackground(Color.WHITE);
+        }
+        for(JMenuItem item:userMenuItems){
+            item.setFont(new Font("Arial",Font.PLAIN,16));
+            item.setBackground(Color.WHITE);
+        }
+        for(JMenuItem item:utilityMenuItems){
+            item.setFont(new Font("Arial",Font.PLAIN,16));
+            item.setBackground(Color.WHITE);
+        }
+        readMe.setFont(new Font("Arial",Font.PLAIN,20));
+        readMe.setBackground(Color.WHITE);
     }
 
 
