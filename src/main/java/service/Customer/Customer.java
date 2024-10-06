@@ -1,6 +1,6 @@
 package service.Customer;
 
-import bill.Bill;
+import service.bill.Bill;
 import service.Tax.Tax;
 import jakarta.persistence.*;
 

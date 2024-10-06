@@ -1,13 +1,10 @@
 package Panels;
 
-import bill.Bill;
+import service.bill.Bill;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.math.BigDecimal;
-import java.math.MathContext;
-import java.math.RoundingMode;
 
 public class AmountChargesPanel extends JPanel {
     JPanel top;

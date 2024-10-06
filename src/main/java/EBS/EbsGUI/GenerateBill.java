@@ -1,7 +1,7 @@
 package EBS.EbsGUI;
 
 import Panels.MonthChoice;
-import bill.Bill;
+import service.bill.Bill;
 import service.Customer.Customer;
 import service.ServiceFactory;
 import service.Tax.Tax;
@@ -146,7 +146,7 @@ public class GenerateBill extends JFrame  {
             }
             else if(!id.isEmpty() && (offPeak>0  || onPeak>0)) {
                 updateBillStatus(id, offPeak, onPeak);
-                infoMessage("Successfully generated bill");
+                infoMessage("Successfully generated service.bill");
             }
         }
 
@@ -208,7 +208,7 @@ public class GenerateBill extends JFrame  {
         bill.setOffPeakAmount(values[0]);
         bill.setOnPeakAmount(values[1]);
         bill.setAmount(values[2]);
-       // bill.setUser(user);
+       // service.bill.setUser(user);
         bill.setInvoiceStatus(false);
         ServiceFactory serviceFactory = ServiceFactory.BILL_SERVICE;
         serviceFactory.getBillService().edit(bill);

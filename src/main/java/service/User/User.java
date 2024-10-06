@@ -1,6 +1,6 @@
 package service.User;
 
-import bill.Bill;
+import service.bill.Bill;
 import jakarta.persistence.*;
 
 import java.io.Serializable;

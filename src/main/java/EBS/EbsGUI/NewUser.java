@@ -26,7 +26,7 @@ public class NewUser extends JFrame  {
 
 
    public void createFrame(){
-        setTitle("Create New User");
+        setTitle("New User");
         getContentPane().setBackground(Color.WHITE);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(600, 400);
@@ -159,8 +159,6 @@ public class NewUser extends JFrame  {
         }
         this.dispose();
     }
-
-
 
     public void infoMessage(String message){
         UIManager.put("OptionPane.messageFont", new Font("Arial", Font.BOLD, 24));

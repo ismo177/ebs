@@ -1,7 +1,7 @@
 package EBS.EbsGUI;
 
 import Panels.MonthChoice;
-import bill.Bill;
+import service.bill.Bill;
 import service.Customer.Customer;
 import service.ServiceFactory;
 import service.Tax.Tax;
@@ -165,7 +165,7 @@ public class PayBill extends JFrame  {
 
     public void pay(Customer customer, Bill bill) {
         bill.setPaymentDate(getDate());
-        //bill.setUser(user);
+        //service.bill.setUser(user);
         BigDecimal total = BigDecimal.valueOf(Double.parseDouble(debtValue.getText()));
 
         ServiceFactory serviceFactory = ServiceFactory.CUSTOMER_SERVICE;

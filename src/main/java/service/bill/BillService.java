@@ -1,4 +1,4 @@
-package bill;
+package service.bill;
 
 import service.AbstractService;
 import service.Customer.Customer;

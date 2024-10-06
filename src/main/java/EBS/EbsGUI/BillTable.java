@@ -1,6 +1,6 @@
 package EBS.EbsGUI;
 
-import bill.Bill;
+import service.bill.Bill;
 import service.ServiceFactory;
 
 import javax.swing.*;

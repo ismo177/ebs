@@ -1,6 +1,6 @@
 package Panels;
 
-import bill.Bill;
+import service.bill.Bill;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;

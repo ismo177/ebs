@@ -1,7 +1,7 @@
 
 package service;
 
-import bill.BillService;
+import service.bill.BillService;
 import service.Customer.CustomerService;
 import service.Tax.TaxService;
 import service.User.UserService;

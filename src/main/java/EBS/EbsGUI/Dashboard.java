@@ -2,7 +2,7 @@ package EBS.EbsGUI;
 
 import Panels.Bill_Panel;
 import Panels.ControlPanel;
-import bill.Bill;
+import service.bill.Bill;
 import service.Customer.Customer;
 import service.Tax.Tax;
 import service.ServiceFactory;

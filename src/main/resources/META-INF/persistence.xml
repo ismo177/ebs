@@ -7,7 +7,7 @@
 
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <class>bill.Bill</class>
+        <class>service.bill.Bill</class>
         <class>service.Customer.Customer</class>
         <class>service.Tax.Tax</class>
         <class>service.User.User</class>
