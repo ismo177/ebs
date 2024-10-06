@@ -24,7 +24,7 @@ public class FindCustomerPanel extends JPanel {
 
     public void createPanel(){
         setLayout(new GridLayout(3, 2, 0, 10));
-        setSize(440, 120);
+        setSize(420, 120);
     }
 
     public void createComponents(){

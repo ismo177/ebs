@@ -23,9 +23,8 @@ public class AmountChargesPanel extends JPanel {
     }
 
     public void createComponents(){
-        amount = new JLabel("   TOTAL:", JLabel.LEFT);
+        amount = new JLabel("   TOTAL", JLabel.LEFT);
         amountValue = new JLabel("--", JLabel.CENTER);
-        amountValue.setFont(new Font("Times New Roman", Font.BOLD, 20));
         amountValue.setBorder(new LineBorder(Color.lightGray));
 
         top = new JPanel();
@@ -66,10 +65,14 @@ public class AmountChargesPanel extends JPanel {
     }
 
     public void addFont(){
-        JLabel[] labels={ amount, reference, referenceValue, name, nameValue,
-                            address,addressValue, area, areaValue};
+        JLabel[] labels={reference, name, address, area};
+          JLabel[] labelValues= {amount, amountValue,referenceValue, nameValue, addressValue, areaValue};
+
         for(JLabel label:labels){
             label.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+        }
+        for(JLabel label:labelValues){
+            label.setFont(new Font("Times New Roman", Font.BOLD, 16));
         }
     }
 

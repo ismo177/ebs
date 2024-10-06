@@ -15,7 +15,7 @@ public class ButtonsPanel extends JPanel {
 
     public void createPanel(){
         setLayout(new GridLayout(3, 2, 30, 20));
-        setSize(460, 160);
+        setSize(420, 140);
         setBackground(new Color(210, 232, 210));
     }
 

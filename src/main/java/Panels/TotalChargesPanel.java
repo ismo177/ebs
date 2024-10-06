@@ -28,25 +28,15 @@ public class TotalChargesPanel extends JPanel {
 
     public void createComponents(){
         amountLabel = new JLabel(" Amount with TierRate :", JLabel.LEFT);
-        amountLabel.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-
         amountValue = new JLabel("--", JLabel.LEFT);
-        amountValue.setFont(new Font("Times New Roman", Font.BOLD, 14));
         amountValue.setBorder(new LineBorder(Color.lightGray));
 
         tax = new JLabel(" Tax 17.00%:", JLabel.LEFT);
-        tax.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-
         taxValue = new JLabel("--", JLabel.LEFT);
-        taxValue.setFont(new Font("Times New Roman", Font.BOLD, 14));
-        taxValue.setBorder(new LineBorder(Color.lightGray));
 
-        total = new JLabel(" Total :", JLabel.LEFT);
-        total.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-
+        total = new JLabel(" TOTAL :", JLabel.LEFT);
         totalValue = new JLabel("--", JLabel.LEFT);
-        totalValue.setFont(new Font("Times New Roman", Font.BOLD, 18));
-        totalValue.setBorder(new LineBorder(Color.lightGray));
+        addFont();
     }
 
     public void addComponents(){
@@ -56,6 +46,22 @@ public class TotalChargesPanel extends JPanel {
         add(taxValue);
         add(total);
         add(totalValue);
+    }
+
+    public void addFont(){
+        JLabel[] labels={ amountLabel, tax };
+        JLabel[] labelsValues= { tax, taxValue };
+
+        total.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        totalValue.setFont(new Font("Times New Roman", Font.BOLD, 18));
+        totalValue.setBorder(new LineBorder(Color.lightGray));
+        for(JLabel label: labels){
+            label.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+        }
+        for(JLabel label: labelsValues){
+            label.setFont(new Font("Times New Roman", Font.BOLD, 14));
+            label.setBorder(new LineBorder(Color.lightGray));
+        }
     }
 
     public void setValues(Bill bill){

@@ -20,7 +20,7 @@ public class FoundDetailsPanel extends JPanel {
 
     public void cretePanel(){
         setLayout(new GridLayout(10, 2));
-        setSize(460, 300);
+        setSize(420, 300);
     }
 
     public void createComponents(){
@@ -29,103 +29,64 @@ public class FoundDetailsPanel extends JPanel {
         emptySection1 = new JLabel();
 
 
-        name = new JLabel(" Name: ", JLabel.LEFT);
-        name.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+        name = new JLabel(" Name: ");
+        nameValue = new JLabel("");
 
+        address = new JLabel(" Address: ");
+        addressValue = new JLabel("");
 
-        nameValue = new JLabel("", JLabel.LEFT);
-        nameValue.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        nameValue.setBorder(new LineBorder(Color.lightGray));
+        city = new JLabel(" City: ");
+        cityValue = new JLabel("");
 
+        country = new JLabel(" Country: ");
+        countryValue = new JLabel("");
 
-        address = new JLabel(" Address: ", JLabel.LEFT);
-        address.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+        email = new JLabel(" Email: ");
+        emailValue = new JLabel("");
 
+        phone = new JLabel(" Phone : ");
+        phoneValue = new JLabel("");
 
-        addressValue = new JLabel("", JLabel.LEFT);
-        addressValue.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        addressValue.setBorder(new LineBorder(Color.lightGray));
+        contractNo = new JLabel(" Contract No: ");
+        contractNoValue = new JLabel("");
 
-        city = new JLabel(" City: ", JLabel.LEFT);
-        city.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+        meterNo = new JLabel(" Meter No: ");
+        meterNoValue = new JLabel("");
 
-
-        cityValue = new JLabel("", JLabel.LEFT);
-        cityValue.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        cityValue.setBorder(new LineBorder(Color.lightGray));
-
-
-        country = new JLabel(" Country: ", JLabel.LEFT);
-        country.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-
-
-        countryValue = new JLabel("", JLabel.LEFT);
-        countryValue.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        countryValue.setBorder(new LineBorder(Color.lightGray));
-
-        email = new JLabel(" Email: ", JLabel.LEFT);
-        email.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-
-        emailValue = new JLabel("", JLabel.LEFT);
-        emailValue.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        emailValue.setBorder(new LineBorder(Color.lightGray));
-
-
-        phone = new JLabel(" Phone : ", JLabel.LEFT);
-        phone.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-
-
-        phoneValue = new JLabel("", JLabel.LEFT);
-        phoneValue.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        phoneValue.setBorder(new LineBorder(Color.lightGray));
-
-
-        contractNo = new JLabel(" Contract No: ", JLabel.LEFT);
-        contractNo.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-
-        contractNoValue = new JLabel("", JLabel.LEFT);
-        contractNoValue.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        contractNoValue.setBorder(new LineBorder(Color.lightGray));
-
-
-        meterNo = new JLabel(" Meter No: ", JLabel.LEFT);
-        meterNo.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-
-        meterNoValue = new JLabel("", JLabel.LEFT);
-        meterNoValue.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        meterNoValue.setBorder(new LineBorder(Color.lightGray));
-
-        debtBalance = new JLabel(" Debt Balance: ", JLabel.LEFT);
-        debtBalance.setFont(new Font("Times New Roman", Font.BOLD, 18));
-
-        debtBalanceValue = new JLabel("", JLabel.LEFT);
-        debtBalanceValue.setFont(new Font("Times New Roman", Font.BOLD, 20));
-        debtBalanceValue.setBorder(new LineBorder(Color.lightGray));
-
+        debtBalance = new JLabel(" Debt Balance: ");
+        debtBalanceValue = new JLabel("");
     }
 
     public void addComponents(){
+        JLabel[] labels= { name, nameValue, address, addressValue, city, cityValue, country, countryValue,
+                            email, emailValue, phone, phoneValue, contractNo, contractNoValue, meterNo,
+                            meterNoValue, debtBalance, debtBalanceValue};
+
         add(customerDetails);
         add(emptySection1);
-        add(name);
-        add(nameValue);
-        add(address);
-        add(addressValue);
-        add(city);
-        add(cityValue);
-        add(country);
-        add(countryValue);
-        add(email);
-        add(emailValue);
-        add(phone);
-        add(phoneValue);
-        add(meterNo);
-        add(meterNoValue);
-        add(contractNo);
-       add(contractNoValue);
-       add(debtBalance);
-       add(debtBalanceValue);
+        for(JLabel label: labels){
+            add(label);
+        }
+        addFontAndHorizontalAlignment();
+    }
 
+    public void addFontAndHorizontalAlignment(){
+        JLabel[] labels={name,  address,  city,  country,  email, phone, contractNo, meterNo, debtBalance};
+        JLabel[] labelsValues= { nameValue, addressValue, cityValue, countryValue, emailValue,
+                                phoneValue,  contractNoValue,  meterNoValue};
+        customerDetails.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        debtBalance.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        debtBalanceValue.setFont(new Font("Times New Roman", Font.BOLD, 18));
+        debtBalanceValue.setBorder(new LineBorder(Color.lightGray));
+        for(JLabel label:labels){
+            label.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+            label.setHorizontalAlignment(JLabel.LEFT);
+        }
+        for(JLabel label:labelsValues){
+            label.setFont(new Font("Times New Roman", Font.BOLD, 16));
+            label.setBorder(new LineBorder(Color.lightGray));
+            label.setHorizontalAlignment(JLabel.LEFT);
+        }
     }
 
 

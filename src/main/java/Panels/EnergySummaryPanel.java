@@ -26,15 +26,14 @@ public class EnergySummaryPanel extends JPanel {
     }
 
     public void createPanel(){
-        setSize(420, 170);
+        setSize(420, 160);
         setBorder(new LineBorder(Color.LIGHT_GRAY));
-        setLayout(new GridLayout(7, 4));
+        setLayout(new GridLayout(6, 4));
         setBackground(Color.WHITE);
     }
 
     public void createComponents(){
-        energySummary = new JLabel("  ENERGY", JLabel.LEFT);
-        energySummary.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        energySummary = new JLabel("  ENERGY");
         title = new JPanel();
         title.setLayout(new FlowLayout(FlowLayout.LEFT));
         title.add(energySummary);
@@ -42,112 +41,75 @@ public class EnergySummaryPanel extends JPanel {
         emptySection2 = new JPanel();
         emptySection3 = new JPanel();
 
-        itemType = new JLabel(" Item type", JLabel.LEFT);
-        itemType.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+        itemType = new JLabel(" Item type");
+        quantity = new JLabel(" Quantity");
+        price = new JLabel(" Price (KM):");
+        amount = new JLabel(" Amount (KM)");
 
-        quantity = new JLabel(" Quantity", JLabel.LEFT);
-        quantity.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+        offPeak = new JLabel(" Energy off-peak");
+        offPeakQuantityValue = new JLabel("--");
+        offPeakPriceValue = new JLabel("--");
+        offPeakAmountValue = new JLabel("--");
 
-        price = new JLabel(" Price (KM):", JLabel.LEFT);
-        price.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+        onPeak = new JLabel(" Energy on-peak");
+        onPeakQuantityValue = new JLabel("--");
+        onPeakPriceValue = new JLabel("--");
+        onPeakAmountValue = new JLabel("--");
 
-        amount = new JLabel(" Amount (KM)", JLabel.LEFT);
-        amount.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-
-        offPeak = new JLabel(" Energy off-peak", JLabel.LEFT);
-        offPeak.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-
-
-        offPeakQuantityValue = new JLabel("--", JLabel.LEFT);
-        offPeakQuantityValue.setFont(new Font("Times New Roman", Font.BOLD, 14));
-        offPeakQuantityValue.setBorder(new LineBorder(Color.lightGray));
-
-        offPeakPriceValue = new JLabel("--", JLabel.LEFT);
-        offPeakPriceValue.setFont(new Font("Times New Roman", Font.BOLD, 14));
-        offPeakPriceValue.setBorder(new LineBorder(Color.lightGray));
-
-        offPeakAmountValue = new JLabel("--", JLabel.LEFT);
-        offPeakAmountValue.setFont(new Font("Times New Roman", Font.BOLD, 14));
-        offPeakAmountValue.setBorder(new LineBorder(Color.lightGray));
-
-        onPeak = new JLabel(" Energy on-peak", JLabel.LEFT);
-        onPeak.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-
-        onPeakQuantityValue = new JLabel("--", JLabel.LEFT);
-        onPeakQuantityValue.setFont(new Font("Times New Roman", Font.BOLD, 14));
-        onPeakQuantityValue.setBorder(new LineBorder(Color.lightGray));
-
-        onPeakPriceValue = new JLabel("--", JLabel.LEFT);
-        onPeakPriceValue.setFont(new Font("Times New Roman", Font.BOLD, 14));
-        onPeakPriceValue.setBorder(new LineBorder(Color.lightGray));
-
-        onPeakAmountValue = new JLabel("--", JLabel.LEFT);
-        onPeakAmountValue.setFont(new Font("Times New Roman", Font.BOLD, 14));
-        onPeakAmountValue.setBorder(new LineBorder(Color.lightGray));
-
-
-        meterRent = new JLabel(" Meter rent", JLabel.LEFT);
-        meterRent.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+        meterRent = new JLabel(" Meter rent");
         meterRentEmptySection1 = new JLabel();//empty
         meterRentEmptySection2 = new JLabel();//empty
-        meterRentAmountValue = new JLabel("--", JLabel.LEFT);
-        meterRentAmountValue.setFont(new Font("Times New Roman", Font.BOLD, 14));
-        meterRentAmountValue.setBorder(new LineBorder(Color.lightGray));
+        meterRentAmountValue = new JLabel("--");
 
-
-        serviceRent = new JLabel(" Service rent", JLabel.LEFT);
-        serviceRent.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+        serviceRent = new JLabel(" Service rent");
         serviceRentEmptySection1 = new JLabel();//empty
         serviceRentEmptySection2 = new JLabel();//empty
-        serviceRentAmountValue = new JLabel("--", JLabel.LEFT);
-        serviceRentAmountValue.setFont(new Font("Times New Roman", Font.BOLD, 14));
-        serviceRentAmountValue.setBorder(new LineBorder(Color.lightGray));
+        serviceRentAmountValue = new JLabel("--");
 
-        tierRate = new JLabel(" Tier rate", JLabel.LEFT);
-        tierRate.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+        tierRate = new JLabel(" Tier rate");
         tierRateEmptySection1 = new JLabel("");//empty
         tierRateEmptySection2=new JLabel();
-        tierRateAmountValue = new JLabel("--", JLabel.LEFT);
-        tierRateAmountValue.setFont(new Font("Times New Roman", Font.BOLD, 14));
-        tierRateAmountValue.setBorder(new LineBorder(Color.lightGray));
-
+        tierRateAmountValue = new JLabel("--");
+        addFontAndHorizontalAlignment();
     }
 
     public void addComponents(){
+        JLabel[] labels= {itemType, quantity, price, amount,
+                            offPeak, offPeakQuantityValue, offPeakPriceValue, offPeakAmountValue,
+                            onPeak, onPeakQuantityValue, onPeakPriceValue, onPeakAmountValue,
+                            meterRent, meterRentEmptySection1, meterRentEmptySection2, meterRentAmountValue,
+                            tierRate, tierRateEmptySection1, tierRateEmptySection2, tierRateAmountValue };
         add(title);
         add(emptySection1);
         add(emptySection2);
         add(emptySection3);
-        add(itemType);
-        add(quantity);
-        add(price);
-        add(amount);
+        for(JLabel label:labels){
+            add(label);
+        }
 
-        add(offPeak);
-        add(offPeakQuantityValue);
-        add(offPeakPriceValue);
-        add(offPeakAmountValue);
+    }
 
-        add(onPeak);
-        add(onPeakQuantityValue);
-        add(onPeakPriceValue);
-        add(onPeakAmountValue);
+    public void addFontAndHorizontalAlignment(){
+        JLabel[] headerLabels= { itemType, quantity, price, amount};
+        JLabel[] labels= { offPeak, onPeak, meterRent, serviceRent, tierRate};
+        JLabel[] labelValues= { offPeakQuantityValue, offPeakPriceValue, offPeakAmountValue,
+                                onPeakQuantityValue, onPeakPriceValue, onPeakAmountValue,
+                                 meterRentAmountValue, serviceRentAmountValue, tierRateAmountValue};
+        energySummary.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        for(JLabel label : headerLabels){
+            label.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+            label.setHorizontalAlignment(JLabel.LEFT);
 
-        add(meterRent);
-        add(meterRentEmptySection1);
-        add(meterRentEmptySection2);
-        add(meterRentAmountValue);
-
-        add(serviceRent);
-        add(serviceRentEmptySection1);
-        add(serviceRentEmptySection2);
-        add(serviceRentAmountValue);
-
-        add(tierRate);
-        add(tierRateEmptySection1);
-        add(tierRateEmptySection2);
-        add(tierRateAmountValue);
-
+        }
+        for(JLabel label:labels){
+            label.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+            label.setHorizontalAlignment(JLabel.LEFT);
+        }
+        for(JLabel label:labelValues){
+            label.setFont(new Font("Times New Roman", Font.BOLD, 14));
+            label.setBorder(new LineBorder(Color.lightGray));
+            label.setHorizontalAlignment(JLabel.LEFT);
+        }
     }
 
     public void setValues(Bill bill){

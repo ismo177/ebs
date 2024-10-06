@@ -23,7 +23,7 @@ public class Bill_Panel extends JPanel {
     }
 
     public void createPanel() {
-        setSize(1000, 800);
+        setSize(1000, 790);
         setLayout(null);
 
     }
@@ -78,7 +78,7 @@ public class Bill_Panel extends JPanel {
         protected void paintComponent (Graphics g){
             super.paintComponent(g);
             g.setColor(new Color(160, 227, 160));
-            g.fillRoundRect(0, 0, 1000, 800, 50, 50);
+            g.fillRoundRect(0, 0, 1000, 790, 50, 50);
             g.setColor(Color.GRAY);
             g.drawLine(30, 475, 970, 475);
 

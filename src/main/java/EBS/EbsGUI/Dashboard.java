@@ -16,6 +16,9 @@ import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 
 public class Dashboard extends JFrame   {
+    Toolkit toolkit = Toolkit.getDefaultToolkit();
+    Dimension screenSize = toolkit.getScreenSize();
+    JPanel backPanel;
     Bill_Panel billPanel;
     ControlPanel controlPanel;
     int tempCustID;
@@ -24,13 +27,11 @@ public Dashboard() {
         createComponents();
         createDashboard();
         addComponents();
-        repaint();
+        //repaint();
         addButtonListeners();
     }
 
     public void createDashboard(){
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-        Dimension screenSize = toolkit.getScreenSize();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         getContentPane().setBackground(Color.WHITE);
         setSize(screenSize);
@@ -39,17 +40,22 @@ public Dashboard() {
     }
 
     public void createComponents(){
+    backPanel = new JPanel();
+    backPanel.setBackground(Color.WHITE);
+    backPanel.setLayout(null);
+    backPanel.setSize(screenSize);
 
     billPanel = new Bill_Panel();
     billPanel.setLocation(20,10);
 
     controlPanel = new ControlPanel();
-    controlPanel.setLocation(1060,10);
+    controlPanel.setLocation(1040,10);
     }
 
     public void addComponents(){
-    getContentPane().add(billPanel);
-    getContentPane().add(controlPanel);
+    backPanel.add(billPanel);
+    backPanel.add(controlPanel);
+    add(backPanel);
 
     }
 
@@ -118,7 +124,7 @@ public Dashboard() {
                     return Printable.NO_SUCH_PAGE;
                 }
                 Graphics2D graphics2D = (Graphics2D) graphics;
-                graphics2D.translate(pageFormat.getImageableX() - 5, pageFormat.getImageableY());
+                graphics2D.translate(pageFormat.getImageableX() +10, pageFormat.getImageableY()+10);
                 graphics2D.scale(0.58, 0.5);
                 panel.paint(graphics2D);
                 return Printable.PAGE_EXISTS;

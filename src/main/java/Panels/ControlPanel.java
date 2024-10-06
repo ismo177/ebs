@@ -11,19 +11,19 @@ public class ControlPanel extends JPanel {
     ButtonsPanel buttonsPanel;
 
     public ControlPanel() {
-        createPanel();
         createComponents();
+        createPanel();
         addComponents();
     }
 
 protected void paintComponent(Graphics g) {
     super.paintComponent(g);
     g.setColor(new Color(210, 232, 210));
-    g.fillRoundRect(0, 0, 500, 800, 50, 50);
+    g.fillRoundRect(0, 0, 460, 780, 50, 50);
 }
 
 public void createPanel(){
-    setSize(460, 800);
+    setSize(460, 790);
     setLayout(null);
 
 }

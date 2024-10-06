@@ -31,16 +31,16 @@ public class ReceiverPanel extends JPanel {
         title.setLayout(new FlowLayout(FlowLayout.LEFT));
         title.add(receiver);
 
-        transactionAccountNo = new JLabel(" Transaction account number:", JLabel.LEFT);
-        transactionAccountValue = new JLabel("0000000000001", JLabel.LEFT);
-        referenceNo = new JLabel("  Reference number:", JLabel.LEFT);
-        referenceValue = new JLabel("--", JLabel.LEFT);
-        amount = new JLabel("  Amount:", JLabel.LEFT);
-        amountValue = new JLabel("00,00 KM", JLabel.LEFT);
-        areaOfSupply = new JLabel("  Area of supply: ", JLabel.LEFT);
-        areaOfSupplyValue = new JLabel("--", JLabel.LEFT);
-        address = new JLabel("  Address and Place: ", JLabel.LEFT);
-        addressValue = new JLabel("-- + --", JLabel.LEFT);
+        transactionAccountNo = new JLabel(" Transaction account number:");
+        transactionAccountValue = new JLabel("0000000000001");
+        referenceNo = new JLabel("  Reference number:");
+        referenceValue = new JLabel("--");
+        amount = new JLabel("  Amount:");
+        amountValue = new JLabel("00,00 KM");
+        areaOfSupply = new JLabel("  Area of supply: ");
+        areaOfSupplyValue = new JLabel("--");
+        address = new JLabel("  Address and Place: ");
+        addressValue = new JLabel("-- + --");
         addFont();
     }
 
@@ -81,10 +81,12 @@ public class ReceiverPanel extends JPanel {
         JLabel[] valueLabels={ transactionAccountValue, referenceValue, amountValue, areaOfSupplyValue, addressValue };
 
         for(JLabel label:labels){
-            label.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+            label.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+            label.setHorizontalAlignment(JLabel.LEFT);
         }
         for(JLabel label:valueLabels){
-            label.setFont(new Font("Times New Roman", Font.BOLD, 18));
+            label.setFont(new Font("Times New Roman", Font.BOLD, 16));
+            label.setHorizontalAlignment(JLabel.LEFT);
         }
     }
 }
