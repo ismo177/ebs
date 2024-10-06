@@ -24,8 +24,6 @@ public class AmountChargesPanel extends JPanel {
 
     public void createComponents(){
         amount = new JLabel("   TOTAL:", JLabel.LEFT);
-        amount.setFont(new Font("Times New Roman", Font.BOLD, 14));
-
         amountValue = new JLabel("--", JLabel.CENTER);
         amountValue.setFont(new Font("Times New Roman", Font.BOLD, 20));
         amountValue.setBorder(new LineBorder(Color.lightGray));
@@ -37,29 +35,14 @@ public class AmountChargesPanel extends JPanel {
         top.add(amountValue);
 
         reference = new JLabel("  Reference number", JLabel.LEFT);
-        reference.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-
         referenceValue = new JLabel("--", JLabel.LEFT);
-        referenceValue.setFont(new Font("Times New Roman", Font.BOLD, 14));
-
-
         name = new JLabel(" Name: ", JLabel.LEFT);
-        name.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-
         nameValue = new JLabel("--", JLabel.LEFT);
-        nameValue.setFont(new Font("Times New Roman", Font.BOLD, 14));
-
         address = new JLabel(" Address: ", JLabel.LEFT);
-        address.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-
         addressValue = new JLabel("--", JLabel.LEFT);
-        addressValue.setFont(new Font("Times New Roman", Font.BOLD, 14));
-
         area = new JLabel(" Area:", JLabel.LEFT);
-        area.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-
         areaValue = new JLabel("--", JLabel.LEFT);
-        areaValue.setFont(new Font("Times New Roman", Font.BOLD, 14));
+        addFont();
     }
 
     public void addComponents(){
@@ -80,6 +63,14 @@ public class AmountChargesPanel extends JPanel {
         nameValue.setText(bill.getCustomer().getName());
         addressValue.setText(bill.getCustomer().getAddress());
         areaValue.setText(bill.getCustomer().getCity());
+    }
+
+    public void addFont(){
+        JLabel[] labels={ amount, reference, referenceValue, name, nameValue,
+                            address,addressValue, area, areaValue};
+        for(JLabel label:labels){
+            label.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+        }
     }
 
     public static void main(String[] args) {

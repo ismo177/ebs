@@ -53,7 +53,6 @@ public class PayAmount extends JFrame  {
 
     public void createComponents(){
         titleLabel = new JLabel("Pay Amount", JLabel.CENTER);
-        titleLabel.setFont(new Font("Times New Roman", Font.BOLD, 24));
         titleLabel.setLocation(200, 20);
         titleLabel.setSize(200, 50);
 
@@ -96,10 +95,11 @@ public class PayAmount extends JFrame  {
     }
 
     public void addFont(){
-        JLabel[] labels= { titleLabel, id, name, amount };
+        JLabel[] labels= { id, name, amount };
         JTextField[] tfValues = { idValue, nameValue, amountValue };
         JButton[] buttons= { payButton, exitButton };
 
+        titleLabel.setFont(new Font("Times New Roman", Font.BOLD, 24));
         for(JLabel label : labels){
             label.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         }

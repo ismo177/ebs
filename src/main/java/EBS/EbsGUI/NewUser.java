@@ -37,8 +37,7 @@ public class NewUser extends JFrame  {
     }
 
     public void createComponents(){
-        titleLabel = new JLabel("Create New User",JLabel.CENTER);
-        titleLabel.setFont(new Font("Times New Roman", Font.BOLD, 24));
+        titleLabel = new JLabel("New User",JLabel.CENTER);
         titleLabel.setSize(600, 60);
         titleLabel.setLocation(0, 0);
 
@@ -81,10 +80,10 @@ public class NewUser extends JFrame  {
     }
 
     public void addFont(){
-        JLabel[] labels = { titleLabel, usernameLabel, passwordLabel};
+        JLabel[] labels = { usernameLabel, passwordLabel};
         JTextField[] labelValues = { usernameTextField, passwordTextField };
         JButton[] buttons= { createButton, exitButton };
-
+        titleLabel.setFont(new Font("Times New Roman", Font.BOLD, 24));
         for(JLabel label : labels){
             label.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         }

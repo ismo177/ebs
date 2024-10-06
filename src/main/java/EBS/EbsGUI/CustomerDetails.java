@@ -66,7 +66,7 @@ public class CustomerDetails extends JFrame  {
 
     public void createComponents(){
         titleLabel = new JLabel("Customer Details", JLabel.CENTER);
-        titleLabel.setFont(new Font("Times New Roman", Font.BOLD, 26));
+        titleLabel.setFont(new Font("Times New Roman", Font.BOLD, 24));
 
         idSearchLabel = new JLabel("Customer's Id:", JLabel.CENTER);
         idSearchValue = new JTextField();
@@ -134,7 +134,7 @@ public class CustomerDetails extends JFrame  {
         JLabel[] centerPanelLabels = { id, name, address, city, country, email, phone, contractNo, meterNo, debtBalance};
         JLabel[] centerPanelValueLabels= { idValue, nameValue, addressValue, cityValue, countryValue, emailValue, phoneValue,
                                             contractNoValue, meterNoValue, debtBalanceValue};
-        JLabel[] topPanelLabels= {titleLabel, idSearchLabel, nameSearchLabel};
+        JLabel[] topPanelLabels= {idSearchLabel, nameSearchLabel};
         JButton[] buttons= {detailsButton, exitButton};
         for(JLabel label : centerPanelLabels){
             label.setFont(new Font("Times New Roman", Font.PLAIN, 20));
@@ -146,7 +146,7 @@ public class CustomerDetails extends JFrame  {
             label.setFont(new Font("Times New Roman", Font.PLAIN, 24));
         }
         for(JButton button : buttons){
-            button.setFont(new Font("Times New Roman", Font.PLAIN, 24));
+            button.setFont(new Font("Times New Roman", Font.BOLD, 24));
         }
 
         for(JTextField fields : searchPanelTextFields){
