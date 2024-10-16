@@ -5,7 +5,7 @@ import Panels.ControlPanel;
 import service.bill.Bill;
 import service.Customer.Customer;
 import service.Tax.Tax;
-import service.ServiceFactory;
+import service.CrudServiceFactory;
 
 import java.awt.event.*;
 import javax.swing.*;
@@ -154,8 +154,8 @@ public Dashboard() {
     }
 
     public void findCustomerByID(String id) {
-            ServiceFactory serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
-            Customer customer = serviceFactory.getCustomerService().find(id);
+            CrudServiceFactory crudServiceFactory = CrudServiceFactory.CUSTOMER_SERVICE;
+            Customer customer = crudServiceFactory.getCustomerService().find(id);
             if (customer != null) {
                 tempCustID = customer.getId();
                     controlPanel.getFoundDetailsPanel().setFields(customer);
@@ -165,8 +165,8 @@ public Dashboard() {
     }
 
     public void findCustomerByName(String name) {
-            ServiceFactory serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
-            Customer customer = serviceFactory.getCustomerService().findByName(name);
+            CrudServiceFactory crudServiceFactory = CrudServiceFactory.CUSTOMER_SERVICE;
+            Customer customer = crudServiceFactory.getCustomerService().findByName(name);
             if (customer != null) {
                 tempCustID = customer.getId();
                 controlPanel.getFoundDetailsPanel().setFields(customer);
@@ -189,15 +189,15 @@ public Dashboard() {
 
 
     public void setBillByID(String id){
-        ServiceFactory serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
-        Customer customer = serviceFactory.getCustomerService().find(id);
+        CrudServiceFactory crudServiceFactory = CrudServiceFactory.CUSTOMER_SERVICE;
+        Customer customer = crudServiceFactory.getCustomerService().find(id);
 
-        serviceFactory = ServiceFactory.TAX_SERVICE;
-        Tax tax = serviceFactory.getTaxService().find(customer.getTax().getId());
+        crudServiceFactory = CrudServiceFactory.TAX_SERVICE;
+        Tax tax = crudServiceFactory.getTaxService().find(customer.getTax().getId());
 
-        serviceFactory = ServiceFactory.BILL_SERVICE;
+        crudServiceFactory = CrudServiceFactory.BILL_SERVICE;
         String month= controlPanel.getMonthChoice().getMonth();
-        Bill bill = serviceFactory.getBillService().findByMonthCustomer(month, customer);
+        Bill bill = crudServiceFactory.getBillService().findByMonthCustomer(month, customer);
 
         if (customer != null && bill != null && tax != null) {
             setBillValues(month, bill);
@@ -209,15 +209,15 @@ public Dashboard() {
 
 
     public void setBillByName(String name){
-        ServiceFactory serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
-        Customer customer = serviceFactory.getCustomerService().findByName(name);
+        CrudServiceFactory crudServiceFactory = CrudServiceFactory.CUSTOMER_SERVICE;
+        Customer customer = crudServiceFactory.getCustomerService().findByName(name);
 
-        serviceFactory = ServiceFactory.TAX_SERVICE;
-        Tax tax = serviceFactory.getTaxService().find(customer.getTax().getId());
+        crudServiceFactory = CrudServiceFactory.TAX_SERVICE;
+        Tax tax = crudServiceFactory.getTaxService().find(customer.getTax().getId());
 
-        serviceFactory = ServiceFactory.BILL_SERVICE;
+        crudServiceFactory = CrudServiceFactory.BILL_SERVICE;
         String month= controlPanel.getMonthChoice().getMonth();
-        Bill bill = serviceFactory.getBillService().findByMonthCustomer(month, customer);
+        Bill bill = crudServiceFactory.getBillService().findByMonthCustomer(month, customer);
 
         if (customer != null && bill != null && tax != null) {
             setBillValues(month, bill);

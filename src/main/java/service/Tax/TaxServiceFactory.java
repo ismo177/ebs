@@ -1,15 +1,15 @@
 package service.Tax;
 
-import service.AbstractService;
+import service.CrudAbstractFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
-public class TaxService extends AbstractService<Tax>  {
+public class TaxServiceFactory extends CrudAbstractFactory<Tax> {
 
     EntityManager entityManager=entityManager();
 
-    public TaxService() {
+    public TaxServiceFactory() {
         super(Tax.class);
     }
     @Override

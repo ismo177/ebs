@@ -1,7 +1,7 @@
 package EBS.EbsGUI;
 
 import service.bill.Bill;
-import service.ServiceFactory;
+import service.CrudServiceFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -85,8 +85,8 @@ public class BillTable extends JFrame {
 
 
     public String[][] getList() {
-        ServiceFactory serviceFactory = ServiceFactory.BILL_SERVICE;
-        List<Bill> list = serviceFactory.getBillService().findAll();
+        CrudServiceFactory crudServiceFactory = CrudServiceFactory.BILL_SERVICE;
+        List<Bill> list = crudServiceFactory.getBillService().findAll();
         String[][] billListString = new String[list.size()][tableHeaderColumnNames.length];
 
         for (int i = 0; i < list.size(); i++) {

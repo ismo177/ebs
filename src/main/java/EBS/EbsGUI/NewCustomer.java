@@ -3,7 +3,7 @@ package EBS.EbsGUI;
 import service.bill.Bill;
 import service.Customer.Customer;
 import service.Tax.Tax;
-import service.ServiceFactory;
+import service.CrudServiceFactory;
 import service.User.User;
 
 import javax.swing.*;
@@ -199,9 +199,9 @@ public class NewCustomer extends JFrame  {
         if (!name.isEmpty() && !address.isEmpty() && !city.isEmpty() && !country.isEmpty() &&
                 !email.isEmpty() && !phone.isEmpty() && !contract.isEmpty() && !meter.isEmpty() && !debt.isEmpty() && !taxInput.isEmpty()) {
 
-                ServiceFactory serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
-                serviceFactory.getCustomerService().emOpen();
-                Customer customer = serviceFactory.getCustomerService().findByName(name);
+                CrudServiceFactory crudServiceFactory = CrudServiceFactory.CUSTOMER_SERVICE;
+                crudServiceFactory.getCustomerService().emOpen();
+                Customer customer = crudServiceFactory.getCustomerService().findByName(name);
 
                 if (customer != null) {
                     infoMessage("Customer already Exists");
@@ -210,8 +210,8 @@ public class NewCustomer extends JFrame  {
 
                     customer = new Customer();
                     setCustomerValues(customer, taxInput);
-                    serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
-                    serviceFactory.getCustomerService().create(customer);
+                    crudServiceFactory = CrudServiceFactory.CUSTOMER_SERVICE;
+                    crudServiceFactory.getCustomerService().create(customer);
 
                     setBillValues(customer);
                     infoMessage("Customer " + customer.getName() + " created");
@@ -307,8 +307,8 @@ public class NewCustomer extends JFrame  {
         customer.setContractNo(contractNoValue.getText());
         customer.setMeterNo(Integer.parseInt(meterNoValue.getText()));
         customer.setDebtBalance(BigDecimal.valueOf(Double.parseDouble(debtBalanceValue.getText())));
-        ServiceFactory serviceFactory = ServiceFactory.TAX_SERVICE;
-        Tax tax = serviceFactory.getTaxService().find(taxx);
+        CrudServiceFactory crudServiceFactory = CrudServiceFactory.TAX_SERVICE;
+        Tax tax = crudServiceFactory.getTaxService().find(taxx);
         customer.setTax(tax);
     }
 
@@ -328,12 +328,12 @@ public class NewCustomer extends JFrame  {
             bill.setInvoiceStatus(false);
             bill.setCustomer(customer);
 
-            ServiceFactory serviceFactory = ServiceFactory.USER_SERVICE;
-            User user = serviceFactory.getUserService().find(tempUser.getId());
+            CrudServiceFactory crudServiceFactory = CrudServiceFactory.USER_SERVICE;
+            User user = crudServiceFactory.getUserService().find(tempUser.getId());
             bill.setUser(user);
 
-            serviceFactory = ServiceFactory.BILL_SERVICE;
-            serviceFactory.getBillService().create(bill);
+            crudServiceFactory = CrudServiceFactory.BILL_SERVICE;
+            crudServiceFactory.getBillService().create(bill);
         }
     }
 

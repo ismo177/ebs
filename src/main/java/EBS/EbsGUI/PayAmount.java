@@ -1,7 +1,7 @@
 package EBS.EbsGUI;
 
 import service.Customer.Customer;
-import service.ServiceFactory;
+import service.CrudServiceFactory;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -143,13 +143,13 @@ public void updateBalance(String id, String name, BigDecimal amount){
      }
 
 public void findByIDAndUpdate(String id, BigDecimal amount){
-    ServiceFactory serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
-    Customer customer= serviceFactory.getCustomerService().find(id);
+    CrudServiceFactory crudServiceFactory = CrudServiceFactory.CUSTOMER_SERVICE;
+    Customer customer= crudServiceFactory.getCustomerService().find(id);
     if(customer != null){
             BigDecimal before = customer.getDebtBalance();
             BigDecimal after = before.subtract(amount);
             customer.setDebtBalance(after);
-            serviceFactory.getCustomerService().edit(customer);
+            crudServiceFactory.getCustomerService().edit(customer);
             infoMessage("Succesuful","info");
     }else{
         infoMessage("Does not exist","warning");
@@ -157,13 +157,13 @@ public void findByIDAndUpdate(String id, BigDecimal amount){
 }
 
     public void findByNameAndUpdate(String name, BigDecimal amount){
-        ServiceFactory serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
-        Customer customer= serviceFactory.getCustomerService().findByName(name);
+        CrudServiceFactory crudServiceFactory = CrudServiceFactory.CUSTOMER_SERVICE;
+        Customer customer= crudServiceFactory.getCustomerService().findByName(name);
         if(customer != null){
                 BigDecimal before = customer.getDebtBalance();
                 BigDecimal after = before.subtract(amount);
                 customer.setDebtBalance(after);
-                serviceFactory.getCustomerService().edit(customer);
+                crudServiceFactory.getCustomerService().edit(customer);
                 infoMessage("Succesuful","info");
         }else{
             infoMessage("Does not exist","warning");

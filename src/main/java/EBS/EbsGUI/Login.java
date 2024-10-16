@@ -1,6 +1,6 @@
 package EBS.EbsGUI;
 
-import service.ServiceFactory;
+import service.CrudServiceFactory;
 import service.User.User;
 
 import javax.swing.*;
@@ -117,8 +117,8 @@ public class Login extends JFrame {
         String uName = usernameTextField.getText();
         String pass = passwordTextField.getText();
             if (!uName.isEmpty() && !pass.isEmpty()) {
-                ServiceFactory serviceFactory = ServiceFactory.USER_SERVICE;
-                User user = serviceFactory.getUserService().login(uName, pass);
+                CrudServiceFactory crudServiceFactory = CrudServiceFactory.USER_SERVICE;
+                User user = crudServiceFactory.getUserService().login(uName, pass);
                 validateUser(user);
              } else {
                 badInput();

@@ -1,7 +1,7 @@
 package EBS.EbsGUI;
 
 import service.Customer.Customer;
-import service.ServiceFactory;
+import service.CrudServiceFactory;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -223,8 +223,8 @@ public class CustomerDetails extends JFrame  {
     };
 
     public void findByID(String id){
-        ServiceFactory serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
-        Customer customer = serviceFactory.getCustomerService().find(id);
+        CrudServiceFactory crudServiceFactory = CrudServiceFactory.CUSTOMER_SERVICE;
+        Customer customer = crudServiceFactory.getCustomerService().find(id);
 
         if (customer != null) {
             infoMessage("Customer "+customer.getName()+" found","info");
@@ -235,8 +235,8 @@ public class CustomerDetails extends JFrame  {
     }
 
     public void findByName(String name){
-        ServiceFactory serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
-        Customer customer = serviceFactory.getCustomerService().findByName(name);
+        CrudServiceFactory crudServiceFactory = CrudServiceFactory.CUSTOMER_SERVICE;
+        Customer customer = crudServiceFactory.getCustomerService().findByName(name);
         if (customer != null) {
             infoMessage("Customer "+customer.getName()+" found","info");
             setValues(customer);

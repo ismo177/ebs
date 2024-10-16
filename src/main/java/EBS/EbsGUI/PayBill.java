@@ -3,7 +3,7 @@ package EBS.EbsGUI;
 import Panels.MonthChoice;
 import service.bill.Bill;
 import service.Customer.Customer;
-import service.ServiceFactory;
+import service.CrudServiceFactory;
 import service.Tax.Tax;
 
 import javax.swing.*;
@@ -144,14 +144,14 @@ public class PayBill extends JFrame  {
     }
 
     public void updateBillStatus(String id) throws InterruptedException {
-        ServiceFactory serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
-        Customer customer = serviceFactory.getCustomerService().find(id);
+        CrudServiceFactory crudServiceFactory = CrudServiceFactory.CUSTOMER_SERVICE;
+        Customer customer = crudServiceFactory.getCustomerService().find(id);
 
-        serviceFactory = ServiceFactory.TAX_SERVICE;
-        Tax tax = serviceFactory.getTaxService().find(customer.getTax().getId());
+        crudServiceFactory = CrudServiceFactory.TAX_SERVICE;
+        Tax tax = crudServiceFactory.getTaxService().find(customer.getTax().getId());
 
-        serviceFactory = ServiceFactory.BILL_SERVICE;
-        Bill bill = serviceFactory.getBillService().findByMonthCustomer(month, customer);
+        crudServiceFactory = CrudServiceFactory.BILL_SERVICE;
+        Bill bill = crudServiceFactory.getBillService().findByMonthCustomer(month, customer);
 
         if (!bill.getInvoiceStatus() && (bill.getAmount().compareTo(BigDecimal.ZERO) > 0)) {
             pay(customer, bill);
@@ -168,17 +168,17 @@ public class PayBill extends JFrame  {
         //service.bill.setUser(user);
         BigDecimal total = BigDecimal.valueOf(Double.parseDouble(debtValue.getText()));
 
-        ServiceFactory serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
+        CrudServiceFactory crudServiceFactory = CrudServiceFactory.CUSTOMER_SERVICE;
         BigDecimal custBalance = customer.getDebtBalance();
         if (custBalance.compareTo(new BigDecimal(0)) < 0) {
             custBalance = custBalance.multiply(new BigDecimal(-1));
         }
         customer.setDebtBalance(custBalance.subtract(total));
-        serviceFactory.getCustomerService().edit(customer);
+        crudServiceFactory.getCustomerService().edit(customer);
 
-        serviceFactory = ServiceFactory.BILL_SERVICE;
+        crudServiceFactory = CrudServiceFactory.BILL_SERVICE;
         bill.setInvoiceStatus(true);
-        serviceFactory.getBillService().edit(bill);
+        crudServiceFactory.getBillService().edit(bill);
         infoMessage("Successful");
     }
 

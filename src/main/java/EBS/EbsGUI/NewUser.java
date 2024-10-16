@@ -1,6 +1,6 @@
 package EBS.EbsGUI;
 
-import service.ServiceFactory;
+import service.CrudServiceFactory;
 import service.User.User;
 
 
@@ -102,8 +102,8 @@ public class NewUser extends JFrame  {
         boolean correctInput=!username.isEmpty() && !password.isEmpty() && username.length()>8 && password.length()>6;
 
         if(correctInput) {
-            ServiceFactory serviceFactory = ServiceFactory.USER_SERVICE;
-            User user = serviceFactory.getUserService().findByUsername(username);
+            CrudServiceFactory crudServiceFactory = CrudServiceFactory.USER_SERVICE;
+            User user = crudServiceFactory.getUserService().findByUsername(username);
 
             if (user != null) {
                     infoMessage("Username already exists");
@@ -148,8 +148,8 @@ public class NewUser extends JFrame  {
         String hashedPassword = Base64.getEncoder().encodeToString(password.getBytes());
         user.setPassword(hashedPassword);
         user.setActive(true);
-        ServiceFactory serviceFactory = ServiceFactory.USER_SERVICE;
-        serviceFactory.getUserService().create(user);
+        CrudServiceFactory crudServiceFactory = CrudServiceFactory.USER_SERVICE;
+        crudServiceFactory.getUserService().create(user);
         infoMessage("User "+ user.getUsername() +" created");
         try {
             Thread.sleep(2000);

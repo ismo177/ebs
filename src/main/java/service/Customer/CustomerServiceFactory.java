@@ -1,14 +1,14 @@
 package service.Customer;
 
-import service.AbstractService;
+import service.CrudAbstractFactory;
 import jakarta.persistence.*;
 
-public class CustomerService extends AbstractService<Customer>  {
+public class CustomerServiceFactory extends CrudAbstractFactory<Customer> {
 
 
     private EntityManager entityManager=entityManager();
 
-    public CustomerService() {
+    public CustomerServiceFactory() {
         super(Customer.class);
     }
 

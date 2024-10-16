@@ -3,7 +3,7 @@ package EBS.EbsGUI;
 import Panels.MonthChoice;
 import service.bill.Bill;
 import service.Customer.Customer;
-import service.ServiceFactory;
+import service.CrudServiceFactory;
 import service.Tax.Tax;
 
 import javax.swing.*;
@@ -158,14 +158,14 @@ public class GenerateBill extends JFrame  {
 
 
     public void updateBillStatus(String id, int offPeak, int onPeak){
-        ServiceFactory serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
-        Customer customer=serviceFactory.getCustomerService().find(tempCustID);
+        CrudServiceFactory crudServiceFactory = CrudServiceFactory.CUSTOMER_SERVICE;
+        Customer customer= crudServiceFactory.getCustomerService().find(tempCustID);
 
-        serviceFactory=ServiceFactory.TAX_SERVICE;
-        Tax tax=serviceFactory.getTaxService().find(customer.getTax().getId());
+        crudServiceFactory = CrudServiceFactory.TAX_SERVICE;
+        Tax tax= crudServiceFactory.getTaxService().find(customer.getTax().getId());
 
-        serviceFactory = ServiceFactory.BILL_SERVICE;
-        Bill bill= serviceFactory.getBillService().findByMonthCustomer(month,customer);
+        crudServiceFactory = CrudServiceFactory.BILL_SERVICE;
+        Bill bill= crudServiceFactory.getBillService().findByMonthCustomer(month,customer);
 
         BigDecimal[] values= calculateValues(offPeak, onPeak, tax);
         setNewBillValues(offPeak, onPeak, bill, values);
@@ -210,18 +210,18 @@ public class GenerateBill extends JFrame  {
         bill.setAmount(values[2]);
        // service.bill.setUser(user);
         bill.setInvoiceStatus(false);
-        ServiceFactory serviceFactory = ServiceFactory.BILL_SERVICE;
-        serviceFactory.getBillService().edit(bill);
+        CrudServiceFactory crudServiceFactory = CrudServiceFactory.BILL_SERVICE;
+        crudServiceFactory.getBillService().edit(bill);
     }
 
     public void calculateNewDebtBalance(Customer customer, BigDecimal[] values){
-       ServiceFactory serviceFactory = ServiceFactory.CUSTOMER_SERVICE;
+       CrudServiceFactory crudServiceFactory = CrudServiceFactory.CUSTOMER_SERVICE;
         BigDecimal custBalance = customer.getDebtBalance();
         if (custBalance.compareTo(BigDecimal.ZERO) < 0) {
             custBalance = custBalance.multiply(new BigDecimal(-1));
         }
         customer.setDebtBalance(custBalance.add(values[2]));
-        serviceFactory.getCustomerService().edit(customer);
+        crudServiceFactory.getCustomerService().edit(customer);
     }
 
     public static void main(String[] args) {

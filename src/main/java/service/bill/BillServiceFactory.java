@@ -1,18 +1,18 @@
 package service.bill;
 
-import service.AbstractService;
+import service.CrudAbstractFactory;
 import service.Customer.Customer;
 import jakarta.persistence.*;
 
 import java.util.List;
 
-public class BillService extends AbstractService<Bill>  {
+public class BillServiceFactory extends CrudAbstractFactory<Bill> {
 
 
     private EntityManager entityManager=entityManager();
 
 
-    public BillService() {
+    public BillServiceFactory() {
         super(Bill.class);
     }
 
@@ -67,6 +67,5 @@ public class BillService extends AbstractService<Bill>  {
 
 
     }
-
 
 }

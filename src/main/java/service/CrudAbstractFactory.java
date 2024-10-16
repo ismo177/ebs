@@ -6,11 +6,11 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
 
-public abstract class AbstractService<E> {
+public abstract class CrudAbstractFactory<E> {
 
     private final Class<E> entityClass;
 
-    public AbstractService(Class<E> entityClass) {
+    public CrudAbstractFactory(Class<E> entityClass) {
         this.entityClass = entityClass;
     }
 
@@ -101,4 +101,5 @@ public abstract class AbstractService<E> {
         EntityManager entityManager=entityManager();
         entityManager().getTransaction().begin();
     }
+
 }

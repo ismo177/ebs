@@ -1,5 +1,5 @@
 package service.User;
-import service.AbstractService;
+import service.CrudAbstractFactory;
 import jakarta.persistence.*;
 
 
@@ -7,11 +7,11 @@ import java.util.Base64;
 import java.util.List;
 
 
-public class UserService extends AbstractService<User>  {
+public class UserServiceFactory extends CrudAbstractFactory<User> {
 
     private EntityManager entityManager = entityManager();
 
-    public UserService() {
+    public UserServiceFactory() {
         super(User.class);
     }
 

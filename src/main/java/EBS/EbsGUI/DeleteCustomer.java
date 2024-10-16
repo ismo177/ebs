@@ -1,7 +1,7 @@
 package EBS.EbsGUI;
 
 import service.Customer.Customer;
-import service.ServiceFactory;
+import service.CrudServiceFactory;
 
 
 import javax.swing.*;
@@ -113,11 +113,11 @@ public class DeleteCustomer extends JFrame  {
     }
 
     public void findByID(String id){
-            ServiceFactory customerFactory = ServiceFactory.CUSTOMER_SERVICE;
+            CrudServiceFactory customerFactory = CrudServiceFactory.CUSTOMER_SERVICE;
             Customer customer = customerFactory.getCustomerService().find(id);
 
             if (customer != null) {
-                ServiceFactory billFactory=ServiceFactory.BILL_SERVICE;
+                CrudServiceFactory billFactory= CrudServiceFactory.BILL_SERVICE;
                 billFactory.getBillService().deleteBills(customer);
                 customerFactory.getCustomerService().delete(customer);
                 Customer customerAfter=customerFactory.getCustomerService().findByName(id);
@@ -133,11 +133,11 @@ public class DeleteCustomer extends JFrame  {
     }
 
     public void findByName(String name){
-            ServiceFactory customerFactory = ServiceFactory.CUSTOMER_SERVICE;
+            CrudServiceFactory customerFactory = CrudServiceFactory.CUSTOMER_SERVICE;
             Customer customer = customerFactory.getCustomerService().findByName(name);
 
             if (customer != null) {
-                ServiceFactory billFactory=ServiceFactory.BILL_SERVICE;
+                CrudServiceFactory billFactory= CrudServiceFactory.BILL_SERVICE;
                 billFactory.getBillService().deleteBills(customer);
                 customerFactory.getCustomerService().delete(customer);
                 Customer customerAfter=customerFactory.getCustomerService().findByName(name);
