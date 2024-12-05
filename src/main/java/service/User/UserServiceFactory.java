@@ -77,11 +77,6 @@ public class UserServiceFactory extends CrudAbstractFactory<User> {
         }
     }
 
-
-
-
-
-
     public User findByUsernamePass(String username, String password) {
         if (!username.isEmpty() || !password.isEmpty()) {
             return null;

@@ -146,7 +146,7 @@ public class GenerateBill extends JFrame  {
             }
             else if(!id.isEmpty() && (offPeak>0  || onPeak>0)) {
                 updateBillStatus(id, offPeak, onPeak);
-                infoMessage("Successfully generated service.bill");
+                infoMessage("Successfully generated bill");
             }
         }
 
@@ -217,9 +217,11 @@ public class GenerateBill extends JFrame  {
     public void calculateNewDebtBalance(Customer customer, BigDecimal[] values){
        CrudServiceFactory crudServiceFactory = CrudServiceFactory.CUSTOMER_SERVICE;
         BigDecimal custBalance = customer.getDebtBalance();
-        if (custBalance.compareTo(BigDecimal.ZERO) < 0) {
+       /* if (custBalance.compareTo(BigDecimal.ZERO) < 0) {
             custBalance = custBalance.multiply(new BigDecimal(-1));
         }
+
+        */
         customer.setDebtBalance(custBalance.add(values[2]));
         crudServiceFactory.getCustomerService().edit(customer);
     }

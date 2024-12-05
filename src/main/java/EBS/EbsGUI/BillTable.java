@@ -4,6 +4,7 @@ import service.bill.Bill;
 import service.CrudServiceFactory;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.awt.event.*;
 import java.lang.String;
@@ -62,6 +63,18 @@ public class BillTable extends JFrame {
         table = new JTable(data, tableHeaderColumnNames);
         table.getTableHeader().setFont(new Font("Serif", Font.BOLD, 18));
         table.setFont(new Font("Serif", Font.PLAIN, 16));
+        table.getColumnModel().getColumn(10).setCellRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (value != null && value.equals("false")) {
+                    c.setForeground(Color.RED);
+                } else {
+                    c.setForeground(Color.GREEN);
+                }
+                    return c;
+                }
+        });
     }
 
     public JScrollPane createScrollBar() {
@@ -107,6 +120,7 @@ public class BillTable extends JFrame {
                 billToStrings[11] = String.valueOf(list.get(i).getCustomer().getName());
                 //billToStrings[12] = String.valueOf(list.get(i).getUser().getId());
                 billListString[i][j] = billToStrings[j];
+
             }
         }
         return billListString;
@@ -129,3 +143,53 @@ public class BillTable extends JFrame {
 
 
 }
+
+/*
+import javax.swing.*;
+import javax.swing.table.*;
+import java.awt.*;
+
+public class JTableColumnColorExample {
+    public static void main(String[] args) {
+        // Create sample data for the JTable
+        Object[][] data = {
+            {"John", 25},
+            {"Alice", 30},
+            {"Bob", 22}
+        };
+
+        // Column names
+        String[] columnNames = {"Name", "Age"};
+
+        // Create a JTable with the data
+        JTable table = new JTable(data, columnNames);
+
+        // Set custom TableCellRenderer for a specific column (e.g., column 0, "Name")
+        table.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                // Get the default cell renderer component
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                // Set the text color for column 0 (Name)
+                c.setForeground(Color.RED); // Change to desired color, e.g., Color.RED
+
+                return c;
+            }
+        });
+
+        // Create a JScrollPane to hold the JTable
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        // Create a JFrame to display the JTable
+        JFrame frame = new JFrame("JTable Column Text Color Example");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 300);
+        frame.add(scrollPane);
+
+        // Show the frame
+        frame.setVisible(true);
+    }
+}
+
+ */

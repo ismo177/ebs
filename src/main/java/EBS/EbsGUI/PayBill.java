@@ -171,7 +171,8 @@ public class PayBill extends JFrame  {
         CrudServiceFactory crudServiceFactory = CrudServiceFactory.CUSTOMER_SERVICE;
         BigDecimal custBalance = customer.getDebtBalance();
         if (custBalance.compareTo(new BigDecimal(0)) < 0) {
-            custBalance = custBalance.multiply(new BigDecimal(-1));
+            //custBalance = custBalance.multiply(new BigDecimal(-1));
+            total=total.multiply(new BigDecimal(-1));
         }
         customer.setDebtBalance(custBalance.subtract(total));
         crudServiceFactory.getCustomerService().edit(customer);

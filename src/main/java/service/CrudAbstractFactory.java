@@ -47,7 +47,6 @@ public abstract class CrudAbstractFactory<E> {
 
     }
     public void delete(E entity){
-
         try (EntityManager em=entityManager()){
             em.getTransaction().begin();
             em.remove(em.merge(entity));
