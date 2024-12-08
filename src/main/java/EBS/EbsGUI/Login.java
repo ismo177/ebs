@@ -50,7 +50,7 @@ public class Login extends JFrame {
         cancelButton.setSize(270, 50);
         cancelButton.setLocation(320,20);
 
-        registrationButton = new JButton("Registration");
+        registrationButton = new JButton("Registration /R");
         registrationButton.setLocation(20, 80);
         registrationButton.setSize(570,35);
 
@@ -155,13 +155,40 @@ public class Login extends JFrame {
     }
 
     public void addListeners() {
+        //JTextField[] textFields={}
         loginButton.addActionListener(this::onClickLoginButton);
+        customKeyListener(usernameTextField, loginButton, KeyEvent.VK_ENTER);
+        customKeyListener(passwordTextField, loginButton, KeyEvent.VK_ENTER);
+        customKeyListener(usernameTextField, passwordTextField, KeyEvent.VK_DOWN);
+        customKeyListener(passwordTextField, usernameTextField, KeyEvent.VK_UP);
+        customKeyListener(usernameTextField, cancelButton, KeyEvent.VK_ESCAPE);
+        customKeyListener(passwordTextField, cancelButton, KeyEvent.VK_ESCAPE);
+        customKeyListener(usernameTextField, registrationButton, KeyEvent.VK_RIGHT);
+        customKeyListener(passwordTextField, registrationButton, KeyEvent.VK_RIGHT);
+
         cancelButton.addActionListener(this::onClickCancelButton);
         registrationButton.addActionListener(this::onClickRegistrationButton);
         usernameTextField.addMouseListener(mouseAdapter);
         passwordTextField.addMouseListener(mouseAdapter);
 
     }
+
+    public void customKeyListener(Component target, JComponent listener, int keyCode){
+        target.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode()==keyCode){
+                    listener.requestFocusInWindow();
+                    if(listener instanceof JButton) {
+                        JButton button=(JButton)listener;
+                        button.doClick();
+                    }
+                }
+
+            }
+        });
+    }
+
     MouseAdapter mouseAdapter = new MouseAdapter() {
         @Override
         public void mousePressed(MouseEvent e) {

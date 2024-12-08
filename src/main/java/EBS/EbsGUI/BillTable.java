@@ -131,6 +131,7 @@ public class BillTable extends JFrame {
         public void mouseClicked(MouseEvent e) {
             int row = table.rowAtPoint(e.getPoint());
             int col = table.columnAtPoint(e.getPoint());
+            System.out.println("Row: "+(row+1)+","+" Column: "+(col+1));
             if (row >= 0 && col >= 0) {
                 table.getCellSelectionEnabled();
             }
@@ -144,52 +145,3 @@ public class BillTable extends JFrame {
 
 }
 
-/*
-import javax.swing.*;
-import javax.swing.table.*;
-import java.awt.*;
-
-public class JTableColumnColorExample {
-    public static void main(String[] args) {
-        // Create sample data for the JTable
-        Object[][] data = {
-            {"John", 25},
-            {"Alice", 30},
-            {"Bob", 22}
-        };
-
-        // Column names
-        String[] columnNames = {"Name", "Age"};
-
-        // Create a JTable with the data
-        JTable table = new JTable(data, columnNames);
-
-        // Set custom TableCellRenderer for a specific column (e.g., column 0, "Name")
-        table.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                // Get the default cell renderer component
-                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-                // Set the text color for column 0 (Name)
-                c.setForeground(Color.RED); // Change to desired color, e.g., Color.RED
-
-                return c;
-            }
-        });
-
-        // Create a JScrollPane to hold the JTable
-        JScrollPane scrollPane = new JScrollPane(table);
-
-        // Create a JFrame to display the JTable
-        JFrame frame = new JFrame("JTable Column Text Color Example");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
-        frame.add(scrollPane);
-
-        // Show the frame
-        frame.setVisible(true);
-    }
-}
-
- */
