@@ -50,7 +50,7 @@ public class Login extends JFrame {
         cancelButton.setSize(270, 50);
         cancelButton.setLocation(320,20);
 
-        registrationButton = new JButton("Registration /R");
+        registrationButton = new JButton("Registration / press right key");
         registrationButton.setLocation(20, 80);
         registrationButton.setSize(570,35);
 

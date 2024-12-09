@@ -7,10 +7,9 @@ import service.User.User;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.Base64;
+import EBS.EbsGUI.Login.*;
 
 public class NewUser extends JFrame  {
     JPanel centerPanel, bottomPanel;
@@ -119,9 +118,34 @@ public class NewUser extends JFrame  {
     public void addListeners(){
         usernameTextField.addMouseListener(mouseAdapter);
         passwordTextField.addMouseListener(mouseAdapter);
+        customKeyListener(usernameTextField, createButton, KeyEvent.VK_ENTER);
+        customKeyListener(passwordTextField, createButton, KeyEvent.VK_ENTER);
+        customKeyListener(usernameTextField, exitButton, KeyEvent.VK_ESCAPE);
+        customKeyListener(passwordTextField, exitButton, KeyEvent.VK_ESCAPE);
         createButton.addActionListener(this::onClickCreateButton);
         exitButton.addActionListener(this::onClickExitButton);
     }
+
+    public void customKeyListener(Component target, JComponent listener, int keyCode){
+        target.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode()==keyCode){
+                    listener.requestFocusInWindow();
+                    if(listener instanceof JButton) {
+                        JButton button=(JButton)listener;
+                        button.doClick();
+                    }
+                }
+
+            }
+        });
+    }
+
+
+
+
+
 
     public void onClickExitButton(ActionEvent e) {
         this.dispose();
