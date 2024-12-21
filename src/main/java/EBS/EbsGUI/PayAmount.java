@@ -135,8 +135,20 @@ public class PayAmount extends JFrame  {
 public void updateBalance(String id, String name, BigDecimal amount){
         if(!id.isEmpty() && name.isEmpty() && amount.compareTo(BigDecimal.ZERO) > 0) {
             findByIDAndUpdate(id,amount);
+            try {
+                Thread.sleep(1500);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            this.dispose();
         }else if(id.isEmpty() && !name.isEmpty() && amount.compareTo(BigDecimal.ZERO) > 0) {
          findByNameAndUpdate(name,amount);
+            try {
+                Thread.sleep(1500);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            this.dispose();
                   } else {
                   infoMessage("Customer doesn't exists", "warning");
              }

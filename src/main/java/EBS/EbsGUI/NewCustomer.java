@@ -215,9 +215,16 @@ public class NewCustomer extends JFrame  {
 
                     setBillValues(customer);
                     infoMessage("Customer " + customer.getName() + " created");
-            }
+                    try {
+                        Thread.sleep(1500);
+                    } catch (InterruptedException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    this.dispose();
+                }
         } else {
-            badInput();
+           // badInput();
+            infoMessage("Please enter all fields !");
 
         }
     }

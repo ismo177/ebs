@@ -103,9 +103,21 @@ public class DeleteCustomer extends JFrame  {
 
         if (!id.isEmpty() && name.isEmpty()) {
             findByID(id);
+            try {
+                Thread.sleep(1500);
+            } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
+            }
+            this.dispose();
         }
         else if (id.isEmpty() && !name.isEmpty()) {
             findByName(name);
+            try {
+                Thread.sleep(1500);
+            } catch (InterruptedException ex) {
+                throw new RuntimeException(ex);
+            }
+            this.dispose();
         }
         else  {
           infoMessage("Fields are empty", "warning");

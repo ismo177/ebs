@@ -155,6 +155,8 @@ public class PayBill extends JFrame  {
 
         if (!bill.getInvoiceStatus() && (bill.getAmount().compareTo(BigDecimal.ZERO) > 0)) {
             pay(customer, bill);
+            Thread.sleep(1500);
+            this.dispose();
         } else if ((!bill.getInvoiceStatus() && !(bill.getAmount().compareTo(new BigDecimal(0)) > 0))) {
             infoMessage("Bill not ready");
 

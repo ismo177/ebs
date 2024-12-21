@@ -176,7 +176,7 @@ public class NewUser extends JFrame  {
         crudServiceFactory.getUserService().create(user);
         infoMessage("User "+ user.getUsername() +" created");
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1500);
         }catch (InterruptedException ex) {
             ex.printStackTrace();
         }

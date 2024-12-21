@@ -141,12 +141,18 @@ public class GenerateBill extends JFrame  {
             int offPeak=Integer.parseInt(offPeakUnitsValue.getText());
             int onPeak=Integer.parseInt(onPeakUnitsValue.getText());
 
-            if(id.isEmpty() && offPeak<=0 && onPeak<=0) {
-              infoMessage("Bad input");
+            if(offPeak<=0 && onPeak<=0) {
+              infoMessage("Enter consumed units !");
             }
-            else if(!id.isEmpty() && (offPeak>0  || onPeak>0)) {
+            else {
                 updateBillStatus(id, offPeak, onPeak);
                 infoMessage("Successfully generated bill");
+                try {
+                    Thread.sleep(1500);
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
+                this.dispose();
             }
         }
 
@@ -170,6 +176,7 @@ public class GenerateBill extends JFrame  {
         BigDecimal[] values= calculateValues(offPeak, onPeak, tax);
         setNewBillValues(offPeak, onPeak, bill, values);
         calculateNewDebtBalance(customer, values);
+
 
     }
 
@@ -226,9 +233,7 @@ public class GenerateBill extends JFrame  {
         crudServiceFactory.getCustomerService().edit(customer);
     }
 
-    public static void main(String[] args) {
-        new GenerateBill(14, "January");
-    }
+
 
 }
 
