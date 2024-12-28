@@ -86,6 +86,7 @@ public class FindCustomerPanel extends JPanel {
         customerNameValue.addMouseListener(mouseAdapter);
     }
 
+
     public static void main(String[] args) {
         JFrame frame = new JFrame("Find Customer");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

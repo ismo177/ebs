@@ -10,7 +10,7 @@ public class PrincipalPanel extends JPanel {
     JPanel title;
     JLabel principal;
     JLabel name, nameValue, address, addressValue;
-    JLabel emptySection, bank1, bank2;
+    JLabel emptySection, bank1, bank2, bank3;
     int bank1Value, bank2Value;
 
     public PrincipalPanel() {
@@ -23,7 +23,7 @@ public class PrincipalPanel extends JPanel {
         setSize(300, 280);
         setBorder(new LineBorder(Color.LIGHT_GRAY));
         setBackground(Color.WHITE);
-        setLayout(new GridLayout(8, 1, 4, 0));
+        setLayout(new GridLayout(9, 1, 4, 0));
     }
 
     public void createComponents(){
@@ -47,6 +47,9 @@ public class PrincipalPanel extends JPanel {
 
         bank2 = new JLabel("  BANK2:  "+bank2Value, JLabel.LEFT);
         bank2.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+
+        bank3 = new JLabel("  BANK3:  " + bank2Value, JLabel.LEFT);
+        bank3.setFont(new Font("Times New Roman", Font.PLAIN, 12));
         addFont();
     }
 
@@ -59,6 +62,7 @@ public class PrincipalPanel extends JPanel {
         add(emptySection);
         add(bank1);
         add(bank2);
+        add(bank3);
     }
 
     public void setValues(Bill bill){

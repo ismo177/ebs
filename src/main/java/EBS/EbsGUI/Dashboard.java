@@ -22,6 +22,8 @@ public class Dashboard extends JFrame   {
     Bill_Panel billPanel;
     ControlPanel controlPanel;
     int tempCustID;
+    JTextField nameInputField;
+    JTextField idInputField;
 
 public Dashboard() {
         createComponents();
@@ -29,6 +31,7 @@ public Dashboard() {
         addComponents();
         //repaint();
         addButtonListeners();
+        requestFocus(idInputField);
     }
 
     public void createDashboard(){
@@ -104,6 +107,12 @@ public Dashboard() {
     JButton exitButton= controlPanel.getButtonsPanel().getExitButton();
 
     findButton.addActionListener(this::onClickFindCustomer);
+    idInputField=controlPanel.getFindCustomerPanel().getCustomerIDValue();
+    nameInputField=controlPanel.getFindCustomerPanel().getCustomerNameValue();
+    customKeyListener(idInputField, findButton, KeyEvent.VK_ENTER);
+    customKeyListener(nameInputField, findButton, KeyEvent.VK_ENTER);
+    customKeyListener(idInputField,nameInputField, KeyEvent.VK_DOWN);
+    customKeyListener(nameInputField, idInputField, KeyEvent.VK_UP);
     payBillButton.addActionListener(this::onClickPayBill);
     payAmountButton.addActionListener(this::onClickPayAmount);
     setBillButton.addActionListener(this::onClickSetBill);
@@ -112,6 +121,28 @@ public Dashboard() {
     exitButton.addActionListener(this::onClickExit);
 }
 
+    public void customKeyListener(Component target, JComponent listener, int keyCode){
+        target.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode()==keyCode){
+                    listener.requestFocusInWindow();
+                    if(listener instanceof JButton) {
+                        JButton button=(JButton)listener;
+                        button.doClick();
+                    }
+
+                    JTextField tf=(JTextField)target;
+                    tf.setText("");
+                }
+
+            }
+        });
+    }
+
+    public void requestFocus(Component component){
+        component.requestFocusInWindow();
+    }
 
     //PrintBill(https://docs.oracle.com/javase%2Ftutorial%2F/2d/printing/printable.html)
     private void printBill(JPanel panel) {
@@ -162,6 +193,7 @@ public Dashboard() {
             } else {
                 infoMessage("Customer not found");
             }
+            requestFocus(idInputField);
     }
 
     public void findCustomerByName(String name) {
@@ -173,6 +205,8 @@ public Dashboard() {
             } else {
                 infoMessage("Customer not found");
             }
+            requestFocus(nameInputField);
+
     }
 
     public void setGUIBill() {
