@@ -22,8 +22,12 @@ public class Dashboard extends JFrame   {
     Bill_Panel billPanel;
     ControlPanel controlPanel;
     int tempCustID;
+   // String id= controlPanel.getFindCustomerPanel().getCustomerIDValue().getText();
+    //String name= controlPanel.getFindCustomerPanel().getCustomerNameValue().getText();
     JTextField nameInputField;
     JTextField idInputField;
+    String tempInput;
+
 
 public Dashboard() {
         createComponents();
@@ -79,7 +83,7 @@ public Dashboard() {
     }
 
     public void onClickSetBill(ActionEvent event){
-        setGUIBill();
+        setGuiBill2();
     }
 
 
@@ -131,8 +135,8 @@ public Dashboard() {
                         JButton button=(JButton)listener;
                         button.doClick();
                     }
-
                     JTextField tf=(JTextField)target;
+                    tempInput=tf.getText();
                     tf.setText("");
                 }
 
@@ -176,7 +180,7 @@ public Dashboard() {
     public void findCustomer(){
     String id= controlPanel.getFindCustomerPanel().getCustomerIDValue().getText();
     String name= controlPanel.getFindCustomerPanel().getCustomerNameValue().getText();
-        if (!id.isEmpty() && name.isEmpty()){
+        if (!id.isEmpty()  && name.isEmpty()){
             findCustomerByID(id);
         }
         else if(id.isEmpty() && !name.isEmpty()){
@@ -209,7 +213,7 @@ public Dashboard() {
 
     }
 
-    public void setGUIBill() {
+    public void setGuiBill() {
         String id= controlPanel.getFindCustomerPanel().getCustomerIDValue().getText();
          String name=controlPanel.getFindCustomerPanel().getCustomerNameValue().getText();
         if (!id.isEmpty() && name.isEmpty()) {
@@ -218,6 +222,24 @@ public Dashboard() {
             setBillByName(name);
         }else{
             infoMessage("Bill not found");
+        }
+    }
+
+    public  boolean isInteger(String s) {
+        try {
+            Integer.parseInt(s);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public void setGuiBill2(){
+        if(isInteger(tempInput)){
+            setBillByID(tempInput);
+        }
+        else{
+            setBillByName(tempInput);
         }
     }
 
